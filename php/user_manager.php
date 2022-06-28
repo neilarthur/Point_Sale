@@ -136,7 +136,7 @@ include '../connection.php';
                                     <i class='bx bx-user' ></i>
                                 </div>
                                 <div class="col-9">
-                                    User Manager
+                                    Accounts
                                 </div>
                             </div>
                         </a>
@@ -191,45 +191,49 @@ include '../connection.php';
                     <div class="row">
                         <div class="col">
                             <br>
-                            <h2 class="text-dark text-start ps-3">Products</h2><br>
+                            <h2 class="text-dark text-start ps-3">Account Manager</h2>
+                            <button type="button" class="btn btn-success  pb-2" data-bs-toggle="modal" data-bs-target="#Modals">ADD</button>
                         </div>
                     </div>
 
                     <!-- Table -->
                     <div class="row">
-                        <div class="col ">
+                        <div class="col">
                             <div class="card">
                                 <div class="card-body rounded-3 m-4 table-responsive-sm">
                                     <table class="table table-striped align-middle">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
+                                                <th scope="col">Fullname</th>
+                                                <th scope="col">Email Address</th>
+                                                <th scope="col" style="display: none;">Password</th>
+                                                <th scope="col">Contact No</th>
+                                                <th scope="col">Position</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>@fat</td>
-                                                <td>baliw</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>ulol</td>
-                                                <td>@twitter</td>
+                                            <?php
+                                            //DISPLAY THE DATA IN TABLE
+                                            $query=mysqli_query($con,"SELECT * FROM users");
+                                            while ($row=mysqli_fetch_assoc($query)) { ?>
 
+
+                                            <tr>
+                                                <td><?php echo $row['id']; ?></td>
+                                                <td><?php echo $row['fullname']; ?></td>
+                                                <td><?php echo $row['email_address']; ?></td>
+                                                <td style="display: none;"><?php echo $row['password']; ?></td>
+                                                <td><?php echo $row['contact_no']; ?></td>
+                                                <td><?php echo $row['position']; ?></td>
+                                                <td>
+                                                    <button class="btn btn-warning editbtn" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+                                                     <td><a onClick= "javascript: return confirm('Please confirm deletion');" href="user_delete.php?update_id=<?php echo $row['id']; ?>" type="button" class="btn btn-danger deletebtn"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i></a></td>
+                                                </td>
                                             </tr>
-                                        </tbody>
+                                        <?php } ?>
+                                    </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -242,6 +246,122 @@ include '../connection.php';
     </div>
 
 
+    <!--add Accounts -->
+
+    <div class="modal fade" id="Modals" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <form method="post" action="addUserAcc.php">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Accounts</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="name">Fullname</label>
+            <input type="text" class="form-control" name="fullname">
+          </div>
+          <div class="form-group">
+            <label for="name">Password</label>
+            <input type="password" class="form-control" name="password">
+          </div>
+          <div class="form-group">
+            <label for="name">Email address</label>
+            <input type="text" class="form-control" name="email_address">
+          </div>
+          <div class="form-group">
+            <label for="name">Contact no:</label>
+            <input type="text" class="form-control" name="contact_no">
+          </div>
+          <div class="form-group mt-2">
+            <label for="name">Position</label>
+            <select class="form-select" aria-label="Default select example" name="position">
+                <option selected>Open this select menu</option>
+                <option>admin</option>
+                <option>cashier</option>
+            </select>
+          </div>
+
+          <div class="modal-footer">
+              <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+            <input type="submit" name="add" class="btn btn-success" value="Add">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Accounts -->
+
+<div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Edit Admin Data </h5>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+                <form action="update_User.php" method="post">
+
+                    <div class="modal-body">
+
+                        <div class="form-group">
+
+                          <input type="hidden" name="update_id" id="update_id">
+                            <label> Fullname </label>
+
+                            <input type="text" name="fullname"  id="fullname"  class="form-control"
+                                placeholder="Enter Fullname"  required >
+                        </div>
+
+                        <div class="form-group">
+                            <label> Password</label>
+                            <input type="Password"  name="password" id="password"  class="form-control"
+                                placeholder="Enter password"    required >
+                        </div>
+
+                         <div class="form-group">
+                            <label> Email Address</label>
+                            <input type="email" name="email_address" id="email_address"  class="form-control"
+                                placeholder="Enter email address"      required >
+                        </div>
+
+                        <div class="form-group">
+                            <label> Phone Number </label>
+                            <input type="text" name="contact_no" id="contact_no" class="form-control"
+                                placeholder="Enter Phone Number"    required >
+                        </div>
+
+                        <div class="form-group">
+                            <label>Position </label>
+                            <select class="form-select" aria-label="Default select example" name="position" id="position">
+                                <option selected>Open this select menu</option>
+                                <option>admin</option>
+                                <option>cashier</option>
+                            </select>
+                        </div>
+                        
+
+
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" name="update" class="btn btn-primary">Update</button>
+                        <input type="hidden" name="id" >
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
  
 <script>
     let sidebarToggle = document.querySelector(".sidebarToggle");
@@ -252,6 +372,36 @@ include '../connection.php';
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+      $('.editbtn').on('click', function(){
+
+        $('#editmodal').modal('show');
+
+
+        $tr = $(this).closest('tr');
+
+        var data =  $tr.children("td").map(function(){
+          return $(this).text();
+
+
+        }).get();
+
+        console.log(data);
+
+
+        $('#update_id').val(data[0]);
+        $('#fullname').val(data[1]);
+        $('#password').val(data[3]);
+        $('#email_address').val(data[2]);
+        $('#contact_no').val(data[4]);
+        $('#position').val(data[5]);
+
+      })
+    });
+  </script>
 </body>
 
 </html>

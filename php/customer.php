@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if (!isset($_SESSION["email_address"])) {
+    header("location: ../index.php");
+
+}
+
+include '../connection.php';
+
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -119,12 +130,24 @@
                         </a>
                     </li>
                     <li class="navigation-list-item">
+                        <a class="navigation-link" href="user_manager.php">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bx-user' ></i>
+                                </div>
+                                <div class="col-9">
+                                    User Manager
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navigation-list-item">
                         <div class="dropdown pb-1">
                             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="col-2">
                                     <i class='bx bx-user'></i>
                                 </div>
-                                <span class="d-none d-sm-inline mx-1">User</span>
+                                <span class="d-none d-sm-inline mx-1"><?php echo $_SESSION["email_address"];  ?></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -132,7 +155,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Sign out</a></li>
+                                <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
                             </ul>
                         </div>
                     </li>

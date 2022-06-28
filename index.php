@@ -1,3 +1,17 @@
+<?php
+
+session_start();
+
+if (isset($_SESSION["login"])) {
+    header("location: php/dashboard.php");
+
+}
+
+include_once 'connection.php';  
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,9 +42,13 @@
           <div class="row">
             <div class="col">
 
-              <form action="php/auth.php" method="post" class="m-4">
+              <form action="login.php" method="POST" class="m-4">
+                <?php if (isset($_GET['error'])) { ?>
+                  <p class="error"><center><b style="color: red;"><?php echo $_GET['error'];  ?></b></center></p>
+                <?php }  
+                ?>
                 <label class="ms-2" for="email">Email Address</label>
-                <input class="form-control" type="email" name="email"><br>
+                <input class="form-control" type="email" name="email_address"><br>
 
                 <label class="ms-2" for="password">Password</label>
                 <input class="form-control" type="password" name="password"><br><br>
@@ -44,7 +62,7 @@
                 </div>
 
                  <div class="text-center text-lg-start mt-4 pt-2">
-                  <button type="button" class="btn btn-primary btn-lg"style="padding-left: 11.5rem; padding-right: 11.5rem;">Login</button>
+                  <button type="submit" class="btn btn-primary btn-lg"style="padding-left: 9.5rem; padding-right: 9.5rem;">Login</button>
                   <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"class="link-danger">Register</a></p>
                 </div>
                 
