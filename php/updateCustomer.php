@@ -1,6 +1,6 @@
 <?php
 
-require_once '../connection.php';
+require_once 'connection.php';
 
 if (isset($_POST["update"])) {
   	$update_id = $_POST["update_id"];

@@ -1,6 +1,6 @@
 <?php
 
-include_once("../connection.php");
+include_once("connection.php");
 // Check If form submitted, insert user data into database.
 if (isset($_POST['add'])) {
     $username = $_POST['username'];

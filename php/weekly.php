@@ -6,7 +6,7 @@ if (!isset($_SESSION["username"])) {
 
 }
 
-include '../connection.php';
+include 'connection.php';
 
 ?>
 <!doctype html>
@@ -53,11 +53,11 @@ include '../connection.php';
                     <div class="logo-container">
                         <img class="logo-sidebar" src="../image/logo.png" />
                     </div>
-                    <div class="sys-name-container">
+                    <div class="sys-name-container mt-2">
                         <p class="sys-name">
-                            POS and Inventory<br />
+                            POS and <br>
                             <span class="brand-subname">
-                                System
+                            Inventory System
                             </span>
                         </p>
                     </div>
@@ -79,7 +79,7 @@ include '../connection.php';
                     </li>
                    <li class="navigation-list-item">
                         <a href="#submenu1" data-bs-toggle="collapse" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" >
-                            <i class='bx bxs-report bi'></i><span class="mx-2 text-white fs-6 fw-bold">Sales Report</span></a>
+                            <i class='bx bxs-report bi'></i><span class="mx-2 text-white">Sales Report</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
                                 <a href="Weekly.php" class="nav-link px-2 mx-2 li_one text-white"><span class="d-none d-sm-inline text-white fs-6">Weekly Report</span></a>
@@ -142,7 +142,7 @@ include '../connection.php';
                             </div>
                         </a>
                     </li>
-                    <li class="navigation-list-item" style="margin-top: 25%;">
+                    <li class="navigation-list-item" style="margin-top: 75%;">
                         <div class="dropdown pb-1">
                             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="col-2">

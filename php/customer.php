@@ -6,7 +6,7 @@ if (!isset($_SESSION["username"])) {
 
 }
 
-include '../connection.php';
+include 'connection.php';
 
 ?>
 <!doctype html>
@@ -53,11 +53,11 @@ include '../connection.php';
                     <div class="logo-container">
                         <img class="logo-sidebar" src="../image/logo.png" />
                     </div>
-                    <div class="sys-name-container">
+                    <div class="sys-name-container mt-2">
                         <p class="sys-name">
-                            POS and Inventory<br />
+                            POS and <br>
                             <span class="brand-subname">
-                                System
+                            Inventory System
                             </span>
                         </p>
                     </div>
@@ -79,7 +79,7 @@ include '../connection.php';
                     </li>
                     <li class="navigation-list-item">
                         <a href="#submenu1" data-bs-toggle="collapse" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" >
-                            <i class='bx bxs-report bi'></i><span class="mx-2 text-white fs-6 fw-bold">Sales Report</span></a>
+                            <i class='bx bxs-report bi'></i><span class="mx-2 text-white">Sales Report</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
                                 <a href="Weekly.php" class="nav-link px-2 mx-2 li_one text-white"><span class="d-none d-sm-inline text-white fs-6">Weekly Report</span></a>
@@ -134,7 +134,7 @@ include '../connection.php';
                         <a class="navigation-link" href="user_manager.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bx-user' ></i>
+                                    <i class='bx bxs-user-account'></i>
                                 </div>
                                 <div class="col-9">
                                     Accounts
@@ -142,7 +142,7 @@ include '../connection.php';
                             </div>
                         </a>
                     </li>
-                     <li class="navigation-list-item" style="margin-top: 25%;">
+                     <li class="navigation-list-item" style="margin-top: 75%;">
                         <div class="dropdown pb-1">
                             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="col-2">
@@ -190,11 +190,17 @@ include '../connection.php';
             <div class="col py-3 d-flex justify-content-center overflow-auto">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col">
+                        <div class="col d-flex justify-content-between">
                             <br>
-                            <h2 class="text-dark text-start ps-3">Customer<button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 55%;">ADD</button></h2><br>
+                            <div class="w-50">
+                                <h2 class="text-dark text-start ps-3 ">Customer</h2>
+                            </div>
+                            <div class="w-50">
+                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 70%;"><i class='bx bxs-plus-circle'></i> ADD</button>
+                            </div>
                         </div>
                     </div>
+                    
 
                     <!-- Table -->
                     <div class="row">
@@ -212,7 +218,7 @@ include '../connection.php';
                                                 <th scope="col">Product Name</th>
                                                 <th scope="col">Total</th>
                                                 <th scope="col">Due Date</th>
-                                                <th score="col">Action</th>
+                                                <th score="col"style="text-align: center;">Action</th>
 
                                             </tr>
                                         </thead>
@@ -232,7 +238,11 @@ include '../connection.php';
                                                 <td><?php echo $row['total'];  ?></td>
                                                 <td><?php echo $row['expect_date'];  ?></td>
                                                 <td>
-                                                    <button class="btn btn-warning editbtn" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+                                                    <div class="d-flex flex-row justify-content-center">
+                                                        <button class="btn btn-warning editbtn" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+
+                                                    </div>
+                                                    
                                                 </td>
                                             </tr>
                                         <?php }  ?>
