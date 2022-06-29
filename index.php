@@ -53,6 +53,8 @@ include_once 'connection.php';
                 <label class="ms-2" for="password">Password</label>
                 <input class="form-control" type="password" name="password"><br><br>
                 <div class="d-flex justify-content-between align-items-center">
+
+                <input class="form-control" type="hidden" name="position"><br>
                   <!-- Checkbox -->
                   <div class="form-check mb-0">
                     <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />

@@ -192,7 +192,7 @@ include '../connection.php';
                     <div class="row">
                         <div class="col">
                             <br>
-                            <h2 class="text-dark text-start ps-3">Customer</h2><br>
+                            <h2 class="text-dark text-start ps-3">Customer<button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 55%;">ADD</button></h2><br>
                         </div>
                     </div>
 
@@ -205,31 +205,37 @@ include '../connection.php';
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
+                                                <th scope="col">First Name</th>
+                                                <th scope="col">Last Name</th>
+                                                <th scope="col">Address</th>
+                                                <th scope="col">Contact No</th>
+                                                <th scope="col">Product Name</th>
+                                                <th scope="col">Total</th>
+                                                <th scope="col">Due Date</th>
+                                                <th score="col">Action</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>@fat</td>
-                                                <td>baliw</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>ulol</td>
-                                                <td>@twitter</td>
+                                            <?php
 
+                                            $query_run = mysqli_query($con,"SELECT * FROM customers");
+                                            while ($row=mysqli_fetch_assoc($query_run)) { ?>
+
+                                            <tr>
+                                                <td><?php echo $row['customer_id'];  ?></td>
+                                                <td><?php echo $row['first_name'];  ?></td>
+                                                <td><?php echo $row['last_name'];  ?></td>
+                                                <td><?php echo $row['address'];  ?></td>
+                                                <td><?php echo $row['contact_no'];  ?></td>
+                                                <td><?php echo $row['product_name'];  ?></td>
+                                                <td><?php echo $row['total'];  ?></td>
+                                                <td><?php echo $row['expect_date'];  ?></td>
+                                                <td>
+                                                    <button class="btn btn-warning editbtn" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+                                                </td>
                                             </tr>
+                                        <?php }  ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -239,6 +245,105 @@ include '../connection.php';
                 </div>
             </div>   
         </div> 
+    </div>
+
+
+    <div class="modal fade" id="create" tabindex="-1" aria-labelledby="exampleModallabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                
+                <form action="addCustomer.php" method="Post">
+                    <div class="modal-header">
+                        <h4 class="title">Add Customers</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">First Name</label>
+                            <input type="text" class="form-control" name="first_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Last Name</label>
+                            <input type="text" class="form-control" name="last_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Address</label>
+                            <input type="text" class="form-control" name="address">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Contact No </label>
+                            <input type="number" class="form-control" name="contact_no">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Product Name</label>
+                            <input type="text" class="form-control" name="product_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Expected Date</label>
+                            <input type="date" class="form-control" name="expect_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Total</label>
+                            <input type="number" class="form-control" name="total">
+                        </div>
+
+                        <div class="modal-footer">
+                            <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+                            <input type="submit" name="create" class="btn btn-success" value="Add">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModallabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <form action="updateCustomer.php" method="Post">
+                    <div class="modal-header">
+                        <h4 class="title"> Update Personal Information</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="update_id" id="update_id">
+                        <div class="form-group">
+                            <label for="name">First Name</label>
+                            <input type="text" class="form-control" name="first_name" id="first_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Last Name</label>
+                            <input type="text" class="form-control" name="last_name" id="last_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Address</label>
+                            <input type="text" class="form-control" name="address" id="address">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Contact No</label>
+                            <input type="number" class="form-control" name="contact_no" id="contact_no">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Product Name</label>
+                            <input type="text" class="form-control" name="product_name" id="product_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Expected Date</label>
+                            <input type="date" class="form-control" name="expect_date" id="expect_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Total</label>
+                            <input type="number" class="form-control" name="total" id="total">
+                        </div>
+                        <div class="modal-footer">
+                            <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+                            <input type="submit" name="update" class="btn btn-success" value="Update">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
     </div>
 
 
@@ -252,6 +357,38 @@ include '../connection.php';
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+      $('.editbtn').on('click', function(){
+
+        $('#edit').modal('show');
+
+
+        $tr = $(this).closest('tr');
+
+        var data =  $tr.children("td").map(function(){
+          return $(this).text();
+
+
+        }).get();
+
+        console.log(data);
+
+
+        $('#update_id').val(data[0]);
+        $('#first_name').val(data[1]);
+        $('#last_name').val(data[2]);
+        $('#address').val(data[3]);
+        $('#contact_no').val(data[4]);
+        $('#product_name').val(data[5]);
+        $('#expect_date').val(data[7]);
+        $('#total').val(data[6]);
+
+      })
+    });
+  </script>
 </body>
 
 </html>
