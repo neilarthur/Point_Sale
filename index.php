@@ -56,18 +56,18 @@ include_once 'php/connection.php';
 
                 <input class="form-control" type="hidden" name="position"><br>
                   <!-- Checkbox -->
-                  <div class="form-check mb-0">
-                    <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
-                    <label class="form-check-label" for="form2Example3">Remember me</label>
+                  <div class="form-check mb-1">
+                    <input class="form-check-input me-1" type="checkbox" value="" id="form2Example3" />
+                    <label class="form-check-label" for="form2Example3" style="padding-right: 18.5rem;">Remember me</label>
                   </div>
-                  <a href="#!" class="text-body">Forgot password?</a>
+                  
                 </div>
 
                  <div class="text-center text-lg-start mt-4 pt-2">
-                  <button type="submit" class="btn btn-primary btn-lg"style="padding-left: 9.5rem; padding-right: 9.5rem;">Login</button>
-                  <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="#!"class="link-danger">Register</a></p>
+                  <button type="submit" class="btn btn-primary btn-lg"style="padding-left: 11.5rem; padding-right: 12rem;">Login</button>
+
                 </div>
-                
+
               </form>
             </div>
           </div>
