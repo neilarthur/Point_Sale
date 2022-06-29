@@ -6,7 +6,7 @@ if (!isset($_SESSION["username"])) {
 
 }
 
-include '../connection.php';
+include 'connection.php';
 
 ?>
 
