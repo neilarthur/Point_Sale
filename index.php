@@ -1,3 +1,4 @@
+
 <?php
 
 session_start();
@@ -10,7 +11,6 @@ if (isset($_SESSION["login"])) {
 include_once 'connection.php';  
 
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -42,13 +42,13 @@ include_once 'connection.php';
           <div class="row">
             <div class="col">
 
-              <form action="login.php" method="POST" class="m-4">
+              <form action="php/login.php" method="POST" class="m-4">
                 <?php if (isset($_GET['error'])) { ?>
                   <p class="error"><center><b style="color: red;"><?php echo $_GET['error'];  ?></b></center></p>
                 <?php }  
                 ?>
-                <label class="ms-2" for="email">Email Address</label>
-                <input class="form-control" type="email" name="email_address"><br>
+                <label class="ms-2" for="email">Username</label>
+                <input class="form-control" type="text" name="username"><br>
 
                 <label class="ms-2" for="password">Password</label>
                 <input class="form-control" type="password" name="password"><br><br>

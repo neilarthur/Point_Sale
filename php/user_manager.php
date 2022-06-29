@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["email_address"])) {
+if (!isset($_SESSION["username"])) {
     header("location: ../index.php");
 
 }
@@ -77,19 +77,20 @@ include '../connection.php';
                             </div>
                         </a>
                     </li>
-                    <li class="navigation-list-item">
-                        <div class="dropdown pb-1 ">
-                            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class='bx bxs-report bi'></i>
-                                <span class="mx-2 text-white"> Sales Report</span>
-                            </a>
-                            <ul class="dropdown-menu text-small shadow">
-                                <li><a class="dropdown-item" href="weekly.php">Weekly Report</a></li>
-                                <li><a class="dropdown-item" href="monthly.php">Monthly Report</a></li>
-                                <li><a class="dropdown-item" href="yearly.php">Yearly Report</a></li>
-                            </ul>
-                        </div>
-                        
+                     <li class="navigation-list-item">
+                        <a href="#submenu1" data-bs-toggle="collapse" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" >
+                            <i class='bx bxs-report bi'></i><span class="mx-2 text-white fs-6 fw-bold">Sales Report</span></a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="Weekly.php" class="nav-link px-2 mx-2 li_one text-white"><span class="d-none d-sm-inline text-white fs-6">Weekly Report</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="monthly.php" class="nav-link px-2 mx-2 li_one text-white"> <span class="d-none d-sm-inline text-white fs-6">Monthly Report</span></a>
+                            </li>
+                            <li>
+                                <a href="yearly.php" class="nav-link px-2 mx-2 li_one text-white"> <span class="d-none d-sm-inline text-white fs-6">Yearly Report</span></a>
+                            </li>
+                        </ul>
                     </li>
                         
                     
@@ -141,13 +142,13 @@ include '../connection.php';
                             </div>
                         </a>
                     </li>
-                    <li class="navigation-list-item">
+                     <li class="navigation-list-item" style="margin-top: 25%;">
                         <div class="dropdown pb-1">
                             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="col-2">
-                                    <i class='bx bx-user'></i>
+                                    <img src="../image/user_35px.png" />
                                 </div>
-                                <span class="d-none d-sm-inline mx-1"><?php echo $_SESSION["email_address"];  ?></span>
+                                <span class="d-none d-sm-inline mx-1"><?php echo $_SESSION["username"];  ?></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -191,8 +192,8 @@ include '../connection.php';
                     <div class="row">
                         <div class="col">
                             <br>
-                            <h2 class="text-dark text-start ps-3">Account Manager</h2>
-                            <button type="button" class="btn btn-success  pb-2" data-bs-toggle="modal" data-bs-target="#Modals">ADD</button>
+                            <h2 class="text-dark text-start ps-3 ">Account Manager<button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#Modals" style="margin-left: 55%;">ADD</button></h2>
+                            
                         </div>
                     </div>
 
@@ -205,7 +206,7 @@ include '../connection.php';
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">Fullname</th>
+                                                <th scope="col">Username</th>
                                                 <th scope="col">Email Address</th>
                                                 <th scope="col" style="display: none;">Password</th>
                                                 <th scope="col">Contact No</th>
@@ -222,7 +223,7 @@ include '../connection.php';
 
                                             <tr>
                                                 <td><?php echo $row['id']; ?></td>
-                                                <td><?php echo $row['fullname']; ?></td>
+                                                <td><?php echo $row['username']; ?></td>
                                                 <td><?php echo $row['email_address']; ?></td>
                                                 <td style="display: none;"><?php echo $row['password']; ?></td>
                                                 <td><?php echo $row['contact_no']; ?></td>
@@ -241,7 +242,6 @@ include '../connection.php';
                     </div>
                 </div>
             </div>
-
         </div> 
     </div>
 
@@ -259,8 +259,8 @@ include '../connection.php';
         <div class="modal-body">
 
           <div class="form-group">
-            <label for="name">Fullname</label>
-            <input type="text" class="form-control" name="fullname">
+            <label for="name">Username</label>
+            <input type="text" class="form-control" name="username">
           </div>
           <div class="form-group">
             <label for="name">Password</label>
@@ -272,7 +272,7 @@ include '../connection.php';
           </div>
           <div class="form-group">
             <label for="name">Contact no:</label>
-            <input type="text" class="form-control" name="contact_no">
+            <input type="number" class="form-control" name="contact_no">
           </div>
           <div class="form-group mt-2">
             <label for="name">Position</label>
@@ -315,7 +315,7 @@ include '../connection.php';
                           <input type="hidden" name="update_id" id="update_id">
                             <label> Fullname </label>
 
-                            <input type="text" name="fullname"  id="fullname"  class="form-control"
+                            <input type="text" name="username"  id="username"  class="form-control"
                                 placeholder="Enter Fullname"  required >
                         </div>
 
@@ -393,7 +393,7 @@ include '../connection.php';
 
 
         $('#update_id').val(data[0]);
-        $('#fullname').val(data[1]);
+        $('#username').val(data[1]);
         $('#password').val(data[3]);
         $('#email_address').val(data[2]);
         $('#contact_no').val(data[4]);

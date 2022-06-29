@@ -2,15 +2,15 @@
 
 session_start();
 
-include_once 'connection.php';
+include_once '../connection.php';
 
 
 if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
-	$email_address = $_POST['email_address'];
+  $username = $_POST['username'];
 	$password = $_POST['password'];
 
-	$query = "SELECT * FROM users WHERE email_address='".$email_address."' AND password='".$password."'";
+	$query = "SELECT * FROM users WHERE username='".$username."' AND password='".$password."'";
   	$result = mysqli_query($con,$query);
 
 
@@ -18,15 +18,15 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
   	if ($row["position"]=='admin') {
 
-  		$_SESSION["email_address"] = $email_address;
+  		$_SESSION["username"] = $username;
   		$_SESSION["login"]=true;
-  		header("Location: php/dashboard.php");
+  		header("Location:dashboard.php");
   	}
   	elseif ($row["position"]=='cashier') {
 
-  		 $_SESSION["email_address"] = $email_address;
+  		 $_SESSION["username"] = $username;
   		 $_SESSION["login"]=true;
-  		header("Location: php/dashboard.php");
+  		header("Location:dashboard.php");
   	}
   	else {
   		header("Location: index.php?error=username and password is incorrect.");

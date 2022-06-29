@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["email_address"])) {
+if (!isset($_SESSION["username"])) {
     header("location: ../index.php");
 
 }
@@ -77,19 +77,20 @@ include '../connection.php';
                             </div>
                         </a>
                     </li>
-                    <li class="navigation-list-item">
-                        <div class="dropdown pb-1 ">
-                            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class='bx bxs-report bi'></i>
-                                <span class="mx-2 text-white"> Sales Report</span>
-                            </a>
-                            <ul class="dropdown-menu text-small shadow">
-                                <li><a class="dropdown-item" href="weekly.php">Weekly Report</a></li>
-                                <li><a class="dropdown-item" href="monthly.php">Monthly Report</a></li>
-                                <li><a class="dropdown-item" href="yearly.php">Yearly Report</a></li>
-                            </ul>
-                        </div>
-                        
+                   <li class="navigation-list-item">
+                        <a href="#submenu1" data-bs-toggle="collapse" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" >
+                            <i class='bx bxs-report bi'></i><span class="mx-2 text-white fs-6 fw-bold">Sales Report</span></a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="Weekly.php" class="nav-link px-2 mx-2 li_one text-white"><span class="d-none d-sm-inline text-white fs-6">Weekly Report</span></a>
+                            </li>
+                            <li class="w-100">
+                                <a href="monthly.php" class="nav-link px-2 mx-2 li_one text-white"> <span class="d-none d-sm-inline text-white fs-6">Monthly Report</span></a>
+                            </li>
+                            <li>
+                                <a href="yearly.php" class="nav-link px-2 mx-2 li_one text-white"> <span class="d-none d-sm-inline text-white fs-6">Yearly Report</span></a>
+                            </li>
+                        </ul>
                     </li>
                         
                     
@@ -136,18 +137,18 @@ include '../connection.php';
                                     <i class='bx bx-user' ></i>
                                 </div>
                                 <div class="col-9">
-                                    User Manager
+                                    Accounts
                                 </div>
                             </div>
                         </a>
                     </li>
-                    <li class="navigation-list-item">
+                    <li class="navigation-list-item" style="margin-top: 25%;">
                         <div class="dropdown pb-1">
                             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="col-2">
-                                    <i class='bx bx-user'></i>
+                                    <img src="../image/user_35px.png" />
                                 </div>
-                                <span class="d-none d-sm-inline mx-1"><?php echo $_SESSION["email_address"];  ?></span>
+                                <span class="d-none d-sm-inline mx-1"><?php echo $_SESSION["username"];  ?></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
                                 <li><a class="dropdown-item" href="#">Settings</a></li>
