@@ -206,7 +206,7 @@ include 'connection.php';
                     <div class="row">
                         <div class="col">
                             <div class="card">
-                                <div class="card-body rounded-3 m-4 table-responsive-sm">
+                                <div class="card-body rounded-3 m-4 table-responsive-lg">
                                     <table class="table table-striped align-middle">
                                         <thead>
                                             <tr>
@@ -235,10 +235,10 @@ include 'connection.php';
                                                 <td><?php echo $row['position']; ?></td>
                                                 <td>
                                                     <div class="d-flex flex-row justify-content-center">
-                                                        <button class="btn btn-warning editbtn" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
-                                                        <div class="ps-2">
-                                                            <a onClick= "javascript: return confirm('Please confirm deletion');" href="user_delete.php?update_id=<?php echo $row['id']; ?>" type="button" class="btn btn-danger deletebtn"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i></a>
-                                                        </div>
+                                                        <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+
+                                                        <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i>Delete</button>
+                                                        
                                                     </div>
                                                 </td>
                                             </tr>
@@ -371,6 +371,33 @@ include 'connection.php';
         </div>
     </div>
 
+
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="mediumModalLabel">Delete Account</h5>
+                                </button>
+                            </div>
+
+                            <form action="user_delete.php" method="POST">
+                                <div class="modal-body">
+
+                                <input type="hidden" name="delete_id" id="delete_id">
+                                        <p align="center">Are you sure? You want to Delete this Account?</p>
+
+                                        <div class="modal-footer">
+                                            <button type="submit" name="deletedata" class="btn btn-success">YES</button>
+                                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
+                                        </div>
+                            </div>
+                            </form>
+                            
+                                                         
+                        </div>
+                    </div>
+                </div>
+
  
 <script>
     let sidebarToggle = document.querySelector(".sidebarToggle");
@@ -411,6 +438,24 @@ include 'connection.php';
       })
     });
   </script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.deletebtn').on('click', function() {
+
+            $('#delete').modal('show');
+
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+            console.log(data);
+            $('#delete_id').val(data[0]);
+
+        })
+    });
+</script>
 </body>
 
 </html>

@@ -191,7 +191,12 @@ include 'connection.php';
                     <div class="row">
                         <div class="col">
                             <br>
-                            <h2 class="text-dark text-start ps-3">Supplier</h2><br>
+                           <div class="w-50">
+                                <h2 class="text-dark text-start ps-3 ">Suppliers</h2>
+                            </div>
+                            <div class="w-50">
+                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 63%; margin-top: -15%"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
+                            </div>
                         </div>
                     </div>
 
@@ -199,14 +204,16 @@ include 'connection.php';
                     <div class="row">
                         <div class="col ">
                             <div class="card">
-                                <div class="card-body rounded-3 m-4 table-responsive-sm">
+                                <div class="card-body rounded-3 m-4 table-responsive-lg">
                                     <table class="table table-striped align-middle">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
+                                                <th scope="col">Company Name</th>
+                                                <th scope="col">Province</th>
+                                                <th scope="col">City</th>
+                                                <th scope="col">Phone Number</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -215,19 +222,6 @@ include 'connection.php';
                                                 <td>Mark</td>
                                                 <td>Otto</td>
                                                 <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>@fat</td>
-                                                <td>baliw</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>ulol</td>
-                                                <td>@twitter</td>
-
                                             </tr>
                                         </tbody>
                                     </table>
@@ -238,6 +232,63 @@ include 'connection.php';
                 </div>
             </div>   
         </div> 
+    </div>
+
+    <div class="modal fade" id="create" tabindex="-1" aria-labelledby="exampleModallabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                
+                <form action="addCustomer.php" method="Post">
+                    <div class="modal-header">
+                        <h4 class="title">Add Customers</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Company Name</label>
+                            <input type="text" class="form-control" name="company_name">
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                <option selected>Select Province</option>
+                                <option value="1">Laguna</option>
+                                <option value="2">Batangays</option>
+                                <option value="3"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Last Name</label>
+                            <input type="text" class="form-control" name="_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Address</label>
+                            <input type="text" class="form-control" name="address">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Contact No </label>
+                            <input type="number" class="form-control" name="contact_no">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Product Name</label>
+                            <input type="text" class="form-control" name="product_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Expected Date</label>
+                            <input type="date" class="form-control" name="expect_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Total</label>
+                            <input type="number" class="form-control" name="total">
+                        </div>
+
+                        <div class="modal-footer">
+                            <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+                            <input type="submit" name="create" class="btn btn-success" value="Add">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
 

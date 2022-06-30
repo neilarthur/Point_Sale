@@ -185,18 +185,22 @@ include 'connection.php';
                     </div>
                 </form>
             </div>
-            
-                    <div class="col py-3 d-flex justify-content-center overflow-auto">
+
+
+
+            <!-- Main content -->
+            <div class="col py-3 d-flex justify-content-center overflow-auto">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col">
+                        <div class="col d-flex justify-content-between">
                             <br>
                             <div class="w-50">
-                                <h2 class="text-dark text-start ps-3">Customer</h2>
+                                <h2 class="text-dark text-start ps-3 ">Customers</h2>
                             </div>
-                            <div class="w-100">
-                                 <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style=" margin-top:-65px; margin-left: 70%;"><i class='bx bxs-plus-circle'></i> ADD</button>
+                            <div class="w-50">
+                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 63%;"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
                             </div>
+                            
                         </div>
                     </div>
                     
@@ -205,7 +209,7 @@ include 'connection.php';
                     <div class="row">
                         <div class="col ">
                             <div class="card">
-                                <div class="card-body rounded-3 m-4 table-responsive-sm">
+                                <div class="card-body rounded-3 m-4 table-responsive-lg">
                                     <table class="table table-striped align-middle">
                                         <thead>
                                             <tr>
@@ -238,7 +242,10 @@ include 'connection.php';
                                                 <td><?php echo $row['expect_date'];  ?></td>
                                                 <td>
                                                     <div class="d-flex flex-row justify-content-center">
-                                                        <button class="btn btn-warning editbtn" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+                                                        <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+
+
+                                                    <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i>Delete</button>
 
                                                     </div>
                                                     
@@ -354,6 +361,24 @@ include 'connection.php';
         </div>
         
     </div>
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Delete Account</h5>
+            </div>
+            <form action="customer_delete.php" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="delete_id" id="delete_id">
+                    <p align="center">Are you sure? You want to Delete this Account?</p>
+                    <div class="modal-footer">
+                        <button type="submit" name="deletedata" class="btn btn-success">YES</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 
 
  
@@ -398,6 +423,24 @@ include 'connection.php';
       })
     });
   </script>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.deletebtn').on('click', function() {
+
+            $('#delete').modal('show');
+
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+            console.log(data);
+            $('#delete_id').val(data[0]);
+
+        })
+    });
+</script>
 </body>
 
 </html>

@@ -200,7 +200,7 @@ include 'connection.php';
                     <div class="row">
                         <div class="col ">
                             <div class="card">
-                                <div class="card-body rounded-3 m-4 table-responsive-sm">
+                                <div class="card-body rounded-3 m-4 table-responsive-lg">
                                     <table class="table table-striped align-middle">
                                         <thead>
                                             <tr>

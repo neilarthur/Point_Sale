@@ -41,30 +41,28 @@ include_once 'php/connection.php';
         <div class="card-body">
           <div class="row">
             <div class="col">
-
-              <form action="php/login.php" method="POST" class="m-4">
-                <?php if (isset($_GET['error'])) { ?>
+              <?php if (isset($_GET['error'])) { ?>
                   <p class="error"><center><b style="color: red;"><?php echo $_GET['error'];  ?></b></center></p>
                 <?php }  
                 ?>
-                <label class="ms-2" for="email">Username</label>
-                <input class="form-control" type="text" name="username"><br>
+              <form action="php/login.php" method="POST" class="m-4">
+
+                <label class="ms-2" for="username">Username</label>
+                <input class="form-control" type="text" name="username" required><br>
 
                 <label class="ms-2" for="password">Password</label>
-                <input class="form-control" type="password" name="password"><br><br>
+                <input class="form-control" type="password" name="password" required><br><br>
                 <div class="d-flex justify-content-between align-items-center">
-
-                <input class="form-control" type="hidden" name="position"><br>
                   <!-- Checkbox -->
                   <div class="form-check mb-1">
                     <input class="form-check-input me-1" type="checkbox" value="" id="form2Example3" />
-                    <label class="form-check-label" for="form2Example3" style="padding-right: 18.5rem;">Remember me</label>
+                    <label class="form-check-label" for="form2Example3" style="padding-right: 14.5rem;">Remember me</label>
                   </div>
                   
                 </div>
 
-                 <div class="text-center text-lg-start mt-4 pt-2">
-                  <button type="submit" class="btn btn-primary btn-lg"style="padding-left: 11.5rem; padding-right: 12rem;">Login</button>
+                 <div class="text-center text-lg-start mt-4 pt-2 d-grid gap-2">
+                  <button type="submit" class="btn btn-primary btn-lg px-4">Login</button>
 
                 </div>
 
