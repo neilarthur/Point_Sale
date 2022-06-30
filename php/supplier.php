@@ -195,7 +195,7 @@ include 'connection.php';
                                 <h2 class="text-dark text-start ps-3 ">Suppliers</h2>
                             </div>
                             <div class="w-50">
-                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 63%; margin-top: -15%"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
+                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 50rem; margin-top: -15%"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
                             </div>
                         </div>
                     </div>
@@ -213,16 +213,30 @@ include 'connection.php';
                                                 <th scope="col">Province</th>
                                                 <th scope="col">City</th>
                                                 <th scope="col">Phone Number</th>
-                                                <th scope="col">Action</th>
+                                                <th scope="col" style="text-align: center;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                             <?php
+
+                                            $query_run = mysqli_query($con,"SELECT * FROM supplier");
+
+                                            $sql_run = mysqli_query($con,"SELECT * FROM location");
+                                            while ($row=mysqli_fetch_assoc($query_run) AND $rows=mysqli_fetch_assoc($sql_run)) { ?>
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
+                                                <td><?php echo $row['supplier_id'];  ?></td>
+                                                <td><?php echo $row['company_name'];  ?></td>
+                                                <td><?php echo $rows['province'];  ?></td>
+                                                <td><?php echo $rows['city'];  ?></td>
+                                                <td><?php echo $row['phone_no'];  ?></td>
+                                                <td>
+                                                    <div class="d-flex flex-row justify-content-center">
+                                                        <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+                                                        <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i>Delete</button>
+                                                    </div>
+                                                </td>
                                             </tr>
+                                        <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -238,47 +252,26 @@ include 'connection.php';
         <div class="modal-dialog">
             <div class="modal-content">
                 
-                <form action="addCustomer.php" method="Post">
+                <form action="addSupplier.php" method="Post">
                     <div class="modal-header">
-                        <h4 class="title">Add Customers</h4>
+                        <h4 class="title">Add Suppliers</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Company Name</label>
-                            <input type="text" class="form-control" name="company_name">
-                        </div>
-
-                        <div class="form-group">
-                            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                <option selected>Select Province</option>
-                                <option value="1">Laguna</option>
-                                <option value="2">Batangays</option>
-                                <option value="3"></option>
-                            </select>
+                            <input type="text" class="form-control" name="company_name" required="">
                         </div>
                         <div class="form-group">
-                            <label for="name">Last Name</label>
-                            <input type="text" class="form-control" name="_name">
+                            <label for="name">Province</label>
+                            <input type="text" class="form-control" name="province" required="">
                         </div>
                         <div class="form-group">
-                            <label for="name">Address</label>
-                            <input type="text" class="form-control" name="address">
+                            <label for="name">City</label>
+                            <input type="text" class="form-control" name="city" required="">
                         </div>
                         <div class="form-group">
-                            <label for="name">Contact No </label>
-                            <input type="number" class="form-control" name="contact_no">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Product Name</label>
-                            <input type="text" class="form-control" name="product_name">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Expected Date</label>
-                            <input type="date" class="form-control" name="expect_date">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Total</label>
-                            <input type="number" class="form-control" name="total">
+                            <label for="name">Phone Number </label>
+                            <input type="number" class="form-control" name="phone_no" required="">
                         </div>
 
                         <div class="modal-footer">
@@ -291,6 +284,40 @@ include 'connection.php';
         </div>
     </div>
 
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModallabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <form action="Updatesupplier.php" method="Post">
+                    <div class="modal-header">
+                        <h4 class="title"> Update Personal Information</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="update_id" id="update_id">
+                        <div class="form-group">
+                            <label for="name">Company Name</label>
+                            <input type="text" class="form-control" name="company_name" id="company_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Province</label>
+                            <input type="text" class="form-control" name="province" id="province">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">city</label>
+                            <input type="text" class="form-control" name="city" id="city">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Phone Number</label>
+                            <input type="text" class="form-control" name="phone_no" id="phone_no">
+                        </div>
+                        <div class="modal-footer">
+                            <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+                            <input type="submit" name="update" class="btn btn-success" value="Update">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
  
 <script>
@@ -300,6 +327,35 @@ include 'connection.php';
         document.getElementById("sidebarToggle").classList.toggle("active");
     })
 </script>
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+      $('.editbtn').on('click', function(){
+
+        $('#edit').modal('show');
+
+
+        $tr = $(this).closest('tr');
+
+        var data =  $tr.children("td").map(function(){
+          return $(this).text();
+
+
+        }).get();
+
+        console.log(data);
+
+
+        $('#update_id').val(data[0]);
+        $('#company_name').val(data[1]);
+        $('#province').val(data[2]);
+        $('#city').val(data[3]);
+        $('#phone_no').val(data[4]);
+
+      })
+    });
+  </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
 </body>
