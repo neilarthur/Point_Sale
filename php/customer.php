@@ -186,24 +186,17 @@ include 'connection.php';
                 </form>
             </div>
             
-            <!-- Main content -->
-            <div class="col py-3 d-flex justify-content-center overflow-auto">
+                    <div class="col py-3 d-flex justify-content-center overflow-auto">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col d-flex justify-content-between">
+                        <div class="col">
                             <br>
-
-                            <div class="container-fluid mb-3">
-                                <div class="row">
-                                    <div class="col">
-                                        <h2 class="text-dark text-start ps-3 ">Customer</h2>
-                                    </div>
-                                    <div class="col-6">
-                                    </div>
-                                    <div class="col">
-                                         <button type="button" class="btn btn-success btn-lg mx-5" data-bs-toggle="modal" data-bs-target="#create"><i class='bx bxs-plus-circle'></i> ADD</button>
-                                    </div>
-                                </div>
+                            <div class="w-50">
+                                <h2 class="text-dark text-start ps-3">Customer</h2>
+                            </div>
+                            <div class="w-100">
+                                 <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style=" margin-top:-65px; margin-left: 70%;"><i class='bx bxs-plus-circle'></i> ADD</button>
+                            </div>
                         </div>
                     </div>
                     
