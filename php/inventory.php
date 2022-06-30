@@ -77,7 +77,7 @@ include 'connection.php';
                             </div>
                         </a>
                     </li>
-                    <li class="navigation-list-item">
+                   <li class="navigation-list-item">
                         <a href="#submenu1" data-bs-toggle="collapse" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" >
                             <i class='bx bxs-report bi'></i><span class="mx-2 text-white">Sales Report</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
@@ -106,18 +106,6 @@ include 'connection.php';
                             </div>
                         </a>
                     </li>
-                    <li class="navigation-list-item">
-                        <a class="navigation-link" href="customer.php">
-                            <div class="row">
-                                <div class="col-2">
-                                    <i class='bx bx-group'></i>
-                                </div>
-                                <div class="col-9">
-                                    Customer
-                                </div>
-                            </div>
-                        </a>
-                    </li>
                      <li class="navigation-list-item">
                         <a class="navigation-link" href="inventory.php">
                             <div class="row">
@@ -126,6 +114,18 @@ include 'connection.php';
                                 </div>
                                 <div class="col-9">
                                     Inventory
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navigation-list-item">
+                        <a class="navigation-link" href="customer.php">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bx-group'></i>
+                                </div>
+                                <div class="col-9">
+                                    Customer
                                 </div>
                             </div>
                         </a>
@@ -146,7 +146,7 @@ include 'connection.php';
                         <a class="navigation-link" href="user_manager.php">
                             <div class="row">
                                 <div class="col-2">
-                                   <i class='bx bxs-user-account'></i>
+                                    <i class='bx bxs-user-account'></i>
                                 </div>
                                 <div class="col-9">
                                     Accounts
@@ -199,15 +199,64 @@ include 'connection.php';
                 </form>
             </div>
             <!-- Main content -->
+            <div class="col py-3 d-flex justify-content-center overflow-auto">
+                 <div class="container-fluid">
+                <div class="row">
+                        <div class="col d-flex justify-content">
+                            <br>
+                            <div class="w-50">
+                                <h2 class="text-dark text-start ps-3 ">Inventory </h2>
+                            </div>
+                            <div class="position-left w-50">
+                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#Modals" style="margin-left: 55%;"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                <!-- Table -->
+                    <div class="row">
+                        <div class="col ">
+                            <div class="card">
+                                <div class="card-body rounded-3 m-4 table-responsive-sm">
+                                    <table class="table table-striped align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">First</th>
+                                                <th scope="col">Last</th>
+                                                <th scope="col">Handle</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">1</th>
+                                                <td>Mark</td>
+                                                <td>Otto</td>
+                                                <td>@mdo</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">2</th>
+                                                <td>Jacob</td>
+                                                <td>@fat</td>
+                                                <td>baliw</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">3</th>
+                                                <td>Larry</td>
+                                                <td>ulol</td>
+                                                <td>@twitter</td>
 
-            <div class="container-fluid">
-                
-            </div>   
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
         </div> 
     </div>
-
-
- 
 <script>
     let sidebarToggle = document.querySelector(".sidebarToggle");
     sidebarToggle.addEventListener("click", function(){

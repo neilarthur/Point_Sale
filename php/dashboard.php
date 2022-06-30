@@ -107,7 +107,7 @@ include 'connection.php';
                         </a>
                     </li>
                     <li class="navigation-list-item">
-                        <a class="navigation-link" href="#">
+                        <a class="navigation-link" href="inventory.php">
                             <div class="row">
                                 <div class="col-2">
                                     <i class='bx bxs-box'></i>
@@ -154,8 +154,8 @@ include 'connection.php';
                             </div>
                         </a>
                     </li>
-                     <hr style="color:rgb(255, 255, 255);margin-top:30px;">
-                    <li class="navigation-list-item" style="margin-top: 50%;">
+                     <hr style="color:rgb(255, 255, 255);margin-top:10px;">
+                    <li class="navigation-list-item" style="margin-top: 45%;">
                         <div class="dropdown pb-1">
                             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="col-2">

@@ -106,6 +106,18 @@ include 'connection.php';
                             </div>
                         </a>
                     </li>
+                     <li class="navigation-list-item">
+                        <a class="navigation-link" href="inventory.php">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bxs-box'></i>
+                                </div>
+                                <div class="col-9">
+                                    Inventory
+                                </div>
+                            </div>
+                        </a>
+                    </li>
                     <li class="navigation-list-item">
                         <a class="navigation-link" href="customer.php">
                             <div class="row">
@@ -134,7 +146,7 @@ include 'connection.php';
                         <a class="navigation-link" href="user_manager.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bx-user' ></i>
+                                    <i class='bx bxs-user-account'></i>
                                 </div>
                                 <div class="col-9">
                                     Accounts
@@ -142,7 +154,8 @@ include 'connection.php';
                             </div>
                         </a>
                     </li>
-                    <li class="navigation-list-item" style="margin-top: 75%;">
+                    <hr style="color:rgb(255, 255, 255);margin-top:10px;">
+                    <li class="navigation-list-item" style="margin-top: 45%;">
                         <div class="dropdown pb-1">
                             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="col-2">

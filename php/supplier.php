@@ -107,6 +107,18 @@ include 'connection.php';
                         </a>
                     </li>
                     <li class="navigation-list-item">
+                        <a class="navigation-link" href="inventory.php">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bxs-box'></i>
+                                </div>
+                                <div class="col-9">
+                                    Inventory
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navigation-list-item">
                         <a class="navigation-link" href="customer.php">
                             <div class="row">
                                 <div class="col-2">
@@ -142,7 +154,8 @@ include 'connection.php';
                             </div>
                         </a>
                     </li>
-                     <li class="navigation-list-item" style="margin-top: 75%;">
+                     <hr style="color:rgb(255, 255, 255);margin-top:10px;">
+                     <li class="navigation-list-item" style="margin-top:45%;">
                         <div class="dropdown pb-1">
                             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="col-2">
@@ -189,14 +202,15 @@ include 'connection.php';
                <div class="col py-3 d-flex justify-content-center overflow-auto">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col">
+                        <div class="col d-flex justify-content">
                             <br>
-                           <div class="w-50">
-                                <h2 class="text-dark text-start ps-3 ">Suppliers</h2>
-                            </div>
                             <div class="w-50">
-                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 50rem; margin-top: -15%"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
+                                <h2 class="text-dark text-start ps-3 ">Supplier</h2>
                             </div>
+                            <div class="position-left w-50">
+                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 55%"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
+                            </div>
+                            
                         </div>
                     </div>
 
