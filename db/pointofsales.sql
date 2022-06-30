@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2022 at 01:24 PM
+-- Generation Time: Jun 30, 2022 at 11:01 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -44,7 +44,32 @@ CREATE TABLE `customers` (
 
 INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `address`, `contact_no`, `product_name`, `expect_date`, `total`) VALUES
 (1, 'Ralph Vincent', 'Pagcaliwagan', 'hanggan 1 Calauan Laguna', '094832123', 'bisquit', '2022-06-01', '1234545'),
-(2, 'richard', 'ramos', 'sta cruz', '947374757', 'red horse', '2022-06-15', '12345');
+(3, 'richard', 'ramos', 'sta cruz', '947374757', 'bisquit', '2022-06-23', '1212');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `location`
+--
+
+CREATE TABLE `location` (
+  `location_id` int(11) NOT NULL,
+  `province` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier`
+--
+
+CREATE TABLE `supplier` (
+  `supplier_id` int(11) NOT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `location_id` int(255) NOT NULL,
+  `phone_no` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -69,8 +94,7 @@ INSERT INTO `users` (`id`, `username`, `email_address`, `password`, `contact_no`
 (1, 'kobie', 'kobie.oracion@yahoo.com', 'admin123', '0947374757', 'cashier'),
 (2, 'neil', 'pornela.neil@yahoo.com', 'admin123', '947374757', 'admin'),
 (3, 'jireh', 'jireh.ramos@yahoo.com', 'admin123', '947574632', 'admin'),
-(4, 'richard', 'richard.ramos@yahoo.com', '123', '947574632', 'cashier'),
-(6, 'ralph', 'ralphvincent.p11@gmail.com', 'admin123', '09482624411', 'admin');
+(4, 'richard', 'richard.ramos@yahoo.com', '123', '947574632', 'cashier');
 
 --
 -- Indexes for dumped tables
@@ -81,6 +105,19 @@ INSERT INTO `users` (`id`, `username`, `email_address`, `password`, `contact_no`
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`customer_id`);
+
+--
+-- Indexes for table `location`
+--
+ALTER TABLE `location`
+  ADD PRIMARY KEY (`location_id`);
+
+--
+-- Indexes for table `supplier`
+--
+ALTER TABLE `supplier`
+  ADD PRIMARY KEY (`supplier_id`),
+  ADD KEY `location_id` (`location_id`);
 
 --
 -- Indexes for table `users`
@@ -96,13 +133,35 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `location`
+--
+ALTER TABLE `location`
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `supplier`
+--
+ALTER TABLE `supplier`
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `supplier`
+--
+ALTER TABLE `supplier`
+  ADD CONSTRAINT `supplier_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
