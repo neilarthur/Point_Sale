@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
   		 $_SESSION["username"] = $username;
   		 $_SESSION["login"]=true;
-  		header("Location:dashboard.php");
+  		header("Location:../cashier/dashboard.php");
   	}
   	else {
   		header("Location: ../index.php?error=username and password is incorrect.");

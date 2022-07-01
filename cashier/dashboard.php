@@ -117,7 +117,7 @@ include '../php/connection.php';
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
+                                <li><a class="dropdown-item" href="../php/logout.php">Sign out</a></li>
                             </ul>
                         </div>
                     </li>

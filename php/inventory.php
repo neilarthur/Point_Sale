@@ -289,6 +289,10 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,4));?>" requi
                             <input type="text" class="form-control" name="quantity" required="">
                         </div>
                         <div class="form-group">
+                            <label for="name">Price</label>
+                            <input type="text" class="form-control" name="price" required="">
+                        </div>
+                        <div class="form-group">
                             <label for="name">On hand </label>
                             <input type="number" class="form-control" name="on_hand" required="">
                         </div>
@@ -296,15 +300,27 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,4));?>" requi
                             <label for="name">Category </label>
                             <select class="form-select" aria-label="Default select example" name="category_name">
                                 <option>Open this select menu</option>
-                                <option >admin</option>
-                                <option>cashier</option>
+                                <option >foods</option>
+                                <option>drinks</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Supplier </label>
+                            <select class="form-select" aria-label="Default select example" name="company_name" id="category_name" >
+                                <option selected="">Open this select menu</option>
+                                <?php
+                                $query=mysqli_query($con,"SELECT * FROM supplier");
+                                while($row=mysqli_fetch_assoc($query)){
+                                    echo "
+                                    <option value='".$row['company_name']."'>".$row['company_name']."</option>";
+                                }?>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="name">Date Stock in </label>
                             <input type="Date" class="form-control" name="stock_in" required="">
                         </div>
-
                         <div class="modal-footer">
                             <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
                             <input type="submit" name="create" class="btn btn-success" value="Add">
