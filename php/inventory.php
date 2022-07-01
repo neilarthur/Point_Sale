@@ -208,7 +208,7 @@ include 'connection.php';
                                 <h2 class="text-dark text-start ps-3 ">Inventory </h2>
                             </div>
                             <div class="position-left w-50">
-                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#Modals" style="margin-left: 55%;"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
+                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 55%;"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
                             </div>
                             
                         </div>
@@ -221,32 +221,40 @@ include 'connection.php';
                                     <table class="table table-striped align-middle">
                                         <thead>
                                             <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
+                                                <th style="display: none;">#</th>
+                                                <th scope="col">Item Code</th>
+                                                <th scope="col">Item Name</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">On Hand</th>
+                                                <th scope="col">Category</th>
+                                                <th scope="col">Date Stock In</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>@fat</td>
-                                                <td>baliw</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>ulol</td>
-                                                <td>@twitter</td>
+                                            <?php
 
+                                            $query_run = mysqli_query($con,"SELECT * FROM inventory");
+
+                                            $sql_run = mysqli_query($con,"SELECT * FROM category");
+
+                                            while ($row=mysqli_fetch_assoc($query_run) AND $rows=mysqli_fetch_assoc($sql_run)) { ?>
+                                            <tr>
+                                                <td style="display: none;"><?php echo $row['item_id'];  ?></td>
+                                                <td><?php echo $row['item_code'];  ?></td>
+                                                <td><?php echo $row['item_name'];  ?></td>
+                                                <td><?php echo $row['quantity'];  ?></td>
+                                                <td><?php echo $row['on_hand'];  ?></td>
+                                                <td><?php echo $rows['category_name'];  ?></td>
+                                                <td><?php echo $row['stock_in'];  ?></td>
+                                                <td>
+                                                    <div class="d-flex flex-row justify-content-center">
+                                                        <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+
+                                                        <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i>Delete</button>
+                                                </td>
                                             </tr>
+                                        <?php }  ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -257,12 +265,186 @@ include 'connection.php';
             </div>
         </div> 
     </div>
+
+     <div class="modal fade" id="create" tabindex="-1" aria-labelledby="exampleModallabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                
+                <form action="addProducts.php" method="Post">
+                    <div class="modal-header">
+                        <h4 class="title">Add Items</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="name">Item Code</label>
+                            <input type="text" class="form-control" name="item_code" value="RVP-<?php 
+$prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,4));?>" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Item Name</label>
+                            <input type="text" class="form-control" name="item_name" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Quantity</label>
+                            <input type="text" class="form-control" name="quantity" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">On hand </label>
+                            <input type="number" class="form-control" name="on_hand" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Category </label>
+                            <select class="form-select" aria-label="Default select example" name="category_name">
+                                <option>Open this select menu</option>
+                                <option >admin</option>
+                                <option>cashier</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Date Stock in </label>
+                            <input type="Date" class="form-control" name="stock_in" required="">
+                        </div>
+
+                        <div class="modal-footer">
+                            <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+                            <input type="submit" name="create" class="btn btn-success" value="Add">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModallabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <form action="Updateinventory.php" method="Post">
+                    <div class="modal-header">
+                        <h4 class="title"> Update Inventory Item</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="update_id" id="update_id">
+                        <div class="form-group">
+                            <label for="name">Item Code</label>
+                            <input type="text" class="form-control" name="item_code" id="item_code" readonly="">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Item Name</label>
+                            <input type="text" class="form-control" name="item_name" id="item_name">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">quantity</label>
+                            <input type="text" class="form-control" name="quantity" id="quantity">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">On Hand</label>
+                            <input type="text" class="form-control" name="on_hand" id="on_hand">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Category </label>
+                            <select class="form-select" aria-label="Default select example" name="category_name" id="category_name" >
+                                <option selected="">Open this select menu</option>
+                                <option>foods</option>
+                                <option>drinks</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Date Stock in </label>
+                            <input type="Date" class="form-control" name="stock_in" id="stock_in" required="">
+                        </div>
+
+                        <div class="modal-footer">
+                            <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+                            <input type="submit" name="update" class="btn btn-success" value="Update">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Delete Inventory</h5>
+            </div>
+            <form action="deleteinventory.php" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="delete_id" id="delete_id">
+
+                    <p align="center">Are you sure? You want to Delete this Account?</p>
+                    <div class="modal-footer">
+                        <button type="submit" name="delete" class="btn btn-success">YES</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
 <script>
     let sidebarToggle = document.querySelector(".sidebarToggle");
     sidebarToggle.addEventListener("click", function(){
         document.querySelector("body").classList.toggle("active");
         document.getElementById("sidebarToggle").classList.toggle("active");
     })
+</script>
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+      $('.editbtn').on('click', function(){
+
+        $('#edit').modal('show');
+
+
+        $tr = $(this).closest('tr');
+
+        var data =  $tr.children("td").map(function(){
+          return $(this).text();
+
+
+        }).get();
+
+        console.log(data);
+
+
+        $('#update_id').val(data[0]);
+        $('#item_code').val(data[1]);
+        $('#item_name').val(data[2]);
+        $('#quantity').val(data[3]);
+        $('#on_hand').val(data[4]);
+        $('#stock_in').val(data[6]);
+        $('#category_name').val(data[5]);
+
+      })
+    });
+  </script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.deletebtn').on('click', function() {
+
+            $('#delete').modal('show');
+
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+            console.log(data);
+            $('#delete_id').val(data[0]);
+
+        })
+    });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
