@@ -217,32 +217,37 @@ include 'connection.php';
                                     <table class="table table-striped align-middle">
                                         <thead>
                                             <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">First</th>
-                                                <th scope="col">Last</th>
-                                                <th scope="col">Handle</th>
+                                                <th scope="col">Bar code</th>
+                                                <th scope="col">Item Name</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Category</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <th scope="row">1</th>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>@mdo</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td>Jacob</td>
-                                                <td>@fat</td>
-                                                <td>baliw</td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td>Larry</td>
-                                                <td>ulol</td>
-                                                <td>@twitter</td>
+                                            <?php
 
-                                            </tr>
+                                            $query_run = mysqli_query($con,"SELECT * FROM inventory");
+
+                                            $sql_run = mysqli_query($con,"SELECT * FROM category,inventory WHERE(category.category_id=inventory.category_id)");
+
+
+
+                                            while ($row=mysqli_fetch_assoc($query_run) AND $rows=mysqli_fetch_assoc($sql_run)) { ?>
+
+                                                <tr>
+                                                    <td><?php echo $row['bar_code'];  ?></td>
+                                                    <td><?php echo $row['item_name'];  ?></td>
+                                                    <td><?php echo $row['price'];  ?></td>
+                                                    <td><?php echo $rows['category_name'];  ?></td>
+                                                    <td><?php echo $row['quantity'];  ?></td>
+                                                    <td>
+                                                        <div class="d-flex flex-row justify-content-center">
+                                                            <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>View</button>
+                                                    </td>
+                                                </tr>
+                                            <?php }  ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -254,6 +259,88 @@ include 'connection.php';
 
         </div> 
     </div>
+
+        <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModallabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <form action="Updateinventory.php" method="Post">
+                    <div class="modal-header">
+                        <h4 class="title"> Update Inventory Item</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="update_id" id="update_id">
+                        <div class="form-group">
+                            <label for="name">Bar Code</label>
+                            <input type="text" class="form-control" name="bar_code" id="bar_code" readonly="">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Item Name</label>
+                            <input type="text" class="form-control" name="item_name" id="item_name" readonly="">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">quantity</label>
+                            <input type="text" class="form-control" name="quantity" id="quantity" readonly="">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Price</label>
+                            <input type="text" class="form-control" name="price" id="price" readonly="">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Category</label>
+                            <select class="form-select" aria-label="Default select example" name="category" id="category_name" readonly="" disabled="">
+                                <?php
+                                    $sup=mysqli_query($con,"SELECT * FROM category");
+                                    while($suprow=mysqli_fetch_array($sup)){
+                                        ?>
+                                        <option><?php echo $suprow['category_name']; ?></option>
+                                        <?php
+                                    }
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+                            <input type="submit" name="update" class="btn btn-success" value="Update">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+<script type="text/javascript">
+    
+    $(document).ready(function(){
+      $('.editbtn').on('click', function(){
+
+        $('#edit').modal('show');
+
+
+        $tr = $(this).closest('tr');
+
+        var data =  $tr.children("td").map(function(){
+          return $(this).text();
+
+
+        }).get();
+
+        console.log(data);
+
+
+        $('#update_id').val(data[0]);
+        $('#bar_code').val(data[0]);
+        $('#item_name').val(data[1]);
+        $('#quantity').val(data[2]);
+        $('#price').val(data[4]);
+        $('#category_name').val(data[3]);
+
+      })
+    });
+  </script>
+
 
 
  

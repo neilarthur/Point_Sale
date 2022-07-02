@@ -222,12 +222,13 @@ include 'connection.php';
                                         <thead>
                                             <tr>
                                                 <th style="display: none;">#</th>
-                                                <th scope="col">Item Code</th>
+                                                <th scope="col">Bar Code</th>
                                                 <th scope="col">Item Name</th>
                                                 <th scope="col">Quantity</th>
                                                 <th scope="col">On Hand</th>
                                                 <th scope="col">Category</th>
-                                                <th scope="col">Date Stock In</th>
+                                                <th scope="col">Supplier Name</th>
+                                                <th scope="col">Date Stock</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -236,16 +237,19 @@ include 'connection.php';
 
                                             $query_run = mysqli_query($con,"SELECT * FROM inventory");
 
-                                            $sql_run = mysqli_query($con,"SELECT * FROM category");
+                                            $sql_run = mysqli_query($con,"SELECT * FROM category,inventory WHERE(category.category_id=inventory.category_id)");
 
-                                            while ($row=mysqli_fetch_assoc($query_run) AND $rows=mysqli_fetch_assoc($sql_run)) { ?>
+                                            $sup_run = mysqli_query($con,"SELECT * FROM supplier,inventory WHERE(supplier.supplier_id=inventory.supplier_id)");
+
+                                            while ($row=mysqli_fetch_assoc($query_run) AND $rows=mysqli_fetch_assoc($sql_run) AND $raw=mysqli_fetch_assoc($sup_run)) { ?>
                                             <tr>
                                                 <td style="display: none;"><?php echo $row['item_id'];  ?></td>
-                                                <td><?php echo $row['item_code'];  ?></td>
+                                                <td><?php echo $row['bar_code'];  ?></td>
                                                 <td><?php echo $row['item_name'];  ?></td>
                                                 <td><?php echo $row['quantity'];  ?></td>
                                                 <td><?php echo $row['on_hand'];  ?></td>
                                                 <td><?php echo $rows['category_name'];  ?></td>
+                                                <td><?php echo $raw['company_name'];  ?></td>
                                                 <td><?php echo $row['stock_in'];  ?></td>
                                                 <td>
                                                     <div class="d-flex flex-row justify-content-center">
@@ -276,9 +280,8 @@ include 'connection.php';
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="name">Item Code</label>
-                            <input type="text" class="form-control" name="item_code" value="RVP-<?php 
-$prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,4));?>" required="">
+                            <label for="name">Bar Code</label>
+                            <input type="text" class="form-control" name="bar_code" required="">
                         </div>
                         <div class="form-group">
                             <label for="name">Item Name</label>
@@ -298,23 +301,31 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,4));?>" requi
                         </div>
                         <div class="form-group">
                             <label for="name">Category </label>
-                            <select class="form-select" aria-label="Default select example" name="category_name">
+                            <select class="form-select" aria-label="Default select example" name="category">
                                 <option>Open this select menu</option>
-                                <option >foods</option>
-                                <option>drinks</option>
+                                 <?php
+                                    $cup=mysqli_query($con,"SELECT * FROM category");
+                                    while($cuprow=mysqli_fetch_array($cup)){
+                                        ?>
+                                            <option value="<?php echo $cuprow['category_id']; ?>"><?php echo $cuprow['category_name']; ?></option>
+                                        <?php
+                                    }
+                                ?>
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="name">Supplier </label>
-                            <select class="form-select" aria-label="Default select example" name="company_name" id="category_name" >
+                            <select class="form-select" aria-label="Default select example" name="supplier" >
                                 <option selected="">Open this select menu</option>
                                 <?php
-                                $query=mysqli_query($con,"SELECT * FROM supplier");
-                                while($row=mysqli_fetch_assoc($query)){
-                                    echo "
-                                    <option value='".$row['company_name']."'>".$row['company_name']."</option>";
-                                }?>
+                                    $sup=mysqli_query($con,"SELECT * FROM supplier");
+                                    while($suprow=mysqli_fetch_array($sup)){
+                                        ?>
+                                            <option value="<?php echo $suprow['supplier_id']; ?>"><?php echo $suprow['company_name']; ?></option>
+                                        <?php
+                                    }
+                                ?>
                             </select>
                         </div>
                         <div class="form-group">
@@ -343,8 +354,8 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,4));?>" requi
                     <div class="modal-body">
                         <input type="hidden" name="update_id" id="update_id">
                         <div class="form-group">
-                            <label for="name">Item Code</label>
-                            <input type="text" class="form-control" name="item_code" id="item_code" readonly="">
+                            <label for="name">Bar Code</label>
+                            <input type="text" class="form-control" name="bar_code" id="bar_code">
                         </div>
                         <div class="form-group">
                             <label for="name">Item Name</label>
@@ -361,13 +372,31 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,4));?>" requi
 
                         <div class="form-group">
                             <label for="name">Category </label>
-                            <select class="form-select" aria-label="Default select example" name="category_name" id="category_name" >
-                                <option selected="">Open this select menu</option>
-                                <option>foods</option>
-                                <option>drinks</option>
+                            <select class="form-select" aria-label="Default select example" name="category" id="category_name">
+                                 <?php
+                                    $cup=mysqli_query($con,"SELECT * FROM category");
+                                    while($cuprow=mysqli_fetch_array($cup)){
+                                        ?>
+                                            <option><?php echo $cuprow['category_name']; ?></option>
+                                        <?php
+                                    }
+                                ?>
                             </select>
                         </div>
 
+                        <div class="form-group">
+                            <label for="name">Supplier </label>
+                            <select class="form-select" aria-label="Default select example" name="supplier" id="company_name" >
+                                <?php
+                                    $sup=mysqli_query($con,"SELECT * FROM supplier");
+                                    while($suprow=mysqli_fetch_array($sup)){
+                                        ?>
+                                        <option><?php echo $suprow['company_name']; ?></option>
+                                        <?php
+                                    }
+                                ?>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="name">Date Stock in </label>
                             <input type="Date" class="form-control" name="stock_in" id="stock_in" required="">
@@ -434,16 +463,17 @@ $prefix= md5(time()*rand(1, 2)); echo strip_tags(substr($prefix ,0,4));?>" requi
 
 
         $('#update_id').val(data[0]);
-        $('#item_code').val(data[1]);
+        $('#bar_code').val(data[1]);
         $('#item_name').val(data[2]);
         $('#quantity').val(data[3]);
         $('#on_hand').val(data[4]);
-        $('#stock_in').val(data[6]);
         $('#category_name').val(data[5]);
-
+        $('#company_name').val(data[6]);
+        $('#stock_in').val(data[7]);
       })
     });
   </script>
+
 
 <script type="text/javascript">
     $(document).ready(function() {

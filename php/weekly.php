@@ -79,9 +79,9 @@ include 'connection.php';
                     </li>
                    <li class="navigation-list-item">
                         <a href="#submenu1" data-bs-toggle="collapse" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" >
-                            <i class='bx bxs-report bi'></i><span class="mx-2 text-white">Sales Report</span></a>
+                            <i class='bx bxs-report bi'></i><span class="mx-2 text-white">Sales Reports</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                            <li class="w-100">
+                                                        <li class="w-100">
                                 <a href="Weekly.php" class="nav-link px-2 mx-2 li_one text-white"><span class="d-none d-sm-inline text-white fs-6">Weekly Report</span></a>
                             </li>
                             <li class="w-100">
@@ -200,9 +200,47 @@ include 'connection.php';
             </div>
             <!-- Main content -->
 
-            <div class="container-fluid">
-                
-            </div>   
+             <!-- Main content -->
+            <div class="col py-3 d-flex justify-content-center overflow-auto">
+                 <div class="container-fluid">
+                <div class="row">
+                        <div class="col d-flex justify-content">
+                            <br>
+                            <div class="w-50">
+                                <h2 class="text-dark text-start ps-3 ">Weekly Reports </h2>
+                            </div>                            
+                        </div>
+                    </div>
+                <!-- Table -->
+                    <div class="row">
+                        <div class="col ">
+                            <div class="card">
+                                <div class="card-body rounded-3 m-4 table-responsive-sm">
+                                    <table class="table table-striped align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th style="display: none;">#</th>
+                                                <th scope="col">Item Code</th>
+                                                <th scope="col">Item Name</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">On Hand</th>
+                                                <th scope="col">Category</th>
+                                                <th scope="col">Date Stock In</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>adasdadsd</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
         </div> 
     </div>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2022 at 06:27 AM
+-- Generation Time: Jul 02, 2022 at 05:42 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -37,8 +37,8 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
-(1, 'drinks'),
-(2, 'foods');
+(1, 'foods'),
+(3, 'drinks');
 
 -- --------------------------------------------------------
 
@@ -72,11 +72,12 @@ INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `address`, `c
 --
 
 CREATE TABLE `inventory` (
-  `item_id` int(11) NOT NULL,
-  `item_code` varchar(255) NOT NULL,
+  `item_id` bigint(11) NOT NULL,
+  `bar_code` bigint(11) NOT NULL,
   `item_name` varchar(255) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `price` int(11) NOT NULL,
+  `price` double NOT NULL,
+  `srp` double NOT NULL,
   `on_hand` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `supplier_id` int(11) NOT NULL,
@@ -87,9 +88,13 @@ CREATE TABLE `inventory` (
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`item_id`, `item_code`, `item_name`, `quantity`, `price`, `on_hand`, `category_id`, `supplier_id`, `stock_in`) VALUES
-(1, 'RVP-e7da', 'Piatos Snacks', 5, 0, 5, 1, 0, '2022-07-22'),
-(2, 'RVP-65a9', 'MR chips', 3, 0, 3, 2, 0, '2022-07-08');
+INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `srp`, `on_hand`, `category_id`, `supplier_id`, `stock_in`) VALUES
+(1, 5808304721, 'Piatos Snacks Barbeque', 100, 15, 0, 20, 1, 2, '2022-02-11'),
+(2, 4306509232, 'Loaded Snacks Chocolate', 10, 10, 0, 50, 1, 2, '2022-03-11'),
+(3, 36930052132, 'Red Horse', 50, 75, 0, 100, 3, 3, '2022-07-02'),
+(4, 4159814267, 'Hansel Chocolate Snacks', 100, 10, 0, 50, 1, 2, '2022-02-11'),
+(5, 2852176399, 'Chocolate chips', 20, 10, 0, 20, 1, 2, '2022-07-02'),
+(6, 223852176398, 'Plus Apple Drinks', 100, 10, 0, 20, 3, 3, '2022-07-11');
 
 -- --------------------------------------------------------
 
@@ -108,7 +113,9 @@ CREATE TABLE `location` (
 --
 
 INSERT INTO `location` (`location_id`, `province`, `city`) VALUES
-(1, 'Laguna', 'Calauan');
+(1, 'Makati', 'santa cruz'),
+(2, 'Makati', 'Calauan'),
+(3, 'Laguna', 'Calauan');
 
 -- --------------------------------------------------------
 
@@ -128,7 +135,9 @@ CREATE TABLE `supplier` (
 --
 
 INSERT INTO `supplier` (`supplier_id`, `company_name`, `location_id`, `phone_no`) VALUES
-(1, 'Accenture Tech Corp.', 1, 938465231);
+(1, 'Accenture Tech Corp.', 1, 2147483647),
+(2, 'bisquit Corporation LT.', 2, 2147483647),
+(3, 'RED HORSE Corp.', 3, 938465231);
 
 -- --------------------------------------------------------
 
@@ -176,7 +185,8 @@ ALTER TABLE `customers`
 --
 ALTER TABLE `inventory`
   ADD PRIMARY KEY (`item_id`),
-  ADD KEY `category_id` (`category_id`);
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `inventory_ibfk_2` (`supplier_id`);
 
 --
 -- Indexes for table `location`
@@ -205,7 +215,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -217,7 +227,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `location`
@@ -245,7 +255,8 @@ ALTER TABLE `users`
 -- Constraints for table `inventory`
 --
 ALTER TABLE `inventory`
-  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `supplier`

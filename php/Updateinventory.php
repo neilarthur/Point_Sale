@@ -5,33 +5,39 @@ require_once 'connection.php';
 if (isset($_POST['update'])) {
       
       $update_id = $_POST['update_id'];
+      $bar_code = $_POST['bar_code'];
       $item_name = $_POST['item_name'];
       $quantity = $_POST['quantity'];
       $on_hand = $_POST['on_hand'];
-      $category_name = $_POST['category_name'];
+      $supplier = $_POST['supplier'];
+      $category = $_POST['category'];
       $stock_in = $_POST['stock_in'];
 
-      $inventory_run = "UPDATE inventory, category SET item_name = '$item_name', quantity ='$quantity',on_hand ='$on_hand', stock_in ='$stock_in' WHERE item_id = '$update_id'";
+      $inventory_run = "UPDATE inventory SET bar_code = '$bar_code', item_name = '$item_name', quantity ='$quantity',on_hand ='$on_hand', stock_in ='$stock_in'  WHERE item_id = '$update_id'";
 
       $results = mysqli_query($con, $inventory_run);
 
       if ($results) {
 
-        header("location:inventory.php");
+         header("location:inventory.php?success");
       }
       else{
-        header("location:inventory.php");
+        //header("location:inventory.php?failed");
+
+        echo $con ->error;
       }
 
-      $category_run = "UPDATE category SET category_name = '$category_name' WHERE category_id = '$update_id'";
+        $product = "UPDATE inventory SET supplier_id = '$supplier', category_id = '$category' WHERE item_id = '$update_id' ";
 
-      $category_result = mysqli_query($con,$category_run);
+        $results_run = mysqli_query($con, $product);
 
-      if ($category_result) {
-          header("location:inventory.php");
-      }
-      else{
-        header("location:inventory.php");
-      }
+        if ($results_run) {
+          header("location:inventory.php?success");
+        }
+        else{
+
+          echo $con ->error;
+        }
+        
   }  
 ?>
