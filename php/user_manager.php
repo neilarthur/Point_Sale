@@ -189,7 +189,7 @@ include 'connection.php';
                 <!-- Search bar -->
                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2" id="searchMo" onkeyup="myFunction()">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button">
                                 <i class="fas fa-search fa-sm"></i>
@@ -220,7 +220,7 @@ include 'connection.php';
                         <div class="col">
                             <div class="card">
                                 <div class="card-body rounded-3 m-4 table-responsive-lg">
-                                    <table class="table table-striped align-middle">
+                                    <table class="table table-striped align-middle " id="accountTab">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -468,6 +468,34 @@ include 'connection.php';
 
         })
     });
+
+    function myFunction() {
+
+      var input, filter, table, tr, i, j, column_length, count_td;
+      column_length = document.getElementById('accountTab').rows[0].cells.length;
+      input = document.getElementById("searchMo");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("accountTab");
+      tr = table.getElementsByTagName("tr");
+      for (i = 1; i < tr.length; i++) {
+        count_td = 0;
+        for (j = 1; j < column_length - 1; j++) {
+          td = tr[i].getElementsByTagName("td")[j];
+
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+              count_td++;
+            }
+          }
+        }
+        if (count_td > 0) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+
+    }
 </script>
 </body>
 
