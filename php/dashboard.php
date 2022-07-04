@@ -217,9 +217,18 @@ include 'connection.php';
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Weekly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">PHP 10,000</div>
-                                        </div>
+                                                ACCOUNTS</div>
+                                                <?php
+
+                                                $query = "SELECT id FROM users ORDER BY id";
+                                                $query_result = mysqli_query($con,$query);
+
+                                                $row = mysqli_num_rows($query_result);
+
+                                                echo '<h4 class="display-3" style="color:black;"><b>'.$row.'</b></h4>';
+
+                                                ?>
+                                            </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                         </div>
@@ -235,9 +244,20 @@ include 'connection.php';
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">PHP 215,000</div>
-                                        </div>
+                                                SUPPLIER</div>
+
+                                                 <?php
+
+                                                $query = "SELECT supplier_id FROM supplier ORDER BY supplier_id";
+                                                $query_result = mysqli_query($con,$query);
+
+                                                $row = mysqli_num_rows($query_result);
+
+                                                echo '<h4 class="display-3" style="color:black;"><b>'.$row.'</b></h4>';
+
+                                                ?>
+
+                                            </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
                                         </div>
@@ -254,8 +274,18 @@ include 'connection.php';
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">PHP 1,00,000</div>
+                                                CUSTOMERS</div>
+
+                                                <?php
+
+                                                $query_run = "SELECT customer_id FROM customers ORDER BY customer_id";
+                                                $query_result = mysqli_query($con,$query_run);
+
+                                                $raw = mysqli_num_rows($query_result);
+
+                                                echo '<h4 class="display-3" style="color:black;"><b>'.$raw.'</b></h4>';
+
+                                                ?>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -273,8 +303,17 @@ include 'connection.php';
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                                PRODUCTS</div>
+                                              <?php
+
+                                                $query_run = "SELECT item_id FROM inventory ORDER BY item_id";
+                                                $query_result = mysqli_query($con,$query_run);
+
+                                                $raw = mysqli_num_rows($query_result);
+
+                                                echo '<h4 class="display-3" style="color:black;"><b>'.$raw.'</b></h4>';
+
+                                                ?>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
