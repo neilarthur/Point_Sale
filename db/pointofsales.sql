@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2022 at 03:49 AM
+-- Generation Time: Jul 04, 2022 at 09:12 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -93,7 +93,7 @@ INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`
 (4, 4159814267, 'Hansel Chocolate Snacks', 100, 10, 0, 50, 1, 2, '2022-02-11'),
 (5, 2852176399, 'Cream O chips', 50, 50, 0, 50, 1, 2, '2022-07-02'),
 (6, 223852176398, 'ALASKA Drinks', 5000, 5000, 0, 5000, 3, 1, '2022-07-11'),
-(7, 165686701, 'Mr chocolate chips', 505, 1005, 0, 505, 1, 2, '2022-02-11');
+(7, 165686701, 'Lechon Manok', 505, 500, 0, 505, 1, 1, '2022-02-11');
 
 -- --------------------------------------------------------
 
@@ -114,7 +114,29 @@ CREATE TABLE `location` (
 INSERT INTO `location` (`location_id`, `province`, `city`) VALUES
 (1, 'Makati', 'santa cruz'),
 (2, 'Makati', 'Calauan'),
-(3, 'Sorsogon', 'PILA');
+(3, 'Cebu', 'Clex');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales`
+--
+
+CREATE TABLE `sales` (
+  `sales_id` int(11) NOT NULL,
+  `item_id` bigint(11) NOT NULL,
+  `Profit` double NOT NULL,
+  `sales_quantity` double NOT NULL,
+  `Total` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sales`
+--
+
+INSERT INTO `sales` (`sales_id`, `item_id`, `Profit`, `sales_quantity`, `Total`) VALUES
+(3, 1, 50, 2, 50),
+(4, 6, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -194,6 +216,13 @@ ALTER TABLE `location`
   ADD PRIMARY KEY (`location_id`);
 
 --
+-- Indexes for table `sales`
+--
+ALTER TABLE `sales`
+  ADD PRIMARY KEY (`sales_id`),
+  ADD KEY `item_id` (`item_id`);
+
+--
 -- Indexes for table `supplier`
 --
 ALTER TABLE `supplier`
@@ -235,6 +264,12 @@ ALTER TABLE `location`
   MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `sales`
+--
+ALTER TABLE `sales`
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
@@ -256,6 +291,12 @@ ALTER TABLE `users`
 ALTER TABLE `inventory`
   ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `sales`
+--
+ALTER TABLE `sales`
+  ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`item_id`);
 
 --
 -- Constraints for table `supplier`

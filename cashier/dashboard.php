@@ -8,6 +8,7 @@ if (!isset($_SESSION["username"])) {
 
 include '../php/connection.php';
 
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -145,18 +146,41 @@ include '../php/connection.php';
                                     <table class="table table-striped align-middle">
                                         <thead>
                                             <tr>
-                                                <th style="display: none;">#</th>
+                                                <th scope="col">bar_code</th>
                                                 <th scope="col">Item Name</th>
-                                                <th scope="col">Quantity</th>
-                                                <th scope="col">Category</th>
                                                 <th scope="col">Price</th>
+                                                <th scope="col">Quantity</th>
                                                 <th scope="col">Total</th>
+                                                <th scope="col">Profit</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php
+
+                                            $query_run = mysqli_query($con,"SELECT * FROM sales,inventory WHERE(sales.item_id=inventory.item_id)");
+
+                                            $sql_run = mysqli_query($con,"SELECT * FROM sales");
+
+                                            while ($rows=mysqli_fetch_assoc($query_run) AND $dow=mysqli_fetch_assoc($sql_run)) { ?>
                                             <tr>
+                                                <TD><?php echo $rows['bar_code'];  ?></TD>
+                                                <TD><?php echo $rows['item_name'];  ?></TD>
+                                                <TD><?php echo $rows['price'];  ?></TD>
+                                                <TD>
+                                                    <div class="d-flex flex-row justify-content-center">
+                                                        <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>-</button>
+
+                                                        <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i>+</button>
+                                                </TD>
+                                                 <TD><?php echo $dow['Total'];  ?></TD>
+                                                 <TD><?php echo $dow['Profit'];  ?></TD>
+                                                 <TD>
+
+                                                        <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i>Delete</button>
+                                                </TD>
                                             </tr>
+                                        <?php }?>
                                         </tbody>
                                     </table>
                                     <hr>
@@ -194,22 +218,29 @@ include '../php/connection.php';
                         <div class="col-12 col-md-5 col-lg-4">
                             <div class="card border-primary ps-3 pe-3">
 
-                                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search " action="postransac.php" method="POST">
-                                    <p style="margin-top: 10px;">Barcode Search</p>
-                                    <input type="text" class="form-control bg-light border-0 small mb-3" name="items">
-                                
-                                <p></p>
+                                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search " action="Postransac.php" method="POST">
+                                    <p style="margin-top: 10px;">Barcode Select</p>
+                                    <select class="form-control bg-light border-0 small mb-3 selectpicker" data-live-search="true" name="barcode">
+                                        <option selected></option>
+                                        <?php
 
+                                        $cup=mysqli_query($con,"SELECT * FROM inventory");
+                                        while($cuprow=mysqli_fetch_array($cup)){ ?>
+                                            <option data-tokens="ketchup mustard" value="<?php echo $cuprow['item_id']; ?>"><?php echo $cuprow['bar_code']; ?>- <?php echo $cuprow['item_name']; ?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <button class="btn btn-primary w-100 mb-3" type="submit" name="create">
+                                        <i class='bx bx-plus-medical'></i> Add Catalog
+                                    </button>
+                                    <button class="btn btn-secondary w-100 mb-3" type="button">
+                                        <i class='bx bxs-coupon'></i> Voucher
+                                    </button>
+                                    <button class="btn btn-success w-100 mb-3" type="button">
+                                        <i class='bx bx-cart' ></i> New Sale
+                                    </button>
                                 </form>
-                                <button class="btn btn-primary mb-3" type="submit" name="add">
-                                    <i class='bx bx-plus-medical'></i> Add Catalog
-                                </button>
-                                <button class="btn btn-secondary mb-3" type="button">
-                                    <i class='bx bxs-coupon'></i> Voucher
-                                </button>
-                                <button class="btn btn-success mb-3" type="button">
-                                    <i class='bx bx-cart' ></i> New Sale
-                                </button>
                             </div>
                         </div>
                     
@@ -230,6 +261,7 @@ include '../php/connection.php';
         document.getElementById("sidebarToggle").classList.toggle("active");
     })
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
 </body>
