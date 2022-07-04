@@ -216,9 +216,9 @@ $supp .= "</select>";
                 </button>
 
                 <!-- Search bar -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ms-3">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2"id="SearchMo" onkeyup="myFunction()">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button">
                                 <i class="fas fa-search fa-sm"></i>
@@ -247,7 +247,7 @@ $supp .= "</select>";
                         <div class="col ">
                             <div class="card">
                                 <div class="card-body rounded-3 m-4 table-responsive-sm">
-                                    <table class="table table-striped align-middle">
+                                    <table class="table table-striped align-middle" id="InventoryTab">
                                         <thead>
                                             <tr>
                                                 <th style="display: none;">#</th>
@@ -259,7 +259,7 @@ $supp .= "</select>";
                                                 <th scope="col">Supplier Name</th>
                                                 <th scope="col">Date Stock</th>
                                                 <th scope="col">Price</th>
-                                                <th scope="col">Action</th>
+                                                <th scope="col" style="text-align: center;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -517,6 +517,33 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
 
         })
     });
+    function myFunction() {
+
+      var input, filter, table, tr, i, j, column_length, count_td;
+      column_length = document.getElementById('InventoryTab').rows[0].cells.length;
+      input = document.getElementById("SearchMo");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("InventoryTab");
+      tr = table.getElementsByTagName("tr");
+      for (i = 1; i < tr.length; i++) {
+        count_td = 0;
+        for (j = 1; j < column_length - 1; j++) {
+          td = tr[i].getElementsByTagName("td")[j];
+
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+              count_td++;
+            }
+          }
+        }
+        if (count_td > 0) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
