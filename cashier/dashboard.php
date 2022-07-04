@@ -71,7 +71,7 @@ include '../php/connection.php';
                         <a class="navigation-link" href="dashboard.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxs-home-alt-2'></i>
+                                    <i class='bx bxs-bar-chart-square' ></i>
                                 </div>
                                 <div class="col-9">
                                     POS
@@ -146,10 +146,10 @@ include '../php/connection.php';
                                     <table class="table table-striped align-middle">
                                         <thead>
                                             <tr>
-                                                <th scope="col">bar_code</th>
+                                                <th scope="col">Barcode</th>
                                                 <th scope="col">Item Name</th>
                                                 <th scope="col">Price</th>
-                                                <th scope="col">Quantity</th>
+                                                <th scope="col" style="text-align: center">Quantity</th>
                                                 <th scope="col">Total</th>
                                                 <th scope="col">Profit</th>
                                                 <th scope="col">Action</th>
@@ -168,16 +168,25 @@ include '../php/connection.php';
                                                 <TD><?php echo $rows['item_name'];  ?></TD>
                                                 <TD><?php echo $rows['price'];  ?></TD>
                                                 <TD>
-                                                    <div class="d-flex flex-row justify-content-center">
-                                                        <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>-</button>
-
-                                                        <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i>+</button>
+                                                    <div class="input-group number-spinner">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-warning" data-dir="dwn" >
+                                                                <i class='bx bx-minus' ></i>
+                                                            </button>
+                                                        </span>
+                                                        <input type="text" class="form-control text-center" value="1">
+                                                        <span class="input-group-btn">
+                                                            <button class="btn btn-success" data-dir="up">
+                                                                <i class='bx bx-plus'></i>
+                                                            </button>
+                                                        </span>
+                                                    </div>
                                                 </TD>
-                                                 <TD><?php echo $dow['Total'];  ?></TD>
-                                                 <TD><?php echo $dow['Profit'];  ?></TD>
+                                                 <TD style="text-align:center"><?php echo $dow['Total'];  ?></TD>
+                                                 <TD style="text-align:center"><?php echo $dow['Profit'];  ?></TD>
                                                  <TD>
 
-                                                        <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i>Delete</button>
+                                                        <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i></button>
                                                 </TD>
                                             </tr>
                                         <?php }?>
@@ -260,6 +269,27 @@ include '../php/connection.php';
         document.querySelector("body").classList.toggle("active");
         document.getElementById("sidebarToggle").classList.toggle("active");
     })
+</script>
+<script type="text/javascript">
+    $(document).on('click', '.number-spinner button', function () {    
+    var btn = $(this),
+        oldValue = btn.closest('.number-spinner').find('input').val().trim(),
+        newVal = 0;
+    
+    if (btn.attr('data-dir') == 'up') {
+        newVal = parseInt(oldValue) + 1;
+    } else {
+        if (oldValue > 1) {
+            newVal = parseInt(oldValue) - 1;
+        } else {
+            newVal = 1;
+        }
+    }
+    btn.closest('.number-spinner').find('input').val(newVal);
+});
+    
+
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
