@@ -232,9 +232,9 @@ include 'connection.php';
 
                                             $sql_run = mysqli_query($con,"SELECT * FROM category,inventory WHERE(category.category_id=inventory.category_id)");
 
+                                            $sup_run = mysqli_query($con,"SELECT * FROM supplier,inventory WHERE(supplier.supplier_id=inventory.supplier_id)");
 
-
-                                            while ($row=mysqli_fetch_assoc($query_run) AND $rows=mysqli_fetch_assoc($sql_run)) { ?>
+                                            while ($row=mysqli_fetch_assoc($query_run) AND $rows=mysqli_fetch_assoc($sql_run) AND $crows=mysqli_fetch_assoc($sup_run)) { ?>
 
                                                 <tr>
                                                     <td><?php echo $row['bar_code'];  ?></td>
@@ -242,6 +242,10 @@ include 'connection.php';
                                                     <td><?php echo $row['price'];  ?></td>
                                                     <td><?php echo $rows['category_name'];  ?></td>
                                                     <td><?php echo $row['quantity'];  ?></td>
+                                                    <td class="d-none"><?php echo $row['on_hand'];  ?></td>
+                                                    <td class="d-none"><?php echo $crows['company_name'];  ?></td>
+                                                    <td class="d-none"><?php echo $row['stock_in'];  ?></td>
+
                                                     <td>
                                                         <div class="d-flex flex-row justify-content-center">
                                                             <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>View</button>
@@ -300,9 +304,31 @@ include 'connection.php';
                             </select>
                         </div>
 
+                        <div class="form-group">
+                            <label for="name">Category</label>
+                            <select class="form-select" aria-label="Default select example" name="supplier" id="company_name" readonly="" disabled="">
+                                <?php
+                                    $sup=mysqli_query($con,"SELECT * FROM supplier");
+                                    while($suprow=mysqli_fetch_array($sup)){
+                                        ?>
+                                        <option><?php echo $suprow['company_name']; ?></option>
+                                        <?php
+                                    }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">On Hand</label>
+                            <input type="text" class="form-control" name="on_hand" id="on_hand" readonly="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Date Stock in </label>
+                            <input type="Date" class="form-control" name="stock_in" id="stock_in" readonly="">
+                        </div>
+
                         <div class="modal-footer">
                             <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
-                            <input type="submit" name="update" class="btn btn-success" value="Update">
                         </div>
                     </div>
                 </form>
@@ -336,6 +362,9 @@ include 'connection.php';
         $('#quantity').val(data[2]);
         $('#price').val(data[4]);
         $('#category_name').val(data[3]);
+        $('#company_name').val(data[6]);
+        $('#on_hand').val(data[5]);
+        $('#stock_in').val(data[7]);
 
       })
     });

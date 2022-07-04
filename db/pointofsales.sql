@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 02, 2022 at 05:42 PM
+-- Generation Time: Jul 04, 2022 at 03:49 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -52,18 +52,16 @@ CREATE TABLE `customers` (
   `last_name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `contact_no` varchar(255) NOT NULL,
-  `product_name` varchar(255) NOT NULL,
-  `expect_date` date NOT NULL,
-  `total` varchar(255) NOT NULL
+  `date_created` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `address`, `contact_no`, `product_name`, `expect_date`, `total`) VALUES
-(1, 'Ralph Vincent', 'Pagcaliwagan', 'hanggan 1 Calauan Laguna', '094832123', 'bisquit', '2022-06-01', '1234545'),
-(3, 'richard', 'ramos', 'sta cruz', '947374757', 'bisquit', '2022-06-23', '1212');
+INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `address`, `contact_no`, `date_created`) VALUES
+(1, 'Neil', 'Pornela', 'santa cruz', '094832123', '2022-06-01'),
+(3, 'richard', 'ramos', 'sta cruz', '947374757', '2022-06-23');
 
 -- --------------------------------------------------------
 
@@ -93,8 +91,9 @@ INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`
 (2, 4306509232, 'Loaded Snacks Chocolate', 10, 10, 0, 50, 1, 2, '2022-03-11'),
 (3, 36930052132, 'Red Horse', 50, 75, 0, 100, 3, 3, '2022-07-02'),
 (4, 4159814267, 'Hansel Chocolate Snacks', 100, 10, 0, 50, 1, 2, '2022-02-11'),
-(5, 2852176399, 'Chocolate chips', 20, 10, 0, 20, 1, 2, '2022-07-02'),
-(6, 223852176398, 'Plus Apple Drinks', 100, 10, 0, 20, 3, 3, '2022-07-11');
+(5, 2852176399, 'Cream O chips', 50, 50, 0, 50, 1, 2, '2022-07-02'),
+(6, 223852176398, 'ALASKA Drinks', 5000, 5000, 0, 5000, 3, 1, '2022-07-11'),
+(7, 165686701, 'Mr chocolate chips', 505, 1005, 0, 505, 1, 2, '2022-02-11');
 
 -- --------------------------------------------------------
 
@@ -115,7 +114,7 @@ CREATE TABLE `location` (
 INSERT INTO `location` (`location_id`, `province`, `city`) VALUES
 (1, 'Makati', 'santa cruz'),
 (2, 'Makati', 'Calauan'),
-(3, 'Laguna', 'Calauan');
+(3, 'Sorsogon', 'PILA');
 
 -- --------------------------------------------------------
 
@@ -137,7 +136,7 @@ CREATE TABLE `supplier` (
 INSERT INTO `supplier` (`supplier_id`, `company_name`, `location_id`, `phone_no`) VALUES
 (1, 'Accenture Tech Corp.', 1, 2147483647),
 (2, 'bisquit Corporation LT.', 2, 2147483647),
-(3, 'RED HORSE Corp.', 3, 938465231);
+(3, 'ALASKA', 3, 938465231);
 
 -- --------------------------------------------------------
 
@@ -227,7 +226,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `location`

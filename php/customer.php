@@ -231,9 +231,7 @@ include 'connection.php';
                                                 <th scope="col">Last Name</th>
                                                 <th scope="col">Address</th>
                                                 <th scope="col">Contact No</th>
-                                                <th scope="col">Product Name</th>
-                                                <th scope="col">Total</th>
-                                                <th scope="col">Due Date</th>
+                                                <th scope="col">Date</th>
                                                 <th score="col"style="text-align: center;">Action</th>
 
                                             </tr>
@@ -250,9 +248,7 @@ include 'connection.php';
                                                 <td><?php echo $row['last_name'];  ?></td>
                                                 <td><?php echo $row['address'];  ?></td>
                                                 <td><?php echo $row['contact_no'];  ?></td>
-                                                <td><?php echo $row['product_name'];  ?></td>
-                                                <td><?php echo $row['total'];  ?></td>
-                                                <td><?php echo $row['expect_date'];  ?></td>
+                                                <td><?php echo $row['date_created'];  ?></td>
                                                 <td>
                                                     <div class="d-flex flex-row justify-content-center">
                                                         <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
@@ -303,18 +299,9 @@ include 'connection.php';
                             <input type="number" class="form-control" name="contact_no">
                         </div>
                         <div class="form-group">
-                            <label for="name">Product Name</label>
-                            <input type="text" class="form-control" name="product_name">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Expected Date</label>
+                            <label for="name">Date Created</label>
                             <input type="date" class="form-control" name="expect_date">
                         </div>
-                        <div class="form-group">
-                            <label for="name">Total</label>
-                            <input type="number" class="form-control" name="total">
-                        </div>
-
                         <div class="modal-footer">
                             <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
                             <input type="submit" name="create" class="btn btn-success" value="Add">
@@ -353,16 +340,8 @@ include 'connection.php';
                             <input type="number" class="form-control" name="contact_no" id="contact_no">
                         </div>
                         <div class="form-group">
-                            <label for="name">Product Name</label>
-                            <input type="text" class="form-control" name="product_name" id="product_name">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Expected Date</label>
-                            <input type="date" class="form-control" name="expect_date" id="expect_date">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Total</label>
-                            <input type="number" class="form-control" name="total" id="total">
+                            <label for="name">Date created</label>
+                            <input type="date" class="form-control" name="expect_date" id="date_created">
                         </div>
                         <div class="modal-footer">
                             <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
@@ -429,9 +408,7 @@ include 'connection.php';
         $('#last_name').val(data[2]);
         $('#address').val(data[3]);
         $('#contact_no').val(data[4]);
-        $('#product_name').val(data[5]);
-        $('#expect_date').val(data[7]);
-        $('#total').val(data[6]);
+        $('#date_created').val(data[5]);
 
       })
     });

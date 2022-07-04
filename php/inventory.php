@@ -8,6 +8,35 @@ if (!isset($_SESSION["username"])) {
 
 include 'connection.php';
 
+
+$cat_run = "SELECT DISTINCT category_name, category_id FROM category order by category_id asc";
+
+$result_run = mysqli_query($con, $cat_run) or die ("Bad SQL: $cat_run");
+
+$cat = "<select class='form-control mb-3' name='category'>
+        <option>Select Category</option>";
+  while ($craw = mysqli_fetch_assoc($result_run)) {
+    $cat .= "<option value='".$craw['category_id']."'>".$craw['category_name']."</option>";
+  }
+
+$cat .= "</select>";
+
+
+$sup_run = "SELECT DISTINCT company_name, supplier_id FROM supplier order by supplier_id asc";
+
+$resulted = mysqli_query($con, $sup_run) or die ("Bad SQL: $sup_run");
+
+$supp = "<select class='form-control mb-3' name='supplier'>
+        <option>Select Category</option>";
+  while ($crow = mysqli_fetch_assoc($resulted)) {
+    $supp .= "<option value='".$crow['supplier_id']."'>".$crow['company_name']."</option>";
+  }
+
+$supp .= "</select>";
+
+
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -229,6 +258,7 @@ include 'connection.php';
                                                 <th scope="col">Category</th>
                                                 <th scope="col">Supplier Name</th>
                                                 <th scope="col">Date Stock</th>
+                                                <th scope="col">Price</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
@@ -246,11 +276,12 @@ include 'connection.php';
                                                 <td style="display: none;"><?php echo $row['item_id'];  ?></td>
                                                 <td><?php echo $row['bar_code'];  ?></td>
                                                 <td><?php echo $row['item_name'];  ?></td>
-                                                <td><?php echo $row['quantity'];  ?></td>
+                                                <td ><?php echo $row['quantity'];  ?></td>
                                                 <td><?php echo $row['on_hand'];  ?></td>
-                                                <td><?php echo $rows['category_name'];  ?></td>
+                                                <td ><?php echo $rows['category_name'];  ?></td>
                                                 <td><?php echo $raw['company_name'];  ?></td>
                                                 <td><?php echo $row['stock_in'];  ?></td>
+                                                <td ><?php echo $row['price'];  ?></td>
                                                 <td>
                                                     <div class="d-flex flex-row justify-content-center">
                                                         <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
@@ -281,7 +312,8 @@ include 'connection.php';
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Bar Code</label>
-                            <input type="text" class="form-control" name="bar_code" required="">
+                            <input type="text" class="form-control" name="bar_code" value="<?php 
+$prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="">
                         </div>
                         <div class="form-group">
                             <label for="name">Item Name</label>
@@ -355,7 +387,7 @@ include 'connection.php';
                         <input type="hidden" name="update_id" id="update_id">
                         <div class="form-group">
                             <label for="name">Bar Code</label>
-                            <input type="text" class="form-control" name="bar_code" id="bar_code">
+                            <input type="text" class="form-control" name="bar_code" id="bar_code" readonly="">
                         </div>
                         <div class="form-group">
                             <label for="name">Item Name</label>
@@ -372,34 +404,27 @@ include 'connection.php';
 
                         <div class="form-group">
                             <label for="name">Category </label>
-                            <select class="form-select" aria-label="Default select example" name="category" id="category_name">
-                                 <?php
-                                    $cup=mysqli_query($con,"SELECT * FROM category");
-                                    while($cuprow=mysqli_fetch_array($cup)){
-                                        ?>
-                                            <option><?php echo $cuprow['category_name']; ?></option>
-                                        <?php
-                                    }
-                                ?>
-                            </select>
+                            <?php
+
+                              echo $cat;
+                            ?>
                         </div>
 
                         <div class="form-group">
                             <label for="name">Supplier </label>
-                            <select class="form-select" aria-label="Default select example" name="supplier" id="company_name" >
-                                <?php
-                                    $sup=mysqli_query($con,"SELECT * FROM supplier");
-                                    while($suprow=mysqli_fetch_array($sup)){
-                                        ?>
-                                        <option><?php echo $suprow['company_name']; ?></option>
-                                        <?php
-                                    }
-                                ?>
-                            </select>
+                        <?php
+
+                              echo $supp;
+                            ?>
                         </div>
                         <div class="form-group">
                             <label for="name">Date Stock in </label>
                             <input type="Date" class="form-control" name="stock_in" id="stock_in" required="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Price </label>
+                            <input type="number" class="form-control" name="price" id="price" required="">
                         </div>
 
                         <div class="modal-footer">
@@ -470,6 +495,7 @@ include 'connection.php';
         $('#category_name').val(data[5]);
         $('#company_name').val(data[6]);
         $('#stock_in').val(data[7]);
+        $('#price').val(data[8]);
       })
     });
   </script>

@@ -73,19 +73,7 @@ include '../php/connection.php';
                                     <i class='bx bxs-home-alt-2'></i>
                                 </div>
                                 <div class="col-9">
-                                    Home
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="navigation-list-item">
-                        <a class="navigation-link" href="sales.php">
-                            <div class="row">
-                                <div class="col-2">
-                                    <i class='bx bx-money' ></i>
-                                </div>
-                                <div class="col-9">
-                                    Sales
+                                    POS
                                 </div>
                             </div>
                         </a>
@@ -160,13 +148,14 @@ include '../php/connection.php';
                                                 <th style="display: none;">#</th>
                                                 <th scope="col">Item Name</th>
                                                 <th scope="col">Quantity</th>
+                                                <th scope="col">Category</th>
                                                 <th scope="col">Price</th>
+                                                <th scope="col">Total</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>adasdadsd</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -204,14 +193,15 @@ include '../php/connection.php';
                         </div>
                         <div class="col-12 col-md-5 col-lg-4">
                             <div class="card border-primary ps-3 pe-3">
-                                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ">
+
+                                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search " action="postransac.php" method="POST">
                                     <p style="margin-top: 10px;">Barcode Search</p>
-                                    <input type="text" class="form-control bg-light border-0 small mb-3" aria-label="Search" aria-describedby="basic-addon2">
-                                    <p>Catalog Search</p>
-                                    <input type="text" class="form-control bg-light border-0 small mb-3" aria-label="Search" aria-describedby="basic-addon2">
-                                </form>
+                                    <input type="text" class="form-control bg-light border-0 small mb-3" name="items">
+                                
                                 <p></p>
-                                <button class="btn btn-primary mb-3" type="button">
+
+                                </form>
+                                <button class="btn btn-primary mb-3" type="submit" name="add">
                                     <i class='bx bx-plus-medical'></i> Add Catalog
                                 </button>
                                 <button class="btn btn-secondary mb-3" type="button">

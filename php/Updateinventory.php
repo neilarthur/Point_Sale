@@ -12,8 +12,9 @@ if (isset($_POST['update'])) {
       $supplier = $_POST['supplier'];
       $category = $_POST['category'];
       $stock_in = $_POST['stock_in'];
+      $price = $_POST['price'];
 
-      $inventory_run = "UPDATE inventory SET bar_code = '$bar_code', item_name = '$item_name', quantity ='$quantity',on_hand ='$on_hand', stock_in ='$stock_in'  WHERE item_id = '$update_id'";
+      $inventory_run = "UPDATE inventory SET bar_code = '$bar_code', item_name = '$item_name', quantity ='$quantity',on_hand ='$on_hand', stock_in ='$stock_in', category_id = '$category', supplier_id = '$supplier', price ='$price' WHERE item_id = '$update_id'";
 
       $results = mysqli_query($con, $inventory_run);
 
@@ -22,22 +23,10 @@ if (isset($_POST['update'])) {
          header("location:inventory.php?success");
       }
       else{
-        //header("location:inventory.php?failed");
 
-        echo $con ->error;
+        header("location:inventory.php?failed");
+
       }
-
-        $product = "UPDATE inventory SET supplier_id = '$supplier', category_id = '$category' WHERE item_id = '$update_id' ";
-
-        $results_run = mysqli_query($con, $product);
-
-        if ($results_run) {
-          header("location:inventory.php?success");
-        }
-        else{
-
-          echo $con ->error;
-        }
         
   }  
 ?>

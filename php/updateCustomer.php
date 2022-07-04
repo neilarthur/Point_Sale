@@ -12,7 +12,7 @@ if (isset($_POST["update"])) {
   	$expect_date = $_POST["expect_date"];
   	$total = $_POST["total"];
 
-  	$customer_run = "UPDATE customers SET first_name ='$first_name', last_name ='$last_name', address ='$address', contact_no ='$contact_no', product_name = '$product_name',expect_date = '$expect_date',total = '$total'";
+  	$customer_run = "UPDATE customers SET first_name ='$first_name', last_name ='$last_name', address ='$address', contact_no ='$contact_no', date_created = '$expect_date' WHERE customer_id = '$update_id'";
 
   	$query = mysqli_query($con,$customer_run);
 
