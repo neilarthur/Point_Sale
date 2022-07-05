@@ -9,6 +9,7 @@ if (!isset($_SESSION["username"])) {
 include '../php/connection.php';
 
 
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -169,8 +170,8 @@ include '../php/connection.php';
                                                 <TD><?php echo $rows['price'];  ?></TD>
                                                 <TD>
                                                     <div class="input-group number-spinner">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-warning" data-dir="dwn" >
+                                                             <span class="input-group-btn">
+                                                            <button class="btn btn-warning" data-dir="dwn">
                                                                 <i class='bx bx-minus' ></i>
                                                             </button>
                                                         </span>
@@ -180,6 +181,7 @@ include '../php/connection.php';
                                                                 <i class='bx bx-plus'></i>
                                                             </button>
                                                         </span>
+                                                       
                                                     </div>
                                                 </TD>
                                                  <TD style="text-align:center"><?php echo $dow['Total'];  ?></TD>
@@ -227,19 +229,11 @@ include '../php/connection.php';
                         <div class="col-12 col-md-5 col-lg-4">
                             <div class="card border-primary ps-3 pe-3">
 
-                                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search " action="Postransac.php" method="POST">
-                                    <p style="margin-top: 10px;">Barcode Select</p>
-                                    <select class="form-control bg-light border-0 small mb-3 selectpicker" data-live-search="true" name="barcode">
-                                        <option selected></option>
-                                        <?php
+                                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search " action="postransac.php" method="POST">
+                                    <p style="margin-top: 10px;">Barcode Search</p>
 
-                                        $cup=mysqli_query($con,"SELECT * FROM inventory");
-                                        while($cuprow=mysqli_fetch_array($cup)){ ?>
-                                            <option data-tokens="ketchup mustard" value="<?php echo $cuprow['item_id']; ?>"><?php echo $cuprow['bar_code']; ?>- <?php echo $cuprow['item_name']; ?></option>
-                                            <?php
-                                        }
-                                        ?>
-                                    </select>
+                                    <input type="text" class="form-control bg-light border-0 small mb-3" name="bar_code">
+                                    
                                     <button class="btn btn-primary w-100 mb-3" type="submit" name="create">
                                         <i class='bx bx-plus-medical'></i> Add Catalog
                                     </button>
@@ -287,10 +281,10 @@ include '../php/connection.php';
     }
     btn.closest('.number-spinner').find('input').val(newVal);
 });
-    
-
 
 </script>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
