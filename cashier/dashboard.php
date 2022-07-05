@@ -169,26 +169,18 @@ include '../php/connection.php';
                                                 <TD><?php echo $rows['item_name'];  ?></TD>
                                                 <TD><?php echo $rows['price'];  ?></TD>
                                                 <TD>
-                                                    <div class="input-group number-spinner">
-                                                             <span class="input-group-btn">
-                                                            <button class="btn btn-warning" data-dir="dwn">
-                                                                <i class='bx bx-minus' ></i>
-                                                            </button>
-                                                        </span>
-                                                        <input type="text" class="form-control text-center" value="1">
-                                                        <span class="input-group-btn">
-                                                            <button class="btn btn-success" data-dir="up">
-                                                                <i class='bx bx-plus'></i>
-                                                            </button>
-                                                        </span>
-                                                       
-                                                    </div>
+
                                                 </TD>
                                                  <TD style="text-align:center"><?php echo $dow['Total'];  ?></TD>
                                                  <TD style="text-align:center"><?php echo $dow['Profit'];  ?></TD>
                                                  <TD>
+                                                    <button class="btn btn-success" data-dir="up" data-bs-toggle="modal"
+                                                    data-bs-target="#quantity">
+                                                        <i class='bx bx-plus'></i>
+                                                    </button>
 
-                                                        <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i></button>
+                                                    <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i></button>
+                                                         
                                                 </TD>
                                             </tr>
                                         <?php }?>
@@ -253,6 +245,28 @@ include '../php/connection.php';
         </div>
      </div>   
    </div> 
+</div>
+<!-- Modal Quantity -->
+
+<div class="modal fade" id="quantity" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Add Quantity</h5>
+            </div>
+            <form action="deletesupplier.php" method="POST">
+                <div class="modal-body">
+                     <input type="hidden" name="delete_id" id="delete_id">
+                     <input type="number" class="form-control-sm" id="colFormLabelSm">
+
+                    <div class="modal-footer">
+                        <button type="submit" name="delete" class="btn btn-success">ADD</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCEL</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2022 at 09:12 AM
+-- Generation Time: Jul 05, 2022 at 04:57 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -61,7 +61,8 @@ CREATE TABLE `customers` (
 
 INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `address`, `contact_no`, `date_created`) VALUES
 (1, 'Neil', 'Pornela', 'santa cruz', '094832123', '2022-06-01'),
-(3, 'richard', 'ramos', 'sta cruz', '947374757', '2022-06-23');
+(3, 'richard', 'ramos', 'sta cruz', '947374757', '2022-06-23'),
+(4, 'Ralph Vincent', 'Pagcaliwagan', 'santa cruz', '947374757', '2022-01-11');
 
 -- --------------------------------------------------------
 
@@ -75,7 +76,7 @@ CREATE TABLE `inventory` (
   `item_name` varchar(255) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` double NOT NULL,
-  `srp` double NOT NULL,
+  `profit` double NOT NULL,
   `on_hand` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `supplier_id` int(11) NOT NULL,
@@ -86,7 +87,7 @@ CREATE TABLE `inventory` (
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `srp`, `on_hand`, `category_id`, `supplier_id`, `stock_in`) VALUES
+INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`) VALUES
 (1, 5808304721, 'Piatos Snacks Barbeque', 100, 15, 0, 20, 1, 2, '2022-02-11'),
 (2, 4306509232, 'Loaded Snacks Chocolate', 10, 10, 0, 50, 1, 2, '2022-03-11'),
 (3, 36930052132, 'Red Horse', 50, 75, 0, 100, 3, 3, '2022-07-02'),
@@ -114,7 +115,8 @@ CREATE TABLE `location` (
 INSERT INTO `location` (`location_id`, `province`, `city`) VALUES
 (1, 'Makati', 'santa cruz'),
 (2, 'Makati', 'Calauan'),
-(3, 'Cebu', 'Clex');
+(3, 'Cebu', 'Clex'),
+(4, 'Makati', 'santa cruz');
 
 -- --------------------------------------------------------
 
@@ -125,6 +127,9 @@ INSERT INTO `location` (`location_id`, `province`, `city`) VALUES
 CREATE TABLE `sales` (
   `sales_id` int(11) NOT NULL,
   `item_id` bigint(11) NOT NULL,
+  `bar_code` varchar(255) NOT NULL,
+  `item_name` varchar(255) NOT NULL,
+  `sales_price` double NOT NULL,
   `Profit` double NOT NULL,
   `sales_quantity` double NOT NULL,
   `Total` double NOT NULL
@@ -134,9 +139,12 @@ CREATE TABLE `sales` (
 -- Dumping data for table `sales`
 --
 
-INSERT INTO `sales` (`sales_id`, `item_id`, `Profit`, `sales_quantity`, `Total`) VALUES
-(3, 1, 50, 2, 50),
-(4, 6, 0, 0, 0);
+INSERT INTO `sales` (`sales_id`, `item_id`, `bar_code`, `item_name`, `sales_price`, `Profit`, `sales_quantity`, `Total`) VALUES
+(25, 7, '165686701', 'Lechon Manok', 500, 0, 0, 0),
+(26, 2, '4306509232', 'Loaded Snacks Chocolate', 10, 0, 1, 0),
+(27, 7, '165686701', 'Lechon Manok', 500, 0, 1, 0),
+(28, 2, '4306509232', 'Loaded Snacks Chocolate', 10, 0, 1, 0),
+(29, 5, '2852176399', 'Cream O chips', 50, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -158,7 +166,8 @@ CREATE TABLE `supplier` (
 INSERT INTO `supplier` (`supplier_id`, `company_name`, `location_id`, `phone_no`) VALUES
 (1, 'Accenture Tech Corp.', 1, 2147483647),
 (2, 'bisquit Corporation LT.', 2, 2147483647),
-(3, 'ALASKA', 3, 938465231);
+(3, 'ALASKA', 3, 938465231),
+(4, 'rebisco', 4, 2147483647);
 
 -- --------------------------------------------------------
 
@@ -183,7 +192,8 @@ INSERT INTO `users` (`id`, `username`, `email_address`, `password`, `contact_no`
 (1, 'kobie', 'kobie.oracion@yahoo.com', 'admin123', '0947374757', 'cashier'),
 (2, 'neil', 'pornela.neil@yahoo.com', 'admin123', '947374757', 'admin'),
 (3, 'jireh', 'jireh.ramos@yahoo.com', 'admin123', '947574632', 'admin'),
-(4, 'richard', 'richard.ramos@yahoo.com', '123', '947574632', 'cashier');
+(4, 'richard', 'richard.ramos@yahoo.com', '123', '947574632', 'cashier'),
+(7, 'chad', 'chadwick@yahoo.com', 'admin123', '0947574632', 'cashier');
 
 --
 -- Indexes for dumped tables
@@ -220,7 +230,7 @@ ALTER TABLE `location`
 --
 ALTER TABLE `sales`
   ADD PRIMARY KEY (`sales_id`),
-  ADD KEY `item_id` (`item_id`);
+  ADD KEY `sales_ibfk_1` (`item_id`);
 
 --
 -- Indexes for table `supplier`
@@ -249,37 +259,37 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

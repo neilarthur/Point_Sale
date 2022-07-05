@@ -334,8 +334,8 @@ include 'connection.php';
             </div>
         </div>
     </div>
-
-        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+<!-- Modal Delete -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -354,6 +354,7 @@ include 'connection.php';
             </form>
         </div>
     </div>
+</div>
 
 
  
