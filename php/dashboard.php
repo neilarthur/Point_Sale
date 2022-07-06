@@ -27,6 +27,8 @@ include 'connection.php';
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
       rel="stylesheet"
     />
+
+    <script src="https://kit.fontawesome.com/8d06153b2a.js" crossorigin="anonymous"></script>
     
     <!-- Google Fonts -->
     <link
@@ -211,7 +213,7 @@ include 'connection.php';
                     <div class="row">
 
                         <!-- Earnings (Weekly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-5">
                             <div class="card border-left-success shadow h-100 py-1">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -225,11 +227,12 @@ include 'connection.php';
 
                                                 $row = mysqli_num_rows($query_result);
 
-                                                echo '<h4 class="display-3" style="color:black;"><b>'.$row.'</b></h4>';
+                                                echo '<h2  class="h2 mb-0 font-weight-bold text-gray-800"><b>'.$row.'</b> </h2>';
 
                                                 ?>
                                             </div>
-                                        <div class="col-auto">
+                                        <div class="col-auto mt-2">
+                                            <i class='bx bxs-user bx-lg' ></i>
                                            
                                         </div>
                                     </div>
@@ -238,7 +241,7 @@ include 'connection.php';
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-5">
                             <div class="card border-left-success shadow h-100 py-1">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -253,13 +256,13 @@ include 'connection.php';
 
                                                 $row = mysqli_num_rows($query_result);
 
-                                                echo '<h4 class="display-3" style="color:black;"><b>'.$row.'</b></h4>';
+                                                echo '<h4  class="h2 mb-0 font-weight-bold text-gray-800"><b>'.$row.'</b></h4>';
 
                                                 ?>
 
                                             </div>
-                                        <div class="col-auto">
-                                            
+                                        <div class="col-auto mt-2">
+                                            <i class='bx bxs-cart bx-lg' ></i>
                                         </div>
                                     </div>
                                 </div>
@@ -268,7 +271,7 @@ include 'connection.php';
 
                        
                         <!-- Earnings (Annual) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-5">
                             <div class="card border-left-success shadow h-100 py-1">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -283,12 +286,12 @@ include 'connection.php';
 
                                                 $raw = mysqli_num_rows($query_result);
 
-                                                echo '<h4 class="display-3" style="color:black;"><b>'.$raw.'</b></h4>';
+                                                echo '<h4 class="h2 mb-0 font-weight-bold text-gray-800"><b>'.$raw.'</b></h4>';
 
                                                 ?>
                                         </div>
-                                        <div class="col-auto">
-                                           
+                                        <div class="col-auto mt-2">
+                                           <i class='bx bx-male-female bx-lg'></i>
                                         </div>
                                     </div>
                                 </div>
@@ -297,7 +300,7 @@ include 'connection.php';
                       
 
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-5">
                             <div class="card border-left-warning shadow h-100 py-1">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -311,12 +314,12 @@ include 'connection.php';
 
                                                 $raw = mysqli_num_rows($query_result);
 
-                                                echo '<h4 class="display-3" style="color:black;"><b>'.$raw.'</b></h4>';
+                                                echo '<h4 class="h2 mb-0 font-weight-bold text-gray-800""><b>'.$raw.'</b></h4>';
 
                                                 ?>
                                         </div>
-                                        <div class="col-auto">
-                                           
+                                        <div class="col-auto mt-2">
+                                           <i class='bx bxl-product-hunt bx-lg' ></i>
                                         </div>
                                     </div>
                                 </div>
