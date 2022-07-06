@@ -98,10 +98,10 @@ $supp .= "</select>";
                         <a class="navigation-link" href="dashboard.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxs-home-alt-2'></i>
+                                   <i class='bx bxs-dashboard'></i>
                                 </div>
                                 <div class="col-9">
-                                    Home
+                                   Dashboard
                                 </div>
                             </div>
                         </a>
@@ -237,7 +237,7 @@ $supp .= "</select>";
                                 <h2 class="text-dark text-start ps-3 ">Inventory </h2>
                             </div>
                             <div class="position-left w-50">
-                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 55%;"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
+                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 65%;"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
                             </div>
                             
                         </div>
@@ -259,7 +259,7 @@ $supp .= "</select>";
                                                 <th scope="col">Supplier Name</th>
                                                 <th scope="col">Date Stock</th>
                                                 <th scope="col">Price</th>
-                                                <th scope="col" style="text-align: center;">Action</th>
+                                                <th scope="col"style="text-align: center;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>

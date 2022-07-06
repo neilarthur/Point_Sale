@@ -69,10 +69,10 @@ include 'connection.php';
                         <a class="navigation-link" href="dashboard.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxs-home-alt-2'></i>
+                                    <i class='bx bxs-dashboard'></i>
                                 </div>
                                 <div class="col-9">
-                                    Home
+                                    Dashboard
                                 </div>
                             </div>
                         </a>
