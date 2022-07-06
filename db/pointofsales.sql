@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2022 at 11:15 AM
+-- Generation Time: Jul 06, 2022 at 05:00 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -80,21 +80,18 @@ CREATE TABLE `inventory` (
   `on_hand` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `supplier_id` int(11) NOT NULL,
-  `stock_in` date NOT NULL
+  `stock_in` date NOT NULL,
+  `date_expired` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`) VALUES
-(1, 5808304721, 'Piatos Snacks Barbeque', 100, 15, 0, 20, 1, 2, '2022-02-11'),
-(2, 4306509232, 'Loaded Snacks Chocolate', 10, 10, 0, 50, 1, 2, '2022-03-11'),
-(3, 36930052132, 'Red Horse', 46, 75, 0, 100, 3, 3, '2022-07-02'),
-(4, 4159814267, 'Hansel Chocolate Snacks', 91, 10, 0, 50, 1, 2, '2022-02-11'),
-(5, 2852176399, 'Cream O chips', 25, 50, 0, 50, 1, 2, '2022-07-02'),
-(6, 223852176398, 'ALASKA Drinks', 4995, 5000, 0, 5000, 3, 1, '2022-07-11'),
-(7, 165686701, 'Lechon Manok', 505, 500, 0, 505, 1, 1, '2022-02-11');
+INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`, `date_expired`) VALUES
+(1, 331422605, 'Loaded Snacks', 41, 15, 0, 30, 3, 1, '2022-07-12', '2022-07-14'),
+(2, 165711396, 'Hansel Chocolate Snacks', 40, 15, 0, 20, 1, 2, '2022-07-11', '2022-07-15'),
+(3, 331423493, 'MR chips', 38, 10, 0, 50, 1, 2, '2022-02-11', '2022-07-11');
 
 -- --------------------------------------------------------
 
@@ -140,9 +137,9 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`sales_id`, `item_id`, `bar_code`, `item_name`, `sales_price`, `Profit`, `sales_quantity`, `Total`) VALUES
-(1, 3, '36930052132', 'Red Horse', 75, 0, 3, 0),
-(2, 6, '223852176398', 'ALASKA Drinks', 5000, 0, 3, 0),
-(3, 4, '4159814267', 'Hansel Chocolate Snacks', 10, 0, 6, 0);
+(2, 1, '331422605', 'Loaded Snacks', 15, 0, 3, 225),
+(3, 2, '165711396', 'Hansel Chocolate Snacks', 15, 0, 3, 45),
+(4, 3, '331423493', 'MR chips', 10, 0, 6, 60);
 
 -- --------------------------------------------------------
 
@@ -263,7 +260,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `location`
@@ -275,7 +272,7 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `supplier`

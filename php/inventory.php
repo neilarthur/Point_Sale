@@ -98,10 +98,10 @@ $supp .= "</select>";
                         <a class="navigation-link" href="dashboard.php">
                             <div class="row">
                                 <div class="col-2">
-                                   <i class='bx bxs-dashboard'></i>
+                                    <i class='bx bxs-home-alt-2'></i>
                                 </div>
                                 <div class="col-9">
-                                   Dashboard
+                                    Home
                                 </div>
                             </div>
                         </a>
@@ -237,7 +237,7 @@ $supp .= "</select>";
                                 <h2 class="text-dark text-start ps-3 ">Inventory </h2>
                             </div>
                             <div class="position-left w-50">
-                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 65%;"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
+                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 55%;"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
                             </div>
                             
                         </div>
@@ -259,7 +259,8 @@ $supp .= "</select>";
                                                 <th scope="col">Supplier Name</th>
                                                 <th scope="col">Date Stock</th>
                                                 <th scope="col">Price</th>
-                                                <th scope="col"style="text-align: center;">Action</th>
+                                                <th scope="col">Expiration Date</th>
+                                                <th scope="col" style="text-align: center;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -282,6 +283,7 @@ $supp .= "</select>";
                                                 <td><?php echo $raw['company_name'];  ?></td>
                                                 <td><?php echo $row['stock_in'];  ?></td>
                                                 <td ><?php echo $row['price'];  ?></td>
+                                                <td ><?php echo $row['date_expired'];  ?></td>
                                                 <td>
                                                     <div class="d-flex flex-row justify-content-center">
                                                         <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
@@ -364,6 +366,11 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
                             <label for="name">Date Stock in </label>
                             <input type="Date" class="form-control" name="stock_in" required="">
                         </div>
+
+                        <div class="form-group">
+                            <label for="name">Expired Date </label>
+                            <input type="Date" class="form-control" name="expired" required="">
+                        </div>
                         <div class="modal-footer">
                             <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
                             <input type="submit" name="create" class="btn btn-success" value="Add">
@@ -425,6 +432,11 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
                         <div class="form-group">
                             <label for="name">Price </label>
                             <input type="number" class="form-control" name="price" id="price" required="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Expired Date </label>
+                            <input type="Date" class="form-control" name="expired" id="date_expired" required="">
                         </div>
 
                         <div class="modal-footer">
@@ -496,6 +508,7 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
         $('#company_name').val(data[6]);
         $('#stock_in').val(data[7]);
         $('#price').val(data[8]);
+        $('#date_expired').val(data[9]);
       })
     });
   </script>

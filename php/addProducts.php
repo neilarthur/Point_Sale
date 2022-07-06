@@ -13,11 +13,12 @@ if (isset($_POST['create'])) {
 	$supplier = $_POST['supplier'];
 	$category = $_POST['category'];
 	$stock_in = $_POST['stock_in'];
+	$exp_date = $_POST['expired'];
 
 
 
 	
-	$sql = "INSERT INTO inventory (category_id,bar_code,item_name,quantity,on_hand,stock_in,price,supplier_id) Values ('$category','$bar_code','$item_name','$quantity','$on_hand','$stock_in','$price','$supplier')";
+	$sql = "INSERT INTO inventory (category_id,bar_code,item_name,quantity,on_hand,stock_in,price,supplier_id,date_expired) Values ('$category','$bar_code','$item_name','$quantity','$on_hand','$stock_in','$price','$supplier','$exp_date')";
 
 	$results = mysqli_query($con,$sql);
 

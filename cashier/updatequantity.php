@@ -9,6 +9,7 @@ if (isset($_POST['update'])) {
   	$qty = $_POST['quantity_number'];
   	$code = $_POST['bar_code'];
 
+
   	$sales_run = "UPDATE sales SET sales_quantity = '$qty' WHERE bar_code = '$code'";
 
   	if ($con -> query($sales_run) === TRUE) {
@@ -20,33 +21,51 @@ if (isset($_POST['update'])) {
 
   			while ($row = mysqli_fetch_array($results)) {
 
+          $price_inventory = $row['price'];
+
   				$qty_inventory = $row['quantity'];
 
+
   				$total = ($qty_inventory - $qty) + 1;
+
+          $total_price = $price_inventory * $qty;
+
 
 
   				$inventory_run = "UPDATE inventory SET quantity = '$total' WHERE bar_code = '$code'";
   				$ivty = mysqli_query($con, $inventory_run);
 
   				if ($ivty) {
-  					
-  					header("location:dashboard.php");
+
+          # start...
+
+            $s_price = "UPDATE sales SET total = '$total_price' WHERE bar_code = '$code'";
+            $s_total = mysqli_query($con,$s_price);
+
+            if ($s_total) {
+              
+              header("location: dashboard.php");
+            }
+            else{
+              echo 'error1, ' . $con -> error;
+            }
+  
   				}
   				else {
-  					echo 'error1, ' . $con -> error;
+  					echo 'error2, ' . $con -> error;
   				}
   			}
   		}
   		else{
-  			echo 'error2, ' . $con -> error;
+  			echo 'error3, ' . $con -> error;
   		}
   	}
   	else {
-  		echo 'error3, ' . $con -> error;
+  		echo 'error4, ' . $con -> error;
   	}
 }
 else{
-	echo 'error4, ' . $con -> error;
+	echo 'error5, ' . $con -> error;
 }
 
 ?>

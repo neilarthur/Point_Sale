@@ -18,11 +18,13 @@ if (isset($_POST['create'])) {
 		$price = $rows['price'];
 
 		$quantity = '1';
+
+		$total_price = $price * $quantity;
 	}
 
 	if ($resulted) {
 		
-			$sql = "INSERT INTO sales (item_id,bar_code, item_name, sales_price,sales_quantity) Values ('$item_id', '$bar_code', '$item_name', '$price','$quantity')";
+			$sql = "INSERT INTO sales (item_id,bar_code, item_name, sales_price,sales_quantity,total) Values ('$item_id', '$bar_code', '$item_name', '$price','$quantity','$total_price')";
 			$results = mysqli_query($con,$sql);
 
 			if($results){
@@ -39,11 +41,14 @@ if (isset($_POST['create'])) {
 		  				$total = $qty_inventory - $quantity;
 
 
+
+
+
 		  				$inventory_run = "UPDATE inventory SET quantity = '$total' WHERE bar_code = '$bar_code'";
 		  				$ivty = mysqli_query($con, $inventory_run);
 
 		  				if ($ivty) {
-		  					
+
 		  					header("location:dashboard.php");
 		  				}
 		  				else {

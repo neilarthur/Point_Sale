@@ -72,10 +72,10 @@ include 'connection.php';
                         <a class="navigation-link" href="dashboard.php">
                             <div class="row">
                                 <div class="col-2">
-                                   <i class='bx bxs-dashboard'></i>
+                                    <i class='bx bxs-home-alt-2'></i>
                                 </div>
                                 <div class="col-9">
-                                    Dashboard
+                                    Home
                                 </div>
                             </div>
                         </a>
@@ -214,7 +214,7 @@ include 'connection.php';
 
                         <!-- Earnings (Weekly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-5">
-                            <div class="card border-light shadow h-100 py-1">
+                            <div class="card border-left-success shadow h-100 py-1">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -227,7 +227,7 @@ include 'connection.php';
 
                                                 $row = mysqli_num_rows($query_result);
 
-                                                echo '<h4  class="h4 mb-0 font-weight-bold text-gray-800"><b>'.$row.' Record(s)</b></h4>';
+                                                echo '<h2  class="h2 mb-0 font-weight-bold text-gray-800"><b>'.$row.'</b> </h2>';
 
                                                 ?>
                                             </div>
@@ -242,7 +242,7 @@ include 'connection.php';
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-5">
-                            <div class="card border-light shadow h-100 py-1">
+                            <div class="card border-left-success shadow h-100 py-1">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -256,7 +256,7 @@ include 'connection.php';
 
                                                 $row = mysqli_num_rows($query_result);
 
-                                                echo '<h4  class="h4 mb-0 font-weight-bold text-gray-800"><b>'.$row.' Record(s) </b></h4>';
+                                                echo '<h4  class="h2 mb-0 font-weight-bold text-gray-800"><b>'.$row.'</b></h4>';
 
                                                 ?>
 
@@ -272,7 +272,7 @@ include 'connection.php';
                        
                         <!-- Earnings (Annual) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-5">
-                            <div class="card border-light shadow h-100 py-1">
+                            <div class="card border-left-success shadow h-100 py-1">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -286,7 +286,7 @@ include 'connection.php';
 
                                                 $raw = mysqli_num_rows($query_result);
 
-                                                echo '<h4 class="h4 mb-0 font-weight-bold text-gray-800"><b>'.$raw.' Records(s)</b></h4>';
+                                                echo '<h4 class="h2 mb-0 font-weight-bold text-gray-800"><b>'.$raw.'</b></h4>';
 
                                                 ?>
                                         </div>
@@ -301,7 +301,7 @@ include 'connection.php';
 
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-3 col-md-6 mb-5">
-                            <div class="card border-light shadow h-100 py-1">
+                            <div class="card border-left-warning shadow h-100 py-1">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -314,7 +314,7 @@ include 'connection.php';
 
                                                 $raw = mysqli_num_rows($query_result);
 
-                                                echo '<h4 class="h4 mb-0 font-weight-bold text-gray-800""><b>'.$raw.' Record(s)</b></h4>';
+                                                echo '<h4 class="h2 mb-0 font-weight-bold text-gray-800""><b>'.$raw.'</b></h4>';
 
                                                 ?>
                                         </div>

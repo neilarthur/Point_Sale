@@ -13,8 +13,9 @@ if (isset($_POST['update'])) {
       $category = $_POST['category'];
       $stock_in = $_POST['stock_in'];
       $price = $_POST['price'];
+      $exp_date = $_POST['expired'];
 
-      $inventory_run = "UPDATE inventory SET bar_code = '$bar_code', item_name = '$item_name', quantity ='$quantity',on_hand ='$on_hand', stock_in ='$stock_in', category_id = '$category', supplier_id = '$supplier', price ='$price' WHERE item_id = '$update_id'";
+      $inventory_run = "UPDATE inventory SET bar_code = '$bar_code', item_name = '$item_name', quantity ='$quantity',on_hand ='$on_hand', stock_in ='$stock_in', category_id = '$category', supplier_id = '$supplier', price ='$price', date_expired='$exp_date' WHERE item_id = '$update_id'";
 
       $results = mysqli_query($con, $inventory_run);
 
