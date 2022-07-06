@@ -147,6 +147,7 @@ include '../php/connection.php';
                                     <table class="table table-striped align-middle">
                                         <thead>
                                             <tr>
+                                                 <th scope="col">#</th>
                                                 <th scope="col">Barcode</th>
                                                 <th scope="col">Item Name</th>
                                                 <th scope="col">Price</th>
@@ -165,17 +166,15 @@ include '../php/connection.php';
 
                                             while ($rows=mysqli_fetch_assoc($query_run) AND $dow=mysqli_fetch_assoc($sql_run)) { ?>
                                             <tr>
+                                                <td><?php echo $rows['sales_id'];  ?></td>
                                                 <TD><?php echo $rows['bar_code'];  ?></TD>
                                                 <TD><?php echo $rows['item_name'];  ?></TD>
                                                 <TD><?php echo $rows['price'];  ?></TD>
-                                                <TD>
-
-                                                </TD>
+                                                <TD style="text-align:center"><?php echo $dow['sales_quantity'];  ?></TD>
                                                  <TD style="text-align:center"><?php echo $dow['Total'];  ?></TD>
                                                  <TD style="text-align:center"><?php echo $dow['Profit'];  ?></TD>
                                                  <TD>
-                                                    <button class="btn btn-success" data-dir="up" data-bs-toggle="modal"
-                                                    data-bs-target="#quantity">
+                                                    <button class="btn btn-success quantitybtn " data-dir="up" data-bs-toggle="modal" >
                                                         <i class='bx bx-plus'></i>
                                                     </button>
 
@@ -254,13 +253,14 @@ include '../php/connection.php';
             <div class="modal-header">
                 <h5 class="modal-title" id="mediumModalLabel">Add Quantity</h5>
             </div>
-            <form action="deletesupplier.php" method="POST">
+            <form action="updatequantity.php" method="POST">
                 <div class="modal-body">
-                     <input type="hidden" name="delete_id" id="delete_id">
-                     <input type="number" class="form-control-sm" id="colFormLabelSm">
+                     <input type="hidden" name="update_id" id="update_id">
+                     <input type="number" class="form-control-sm" name="quantity_number" id="sales_quantity"><br><br>
+                     <input type="text" class="form-control-sm" name="bar_code" id="bar_code">
 
                     <div class="modal-footer">
-                        <button type="submit" name="delete" class="btn btn-success">ADD</button>
+                        <button type="submit" name="update" class="btn btn-success">ADD</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCEL</button>
                     </div>
                 </div>
@@ -278,24 +278,25 @@ include '../php/connection.php';
         document.getElementById("sidebarToggle").classList.toggle("active");
     })
 </script>
-<script type="text/javascript">
-    $(document).on('click', '.number-spinner button', function () {    
-    var btn = $(this),
-        oldValue = btn.closest('.number-spinner').find('input').val().trim(),
-        newVal = 0;
-    
-    if (btn.attr('data-dir') == 'up') {
-        newVal = parseInt(oldValue) + 1;
-    } else {
-        if (oldValue > 1) {
-            newVal = parseInt(oldValue) - 1;
-        } else {
-            newVal = 1;
-        }
-    }
-    btn.closest('.number-spinner').find('input').val(newVal);
-});
 
+ <script type="text/javascript">
+    $(document).ready(function() {
+        $('.quantitybtn').on('click', function() {
+
+            $('#quantity').modal('show');
+
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+            console.log(data);
+            $('#update_id').val(data[0]);
+            $('#bar_code').val(data[1]);
+            $('#sales_quantity').val(data[4]);
+
+        })
+    });
 </script>
 
 

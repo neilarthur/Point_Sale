@@ -26,13 +26,41 @@ if (isset($_POST['create'])) {
 			$results = mysqli_query($con,$sql);
 
 			if($results){
-				header("location: dashboard.php");
+
+				$invent_run = "SELECT * FROM inventory WHERE bar_code = '$bar_code'";
+				$wer = mysqli_query($con,$invent_run);
+
+		  		if ($wer) {
+
+		  			while ($row = mysqli_fetch_array($wer)) {
+
+		  				$qty_inventory = $row['quantity'];
+
+		  				$total = $qty_inventory - $quantity;
+
+
+		  				$inventory_run = "UPDATE inventory SET quantity = '$total' WHERE bar_code = '$bar_code'";
+		  				$ivty = mysqli_query($con, $inventory_run);
+
+		  				if ($ivty) {
+		  					
+		  					header("location:dashboard.php");
+		  				}
+		  				else {
+		  					echo 'error1, ' . $con -> error;
+		  				}
+		  			}
+		  		}
+		  		else{
+		  			echo 'error2, ' . $con -> error;
+		  		}
+						header("location: dashboard.php");
+					}
+					else{
+						echo $con -> error;
+						#header("location:dashboard.php?failed");
+					}
 			}
-			else{
-				echo $con -> error;
-				#header("location:dashboard.php?failed");
-			}
-	}
 	else {
 		header("location:dashboard.php");
 	}

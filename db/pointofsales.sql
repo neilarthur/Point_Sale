@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 05, 2022 at 04:57 PM
+-- Generation Time: Jul 06, 2022 at 11:15 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -90,10 +90,10 @@ CREATE TABLE `inventory` (
 INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`) VALUES
 (1, 5808304721, 'Piatos Snacks Barbeque', 100, 15, 0, 20, 1, 2, '2022-02-11'),
 (2, 4306509232, 'Loaded Snacks Chocolate', 10, 10, 0, 50, 1, 2, '2022-03-11'),
-(3, 36930052132, 'Red Horse', 50, 75, 0, 100, 3, 3, '2022-07-02'),
-(4, 4159814267, 'Hansel Chocolate Snacks', 100, 10, 0, 50, 1, 2, '2022-02-11'),
-(5, 2852176399, 'Cream O chips', 50, 50, 0, 50, 1, 2, '2022-07-02'),
-(6, 223852176398, 'ALASKA Drinks', 5000, 5000, 0, 5000, 3, 1, '2022-07-11'),
+(3, 36930052132, 'Red Horse', 46, 75, 0, 100, 3, 3, '2022-07-02'),
+(4, 4159814267, 'Hansel Chocolate Snacks', 91, 10, 0, 50, 1, 2, '2022-02-11'),
+(5, 2852176399, 'Cream O chips', 25, 50, 0, 50, 1, 2, '2022-07-02'),
+(6, 223852176398, 'ALASKA Drinks', 4995, 5000, 0, 5000, 3, 1, '2022-07-11'),
 (7, 165686701, 'Lechon Manok', 505, 500, 0, 505, 1, 1, '2022-02-11');
 
 -- --------------------------------------------------------
@@ -140,11 +140,9 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`sales_id`, `item_id`, `bar_code`, `item_name`, `sales_price`, `Profit`, `sales_quantity`, `Total`) VALUES
-(25, 7, '165686701', 'Lechon Manok', 500, 0, 0, 0),
-(26, 2, '4306509232', 'Loaded Snacks Chocolate', 10, 0, 1, 0),
-(27, 7, '165686701', 'Lechon Manok', 500, 0, 1, 0),
-(28, 2, '4306509232', 'Loaded Snacks Chocolate', 10, 0, 1, 0),
-(29, 5, '2852176399', 'Cream O chips', 50, 0, 1, 0);
+(1, 3, '36930052132', 'Red Horse', 75, 0, 3, 0),
+(2, 6, '223852176398', 'ALASKA Drinks', 5000, 0, 3, 0),
+(3, 4, '4159814267', 'Hansel Chocolate Snacks', 10, 0, 6, 0);
 
 -- --------------------------------------------------------
 
@@ -277,7 +275,7 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `supplier`
