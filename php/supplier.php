@@ -69,10 +69,10 @@ include 'connection.php';
                         <a class="navigation-link" href="dashboard.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxs-home-alt-2'></i>
+                                    <i class='bx bxs-dashboard'></i>
                                 </div>
                                 <div class="col-9">
-                                    Home
+                                    Dashboard
                                 </div>
                             </div>
                         </a>
@@ -208,7 +208,7 @@ include 'connection.php';
                                 <h2 class="text-dark text-start ps-3 ">Supplier</h2>
                             </div>
                             <div class="position-left w-50">
-                                <button type="button" class="btn btn-success px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 55%"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
+                                <button type="button" class="btn btn-primary px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 55%"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>
                             </div>
                             
                         </div>
@@ -270,6 +270,7 @@ include 'connection.php';
                 <form action="addSupplier.php" method="Post">
                     <div class="modal-header">
                         <h4 class="title">Add Suppliers</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">

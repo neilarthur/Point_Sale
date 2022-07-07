@@ -21,59 +21,58 @@ include_once 'php/connection.php';
   <link rel="stylesheet" type="text/css" href="style/styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+  <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      rel="stylesheet"
+    />
+
 </head>
-<body>
-  
-  <div class="container-fluid">
-  <div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-12 d-flex align-items-center justify-content-center">
-      <img src="image/pos.jpg" class="img-fluid" width="700px">
-    </div>
-
-    <div class="col-lg-6 col-md-6 col-sm-12 mt-4">
-      <div class="row">
-        <h1 class="display-4 text-start">Point of Sale And <br>Inventory System</h1>
-      </div>
-      <p></p><br>
-
-      <!-- Login -->
-      <div class="card w-75  shadow p-3 mb-5 bg-white rounded" >
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <?php if (isset($_GET['error'])) { ?>
+<body style="background-color: rgb(78, 115, 223);">
+<div class="container" style="margin-top: 10%;">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card-group mb-0">
+          <div class="card p-4">
+            <div class="card-body">
+              <h1 style="text-align:center;">Welcome</h1>
+              <p class="text-bold" style="text-align:center;">Point of Sale and Inventory System</p>
+               <?php if (isset($_GET['error'])) { ?>
                   <p class="error"><center><b style="color: red;"><?php echo $_GET['error'];  ?></b></center></p>
                 <?php }  
                 ?>
-              <form action="php/login.php" method="POST" class="m-4">
 
-                <label class="ms-2" for="username">Username</label>
-                <input class="form-control" type="text" name="username" required><br>
-
-                <label class="ms-2" for="password">Password</label>
-                <input class="form-control" type="password" name="password" required><br><br>
-                <div class="d-flex justify-content-between align-items-center">
-                  <!-- Checkbox -->
-                  <div class="form-check mb-1">
-                    <input class="form-check-input me-1" type="checkbox" value="" id="form2Example3" />
-                    <label class="form-check-label" for="form2Example3" style="padding-right: 14.5rem;">Remember me</label>
-                  </div>
-                  
+              <form action="php/login.php" method="POST" class="m-1">
+                <div class="input-group mb-3">
+                   <span class="far fa-user p-2"></span>
+                   <input class="form-control" type="text" name="username" placeholder=" Username">
+              </div>
+              <div class="input-group mb-4">
+                <span class="fas fa-lock p-2"></span>
+                <input class="form-control" type="password" name="password" required placeholder="Password">
+              </div>
+              <div class="row">
+                <div class="col-5 text-center">
+                  <button type="submit" class="btn btn-primary px-4">Login</button>
                 </div>
-
-                 <div class="text-center text-lg-start mt-4 pt-2 d-grid gap-2">
-                  <button type="submit" class="btn btn-primary btn-lg px-4">Login</button>
-
+                <div class="form-check col-7 text-right mt-2" style="padding-left:80px;">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                  <label class="form-check-label" for="defaultCheck1">Remember Me</label>
                 </div>
-
+              </div>
               </form>
+            </div>
+          </div>
+          <div class="card text-white py-5 d-md-down-none" style="width:44%">
+            <div class="card-body text-center">
+              <div>
+                <img src="image/pos.jpg" class="img-fluid" width="500px">
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 
 </body>

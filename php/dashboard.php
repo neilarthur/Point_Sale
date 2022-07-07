@@ -71,10 +71,10 @@ include 'connection.php';
                         <a class="navigation-link" href="dashboard.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxs-home-alt-2'></i>
+                                    <i class='bx bxs-dashboard'></i>
                                 </div>
                                 <div class="col-9">
-                                    Home
+                                    Dashboard
                                 </div>
                             </div>
                         </a>
@@ -226,7 +226,7 @@ include 'connection.php';
 
                                                 $row = mysqli_num_rows($query_result);
 
-                                                echo '<h2  class="h2 mb-0 font-weight-bold text-gray-800"><b>'.$row.'</b> </h2>';
+                                                echo '<h4  class="h4 mb-0 font-weight-bold text-gray-800"><b>'.$row.' Record(s)</b> </h2>';
 
                                                 ?>
                                             </div>
@@ -255,7 +255,7 @@ include 'connection.php';
 
                                                 $row = mysqli_num_rows($query_result);
 
-                                                echo '<h4  class="h2 mb-0 font-weight-bold text-gray-800"><b>'.$row.'</b></h4>';
+                                                echo '<h4  class="h4 mb-0 font-weight-bold text-gray-800"><b>'.$row.' Record(s)</b></h4>';
 
                                                 ?>
 
@@ -285,7 +285,7 @@ include 'connection.php';
 
                                                 $raw = mysqli_num_rows($query_result);
 
-                                                echo '<h4 class="h2 mb-0 font-weight-bold text-gray-800"><b>'.$raw.'</b></h4>';
+                                                echo '<h4 class="h4 mb-0 font-weight-bold text-gray-800"><b>'.$raw.' Record(s)</b></h4>';
 
                                                 ?>
                                         </div>
@@ -313,7 +313,7 @@ include 'connection.php';
 
                                                 $raw = mysqli_num_rows($query_result);
 
-                                                echo '<h4 class="h2 mb-0 font-weight-bold text-gray-800""><b>'.$raw.'</b></h4>';
+                                                echo '<h4 class="h4 mb-0 font-weight-bold text-gray-800""><b>'.$raw.' Record(s)</b></h4>';
 
                                                 ?>
                                         </div>

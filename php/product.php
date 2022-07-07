@@ -69,10 +69,10 @@ include 'connection.php';
                         <a class="navigation-link" href="dashboard.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxs-home-alt-2'></i>
+                                    <i class='bx bxs-dashboard'></i>
                                 </div>
                                 <div class="col-9">
-                                    Home
+                                    Dashboard
                                 </div>
                             </div>
                         </a>
@@ -203,17 +203,14 @@ include 'connection.php';
             <div class="col py-3 d-flex justify-content-center overflow-auto">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col">
-                            <br>
-                            <h2 class="text-dark text-start ps-3">Products</h2><br>
-                        </div>
+                        <h2 class="text-dark text-start ps-3">Products</h2><br>
                     </div>
 
                     <!-- Table -->
                     <div class="row">
                         <div class="col ">
                             <div class="card">
-                                <div class="card-body rounded-3 m-4 table-responsive-lg">
+                                <div class="card-body rounded-3 m-4 table-responsive-sm">
                                     <table class="table table-striped align-middle" id="ProductTab">
                                         <thead>
                                             <tr>
@@ -248,7 +245,7 @@ include 'connection.php';
 
                                                     <td>
                                                         <div class="d-flex flex-row justify-content-center">
-                                                            <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>View</button>
+                                                            <button class="btn btn-primary editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-eye"data-toggle="tooltip" title="edit"></i> </i>View</button>
                                                     </td>
                                                 </tr>
                                             <?php }  ?>
@@ -270,7 +267,8 @@ include 'connection.php';
 
                 <form action="Updateinventory.php" method="Post">
                     <div class="modal-header">
-                        <h4 class="title"> Update Inventory Item</h4>
+                        <h4 class="title">Inventory Item</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="update_id" id="update_id">
@@ -328,7 +326,7 @@ include 'connection.php';
                         </div>
 
                         <div class="modal-footer">
-                            <a type="button" class=" btn btn-danger" data-bs-dismiss="modal">Cancel</a>
+                            <a type="button" class=" btn btn-secondary" data-bs-dismiss="modal">Close</a>
                         </div>
                     </div>
                 </form>
