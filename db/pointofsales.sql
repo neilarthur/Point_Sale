@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2022 at 05:00 PM
+-- Generation Time: Jul 07, 2022 at 08:11 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -76,6 +76,7 @@ CREATE TABLE `inventory` (
   `item_name` varchar(255) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` double NOT NULL,
+  `orignal_price` double NOT NULL,
   `profit` double NOT NULL,
   `on_hand` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
@@ -88,10 +89,9 @@ CREATE TABLE `inventory` (
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`, `date_expired`) VALUES
-(1, 331422605, 'Loaded Snacks', 41, 15, 0, 30, 3, 1, '2022-07-12', '2022-07-14'),
-(2, 165711396, 'Hansel Chocolate Snacks', 40, 15, 0, 20, 1, 2, '2022-07-11', '2022-07-15'),
-(3, 331423493, 'MR chips', 38, 10, 0, 50, 1, 2, '2022-02-11', '2022-07-11');
+INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `orignal_price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`, `date_expired`) VALUES
+(1, 165716772, 'Cream O chips', 48, 40, 50, 10, 100, 1, 2, '2022-07-11', '2022-07-11'),
+(2, 331433843, 'Plus Apple Drinks', 88, 10, 12, 2, 50, 3, 4, '2022-02-11', '2022-07-11');
 
 -- --------------------------------------------------------
 
@@ -124,10 +124,10 @@ INSERT INTO `location` (`location_id`, `province`, `city`) VALUES
 CREATE TABLE `sales` (
   `sales_id` int(11) NOT NULL,
   `item_id` bigint(11) NOT NULL,
-  `bar_code` varchar(255) NOT NULL,
-  `item_name` varchar(255) NOT NULL,
+  `product_code` varchar(255) NOT NULL,
+  `product_name` varchar(255) NOT NULL,
   `sales_price` double NOT NULL,
-  `Profit` double NOT NULL,
+  `sales_profit` double NOT NULL,
   `sales_quantity` double NOT NULL,
   `Total` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -136,10 +136,9 @@ CREATE TABLE `sales` (
 -- Dumping data for table `sales`
 --
 
-INSERT INTO `sales` (`sales_id`, `item_id`, `bar_code`, `item_name`, `sales_price`, `Profit`, `sales_quantity`, `Total`) VALUES
-(2, 1, '331422605', 'Loaded Snacks', 15, 0, 3, 225),
-(3, 2, '165711396', 'Hansel Chocolate Snacks', 15, 0, 3, 45),
-(4, 3, '331423493', 'MR chips', 10, 0, 6, 60);
+INSERT INTO `sales` (`sales_id`, `item_id`, `product_code`, `product_name`, `sales_price`, `sales_profit`, `sales_quantity`, `Total`) VALUES
+(1, 1, '165716772', 'Cream O chips', 40, 0, 1, 40),
+(4, 2, '331433843', 'Plus Apple Drinks', 10, 2, 6, 60);
 
 -- --------------------------------------------------------
 
@@ -260,7 +259,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `location`

@@ -12,10 +12,12 @@ if (isset($_POST['update'])) {
       $supplier = $_POST['supplier'];
       $category = $_POST['category'];
       $stock_in = $_POST['stock_in'];
+      $org_price = $_POST['org_price'];
       $price = $_POST['price'];
+      $profit = $_POST['profit'];
       $exp_date = $_POST['expired'];
 
-      $inventory_run = "UPDATE inventory SET bar_code = '$bar_code', item_name = '$item_name', quantity ='$quantity',on_hand ='$on_hand', stock_in ='$stock_in', category_id = '$category', supplier_id = '$supplier', price ='$price', date_expired='$exp_date' WHERE item_id = '$update_id'";
+      $inventory_run = "UPDATE inventory SET bar_code = '$bar_code', item_name = '$item_name', quantity ='$quantity',on_hand ='$on_hand', stock_in ='$stock_in', category_id = '$category', supplier_id = '$supplier', price ='$price', date_expired='$exp_date', orignal_price = '$org_price', profit = '$profit' WHERE item_id = '$update_id'";
 
       $results = mysqli_query($con, $inventory_run);
 

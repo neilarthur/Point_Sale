@@ -9,6 +9,18 @@ if (!isset($_SESSION["username"])) {
 include '../php/connection.php';
 
 
+$cat_run = "SELECT DISTINCT customer_id, first_name , last_name FROM customers order by customer_id asc";
+
+$result_run = mysqli_query($con, $cat_run);
+
+$cat = "<select class='form-control bg-light border-0 small mb-3' name='customers'>
+        <option>Select Customers</option>";
+  while ($craw = mysqli_fetch_assoc($result_run)) {
+    $cat .= "<option value='".$craw['customer_id']."'>".$craw['first_name']." &nbsp; ".$craw['last_name']."</option>";
+  }
+
+$cat .= "</select>";
+
 
 ?>
 <!doctype html>
@@ -147,7 +159,6 @@ include '../php/connection.php';
                                     <table class="table table-striped align-middle">
                                         <thead>
                                             <tr>
-                                                 <th scope="col">#</th>
                                                 <th scope="col">Barcode</th>
                                                 <th scope="col">Item Name</th>
                                                 <th scope="col">Price</th>
@@ -166,19 +177,19 @@ include '../php/connection.php';
 
                                             while ($rows=mysqli_fetch_assoc($query_run) AND $dow=mysqli_fetch_assoc($sql_run)) { ?>
                                             <tr>
-                                                <td><?php echo $rows['sales_id'];  ?></td>
-                                                <TD><?php echo $rows['bar_code'];  ?></TD>
-                                                <TD><?php echo $rows['item_name'];  ?></TD>
-                                                <TD><?php echo $rows['price'];  ?></TD>
+                                                <td hidden=""><?php echo $dow['sales_id'];  ?></td>
+                                                <TD><?php echo $dow['product_code'];  ?></TD>
+                                                <TD><?php echo $dow['product_name'];  ?></TD>
+                                                <TD><?php echo $dow['sales_price'];  ?></TD>
                                                 <TD style="text-align:center"><?php echo $dow['sales_quantity'];  ?></TD>
                                                  <TD style="text-align:center"><?php echo $dow['Total'];  ?></TD>
-                                                 <TD style="text-align:center"><?php echo $dow['Profit'];  ?></TD>
+                                                 <TD style="text-align:center"><?php echo $dow['sales_profit'];  ?></TD>
                                                  <TD>
                                                     <button class="btn btn-success quantitybtn " data-dir="up" data-bs-toggle="modal" >
                                                         <i class='bx bx-plus'></i>
                                                     </button>
 
-                                                    <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i></button>
+                                                    <button class="btn btn-danger deletebtn" data-toggle="modal"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i></button>
                                                          
                                                 </TD>
                                             </tr>
@@ -186,6 +197,8 @@ include '../php/connection.php';
                                         </tbody>
                                     </table>
                                     <hr>
+
+                                    
                                     <table class="table table-striped align-middle" >
                                         <thead>
                                              <tr>
@@ -206,14 +219,14 @@ include '../php/connection.php';
                                             </tr>
                                         </thead>
                                     </table>
-                                    <form class="text-center mt-5">
+                                    <div class="text-center mt-5">
                                         <button class="btn btn-danger mb-3" type="button">
                                             <i class='bx bxs-x-circle'></i> Cancel
                                         </button>
-                                        <button class="btn btn-primary mb-3" type="button">
+                                        <button class="btn btn-primary mb-3 changebtn" type="button" data-toggle="modal">
                                             <i class='bx bxs-shopping-bag-alt' ></i> Change
                                         </button>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -224,12 +237,13 @@ include '../php/connection.php';
                                     <p style="margin-top: 10px;">Barcode Search</p>
 
                                     <input type="text" class="form-control bg-light border-0 small mb-3" name="bar_code">
-                                    
+
+
                                     <button class="btn btn-primary w-100 mb-3" type="submit" name="create">
                                         <i class='bx bx-plus-medical'></i> Add Catalog
                                     </button>
                                     <button class="btn btn-secondary w-100 mb-3" type="button">
-                                        <i class='bx bxs-coupon'></i> Voucher
+                                        <i class='bx bxs-coupon'></i> Discount
                                     </button>
                                     <button class="btn btn-success w-100 mb-3" type="button">
                                         <i class='bx bx-cart' ></i> New Sale
@@ -270,6 +284,56 @@ include '../php/connection.php';
 </div>
 
 
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Add Quantity</h5>
+            </div>
+            <form action="deletecash.php" method="POST">
+                <div class="modal-body">
+                     <input type="hidden" name="delete_id" id="delete_id">
+                    <div class="modal-footer">
+                        <button type="submit" name="delete" class="btn btn-success">Delete</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCEL</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="change" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Do you want to Save</h5>
+            </div>
+            <form action="savepos.php" method="POST">
+                <div class="modal-body">
+                     <input type="hidden" name="save_id" id="save_id">
+                     <?php
+
+                     echo $cat;  
+
+                     ?>
+
+                       <p style="margin-top: 10px;">Enter your Cash</p>
+
+                       <input type="number" class="form-control bg-light border-0 small mb-3" name="cash">
+                                    
+                    <div class="modal-footer">
+                        <button type="submit" name="save" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCEL</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
  
 <script>
     let sidebarToggle = document.querySelector(".sidebarToggle");
@@ -294,6 +358,44 @@ include '../php/connection.php';
             $('#update_id').val(data[0]);
             $('#bar_code').val(data[1]);
             $('#sales_quantity').val(data[4]);
+
+        })
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.deletebtn').on('click', function() {
+
+            $('#delete').modal('show');
+
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+            console.log(data);
+            $('#delete_id').val(data[0]);
+
+        })
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.changebtn').on('click', function() {
+
+            $('#change').modal('show');
+
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+            console.log(data);
+            $('#save_id').val(data[0]);
 
         })
     });

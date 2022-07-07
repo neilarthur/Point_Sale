@@ -11,7 +11,7 @@ include 'connection.php';
 
 $cat_run = "SELECT DISTINCT category_name, category_id FROM category order by category_id asc";
 
-$result_run = mysqli_query($con, $cat_run) or die ("Bad SQL: $cat_run");
+$result_run = mysqli_query($con, $cat_run);
 
 $cat = "<select class='form-control mb-3' name='category'>
         <option>Select Category</option>";
@@ -24,7 +24,7 @@ $cat .= "</select>";
 
 $sup_run = "SELECT DISTINCT company_name, supplier_id FROM supplier order by supplier_id asc";
 
-$resulted = mysqli_query($con, $sup_run) or die ("Bad SQL: $sup_run");
+$resulted = mysqli_query($con, $sup_run);
 
 $supp = "<select class='form-control mb-3' name='supplier'>
         <option>Select Category</option>";
@@ -242,6 +242,14 @@ $supp .= "</select>";
                             
                         </div>
                     </div>
+                    <?php
+                            $expired = mysqli_query($con, "SELECT * FROM inventory WHERE (( date_expired - INTERVAL 8 DAY) <= current_date()) ORDER BY date_expired asc");
+
+                            while($row = mysqli_fetch_array($expired)) { ?>
+                            <h6 class="bg-warning p-1 ps-3 rounded-pill">Item Expiring: [<?php echo $row['bar_code']. "] - " .$row['item_name']. " - [" .$row['date_expired']; ?>]</h6>
+                            <?php
+                            }
+                            ?>
                 <!-- Table -->
                     <div class="row">
                         <div class="col ">
@@ -258,13 +266,16 @@ $supp .= "</select>";
                                                 <th scope="col">Category</th>
                                                 <th scope="col">Supplier Name</th>
                                                 <th scope="col">Date Stock</th>
+                                                <th scope="col">Original Price</th>
                                                 <th scope="col">Price</th>
-                                                <th scope="col">Expiration Date</th>
+                                                <th scope="col">Profit</th>
+                                                <th scope="col">Expirated Date</th>
                                                 <th scope="col" style="text-align: center;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
+
 
                                             $query_run = mysqli_query($con,"SELECT * FROM inventory");
 
@@ -282,7 +293,9 @@ $supp .= "</select>";
                                                 <td ><?php echo $rows['category_name'];  ?></td>
                                                 <td><?php echo $raw['company_name'];  ?></td>
                                                 <td><?php echo $row['stock_in'];  ?></td>
+                                                <td ><?php echo $row['orignal_price'];  ?></td>
                                                 <td ><?php echo $row['price'];  ?></td>
+                                                <td ><?php echo $row['profit'];  ?></td>
                                                 <td ><?php echo $row['date_expired'];  ?></td>
                                                 <td>
                                                     <div class="d-flex flex-row justify-content-center">
@@ -326,8 +339,16 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
                             <input type="text" class="form-control" name="quantity" required="">
                         </div>
                         <div class="form-group">
+                            <label for="name">Original Price</label>
+                            <input type="text" class="form-control" name="orig_price" id="txt2" onkeyup="sum();" required="">
+                        </div>
+                        <div class="form-group">
                             <label for="name">Price</label>
-                            <input type="text" class="form-control" name="price" required="">
+                            <input type="text" class="form-control" name="price" id="txt1" onkeyup="sum();" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Profit</label>
+                            <input type="text" class="form-control" name="profit" id="txt3" required="">
                         </div>
                         <div class="form-group">
                             <label for="name">On hand </label>
@@ -428,10 +449,19 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
                             <label for="name">Date Stock in </label>
                             <input type="Date" class="form-control" name="stock_in" id="stock_in" required="">
                         </div>
+                        <div class="form-group">
+                            <label for="name">Original Price </label>
+                            <input type="number" class="form-control txt5" name="org_price" id="orignal_price" readonly="">
+                        </div>
 
                         <div class="form-group">
                             <label for="name">Price </label>
-                            <input type="number" class="form-control" name="price" id="price" required="">
+                            <input type="number" class="form-control txt4" name="price" id="price" readonly="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Profit </label>
+                            <input type="number" class="form-control txt6" name="profit" id="profit" readonly="">
                         </div>
 
                         <div class="form-group">
@@ -507,8 +537,10 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
         $('#category_name').val(data[5]);
         $('#company_name').val(data[6]);
         $('#stock_in').val(data[7]);
-        $('#price').val(data[8]);
-        $('#date_expired').val(data[9]);
+        $('#orignal_price').val(data[8]);
+        $('#price').val(data[9]);
+        $('#profit').val(data[10]);
+        $('#date_expired').val(data[11]);
       })
     });
   </script>
@@ -558,6 +590,19 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
 
     }
 </script>
+
+
+<script>
+    function sum() {
+        var txtFirstNumberValue = document.getElementById('txt2').value;
+        var txtSecondNumberValue = document.getElementById('txt1').value;
+        var result = parseInt(txtFirstNumberValue) - parseInt(txtSecondNumberValue);
+        if (!isNaN(result)) {
+            document.getElementById('txt3').value = result;
+        }
+    }
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
 </body>

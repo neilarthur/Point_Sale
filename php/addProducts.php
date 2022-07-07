@@ -8,7 +8,9 @@ if (isset($_POST['create'])) {
 	$bar_code = $_POST['bar_code'];
 	$item_name = $_POST['item_name'];
 	$quantity = $_POST['quantity'];
+	$orig_price = $_POST['orig_price'];
 	$price = $_POST['price'];
+	$profits = $_POST['profit'];
 	$on_hand = $_POST['on_hand'];
 	$supplier = $_POST['supplier'];
 	$category = $_POST['category'];
@@ -18,7 +20,7 @@ if (isset($_POST['create'])) {
 
 
 	
-	$sql = "INSERT INTO inventory (category_id,bar_code,item_name,quantity,on_hand,stock_in,price,supplier_id,date_expired) Values ('$category','$bar_code','$item_name','$quantity','$on_hand','$stock_in','$price','$supplier','$exp_date')";
+	$sql = "INSERT INTO inventory (category_id, bar_code, item_name, quantity, on_hand, stock_in, price, orignal_price, profit, supplier_id, date_expired) Values ('$category','$bar_code','$item_name','$quantity','$on_hand','$stock_in','$price','$orig_price','$profits', '$supplier','$exp_date')";
 
 	$results = mysqli_query($con,$sql);
 
@@ -26,7 +28,7 @@ if (isset($_POST['create'])) {
 		header("location:inventory.php");
 	}
 	else {
-		header("location:inventory.php");
+		echo 'error1, ' . $con -> error;
 	}
   }
 ?>

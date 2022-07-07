@@ -16,6 +16,7 @@ if (isset($_POST['create'])) {
 		$item_id = $rows['item_id'];
 		$item_name = $rows['item_name'];
 		$price = $rows['price'];
+		$profit_inventory = $rows['profit'];
 
 		$quantity = '1';
 
@@ -24,7 +25,7 @@ if (isset($_POST['create'])) {
 
 	if ($resulted) {
 		
-			$sql = "INSERT INTO sales (item_id,bar_code, item_name, sales_price,sales_quantity,total) Values ('$item_id', '$bar_code', '$item_name', '$price','$quantity','$total_price')";
+			$sql = "INSERT INTO sales (item_id,product_code, product_name, sales_price,sales_quantity,total,sales_profit) Values ('$item_id', '$bar_code', '$item_name', '$price','$quantity','$total_price','$profit_inventory')";
 			$results = mysqli_query($con,$sql);
 
 			if($results){

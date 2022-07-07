@@ -10,7 +10,7 @@ if (isset($_POST['update'])) {
   	$code = $_POST['bar_code'];
 
 
-  	$sales_run = "UPDATE sales SET sales_quantity = '$qty' WHERE bar_code = '$code'";
+  	$sales_run = "UPDATE sales SET sales_quantity = '$qty' WHERE product_code = '$code'";
 
   	if ($con -> query($sales_run) === TRUE) {
 
@@ -39,7 +39,7 @@ if (isset($_POST['update'])) {
 
           # start...
 
-            $s_price = "UPDATE sales SET total = '$total_price' WHERE bar_code = '$code'";
+            $s_price = "UPDATE sales SET total = '$total_price' WHERE product_code = '$code'";
             $s_total = mysqli_query($con,$s_price);
 
             if ($s_total) {
