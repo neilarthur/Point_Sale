@@ -24,20 +24,19 @@ if (isset($_POST['create'])) {
 	}
 
 	if ($resulted) {
-		
-			$sql = "INSERT INTO sales (item_id,product_code, product_name, sales_price,sales_quantity,total,sales_profit) Values ('$item_id', '$bar_code', '$item_name', '$price','$quantity','$total_price','$profit_inventory')";
+
+		$sql = "INSERT INTO sales (item_id,product_code, product_name, sales_price,sales_quantity,total,sales_profit) Values ('$item_id', '$bar_code', '$item_name', '$price','$quantity','$total_price','$profit_inventory')";
 			$results = mysqli_query($con,$sql);
 
 			if($results){
-
 				$invent_run = "SELECT * FROM inventory WHERE bar_code = '$bar_code'";
 				$wer = mysqli_query($con,$invent_run);
 
-		  		if ($wer) {
+				if ($wer) {
 
-		  			while ($row = mysqli_fetch_array($wer)) {
+					while ($row = mysqli_fetch_array($wer)) {
 
-		  				$qty_inventory = $row['quantity'];
+						$qty_inventory = $row['quantity'];
 
 		  				$total = $qty_inventory - $quantity;
 
@@ -49,7 +48,7 @@ if (isset($_POST['create'])) {
 		  				$ivty = mysqli_query($con, $inventory_run);
 
 		  				if ($ivty) {
-
+		  					
 		  					header("location:dashboard.php");
 		  				}
 		  				else {

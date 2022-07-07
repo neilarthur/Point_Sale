@@ -13,7 +13,7 @@ $cat_run = "SELECT DISTINCT customer_id, first_name , last_name FROM customers o
 
 $result_run = mysqli_query($con, $cat_run);
 
-$cat = "<select class='form-control bg-light border-0 small mb-3' name='customers'>
+$cat = "<select class='form-control bg-light border-0 small mb-3' name='custom'>
         <option>Select Customers</option>";
   while ($craw = mysqli_fetch_assoc($result_run)) {
     $cat .= "<option value='".$craw['customer_id']."'>".$craw['first_name']." &nbsp; ".$craw['last_name']."</option>";
@@ -198,26 +198,38 @@ $cat .= "</select>";
                                     </table>
                                     <hr>
 
-                                    
+
+
+
                                     <table class="table table-striped align-middle" >
-                                        <thead>
-                                             <tr>
-                                                <th>Tax:</th>
-                                                <td>0</td>
-                                            </tr>
+
+                                        <?php
+
+                                        $sales_detail = mysqli_query($con,"SELECT sum(total) as 'details' FROM sales");
+
+                                        while ($bows=mysqli_fetch_assoc($sales_detail)) { 
+                                    ?>
+                                        <tbody>
                                             <tr>
-                                                <th>Discount:</th>
-                                                <td>20%</td>
-                                            </tr>
+                                                <th>Tax:</th>
+
+                                                <?php $total_tax = $bows['details'] * 0.12; ?>
+
+                                                <td><b>₱ <?php echo $total_tax;  ?></b></td>
+                                            </tr>   
                                             <tr>
                                                 <th>Sub total:</th>
-                                                <td>PHP 10,000</td>
+                                                <td><b>₱ <?php echo $bows['details'];  ?></b></td>
                                             </tr>
+
+                                            
                                             <tr>
                                                 <th>Total:</th>
-                                                <td>PHP 20,000</td>
+                                                <?php $total_amount = $bows['details'] + $total_tax ?>
+                                                <td><b>₱ <?php echo $total_amount;  ?></b></td>
                                             </tr>
-                                        </thead>
+                                        </tbody>
+                                    <?php } ?>
                                     </table>
                                     <div class="text-center mt-5">
                                         <button class="btn btn-danger mb-3" type="button">
@@ -242,7 +254,7 @@ $cat .= "</select>";
                                     <button class="btn btn-primary w-100 mb-3" type="submit" name="create">
                                         <i class='bx bx-plus-medical'></i> Add Catalog
                                     </button>
-                                    <button class="btn btn-secondary w-100 mb-3" type="button">
+                                    <button class="btn btn-secondary w-100 mb-3 discountbtn" type="button">
                                         <i class='bx bxs-coupon'></i> Discount
                                     </button>
                                     <button class="btn btn-success w-100 mb-3" type="button">
@@ -322,6 +334,8 @@ $cat .= "</select>";
                        <p style="margin-top: 10px;">Enter your Cash</p>
 
                        <input type="number" class="form-control bg-light border-0 small mb-3" name="cash">
+
+                       <input type="hidden" class="form-control bg-light border-0 small mb-3" name="subtotal">
                                     
                     <div class="modal-footer">
                         <button type="submit" name="save" class="btn btn-success">Save</button>
@@ -332,8 +346,6 @@ $cat .= "</select>";
         </div>
     </div>
 </div>
-
-
  
 <script>
     let sidebarToggle = document.querySelector(".sidebarToggle");
@@ -400,6 +412,7 @@ $cat .= "</select>";
         })
     });
 </script>
+
 
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2022 at 08:11 AM
+-- Generation Time: Jul 07, 2022 at 11:19 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -90,8 +90,9 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `orignal_price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`, `date_expired`) VALUES
-(1, 165716772, 'Cream O chips', 48, 40, 50, 10, 100, 1, 2, '2022-07-11', '2022-07-11'),
-(2, 331433843, 'Plus Apple Drinks', 88, 10, 12, 2, 50, 3, 4, '2022-02-11', '2022-07-11');
+(1, 165716772, 'Cream O chips', 46, 40, 50, 10, 100, 1, 2, '2022-07-11', '2022-07-11'),
+(2, 331433843, 'Plus Apple Drinks', 85, 10, 12, 2, 50, 3, 4, '2022-02-11', '2022-07-11'),
+(3, 331435967, 'Red Horse', 7, 80, 75, -5, 15, 3, 4, '2022-02-11', '2022-07-11');
 
 -- --------------------------------------------------------
 
@@ -137,8 +138,26 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`sales_id`, `item_id`, `product_code`, `product_name`, `sales_price`, `sales_profit`, `sales_quantity`, `Total`) VALUES
-(1, 1, '165716772', 'Cream O chips', 40, 0, 1, 40),
-(4, 2, '331433843', 'Plus Apple Drinks', 10, 2, 6, 60);
+(1, 1, '165716772', 'Cream O chips', 40, 0, 3, 120),
+(5, 2, '331433843', 'Plus Apple Drinks', 10, 2, 3, 30),
+(6, 3, '331435967', 'Red Horse', 80, -5, 1, 80);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sales_detail`
+--
+
+CREATE TABLE `sales_detail` (
+  `transac_id` int(11) NOT NULL,
+  `sales_id` int(11) NOT NULL,
+  `sales_subtotal` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `sales_tax` double NOT NULL,
+  `sales_total` double NOT NULL,
+  `cash` double NOT NULL,
+  `date_purchase` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -227,6 +246,14 @@ ALTER TABLE `sales`
   ADD KEY `sales_ibfk_1` (`item_id`);
 
 --
+-- Indexes for table `sales_detail`
+--
+ALTER TABLE `sales_detail`
+  ADD PRIMARY KEY (`transac_id`),
+  ADD KEY `sales_id` (`sales_id`),
+  ADD KEY `customer_id` (`customer_id`);
+
+--
 -- Indexes for table `supplier`
 --
 ALTER TABLE `supplier`
@@ -259,7 +286,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `location`
@@ -271,7 +298,13 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `sales_detail`
+--
+ALTER TABLE `sales_detail`
+  MODIFY `transac_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `supplier`
@@ -301,6 +334,13 @@ ALTER TABLE `inventory`
 --
 ALTER TABLE `sales`
   ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `inventory` (`item_id`);
+
+--
+-- Constraints for table `sales_detail`
+--
+ALTER TABLE `sales_detail`
+  ADD CONSTRAINT `sales_detail_ibfk_1` FOREIGN KEY (`sales_id`) REFERENCES `sales` (`sales_id`),
+  ADD CONSTRAINT `sales_detail_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`);
 
 --
 -- Constraints for table `supplier`
