@@ -9,6 +9,9 @@ if (!isset($_SESSION["username"])) {
 include '../php/connection.php';
 
 
+
+
+
 $cat_run = "SELECT DISTINCT customer_id, first_name , last_name FROM customers order by customer_id asc";
 
 $result_run = mysqli_query($con, $cat_run);
@@ -23,6 +26,30 @@ $cat .= "</select>";
 
 
 ?>
+
+
+<?php
+function createRandomPassword() {
+    $chars = "003232303232023232023456789";
+    srand((double)microtime()*1000000);
+    $i = 0;
+    $pass = '' ;
+    while ($i <= 7) {
+
+        $num = rand() % 33;
+
+        $tmp = substr($chars, $num, 1);
+
+        $pass = $pass . $tmp;
+
+        $i++;
+
+    }
+    return $pass;
+}
+$finalcode='RS-'.createRandomPassword();
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -81,7 +108,7 @@ $cat .= "</select>";
             <div class="sidebar-body">
                 <ul class="navigation-list">
                     <li class="navigation-list-item">
-                        <a class="navigation-link" href="dashboard.php">
+                        <a class="navigation-link" href="dashboard.php?invoice=<?php echo $finalcode ?>">
                             <div class="row">
                                 <div class="col-2">
                                     <i class='bx bxs-bar-chart-square' ></i>
@@ -165,17 +192,18 @@ $cat .= "</select>";
                                                 <th scope="col" style="text-align: center">Quantity</th>
                                                 <th scope="col">Total</th>
                                                 <th scope="col">Profit</th>
+                                                <th scope="col">Invoice</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
 
-                                            $query_run = mysqli_query($con,"SELECT * FROM sales,inventory WHERE(sales.item_id=inventory.item_id)");
+                                            $id = $_GET['invoice'];
 
-                                            $sql_run = mysqli_query($con,"SELECT * FROM sales");
+                                            $sql_run = mysqli_query($con,"SELECT * FROM sales WHERE invoice_code = '$id'");
 
-                                            while ($rows=mysqli_fetch_assoc($query_run) AND $dow=mysqli_fetch_assoc($sql_run)) { ?>
+                                            while ($dow=mysqli_fetch_assoc($sql_run)) { ?>
                                             <tr>
                                                 <td hidden=""><?php echo $dow['sales_id'];  ?></td>
                                                 <TD><?php echo $dow['product_code'];  ?></TD>
@@ -184,6 +212,7 @@ $cat .= "</select>";
                                                 <TD style="text-align:center"><?php echo $dow['sales_quantity'];  ?></TD>
                                                  <TD style="text-align:center"><?php echo $dow['Total'];  ?></TD>
                                                  <TD style="text-align:center"><?php echo $dow['sales_profit'];  ?></TD>
+                                                 <TD><?php echo $dow['invoice_code'];  ?></TD>
                                                  <TD>
                                                     <button class="btn btn-success quantitybtn " data-dir="up" data-bs-toggle="modal" >
                                                         <i class='bx bx-plus'></i>
@@ -201,36 +230,7 @@ $cat .= "</select>";
 
 
 
-                                    <table class="table table-striped align-middle" >
 
-                                        <?php
-
-                                        $sales_detail = mysqli_query($con,"SELECT sum(total) as 'details' FROM sales");
-
-                                        while ($bows=mysqli_fetch_assoc($sales_detail)) { 
-                                    ?>
-                                        <tbody>
-                                            <tr>
-                                                <th>Tax:</th>
-
-                                                <?php $total_tax = $bows['details'] * 0.12; ?>
-
-                                                <td><b>₱ <?php echo $total_tax;  ?></b></td>
-                                            </tr>   
-                                            <tr>
-                                                <th>Sub total:</th>
-                                                <td><b>₱ <?php echo $bows['details'];  ?></b></td>
-                                            </tr>
-
-                                            
-                                            <tr>
-                                                <th>Total:</th>
-                                                <?php $total_amount = $bows['details'] + $total_tax ?>
-                                                <td><b>₱ <?php echo $total_amount;  ?></b></td>
-                                            </tr>
-                                        </tbody>
-                                    <?php } ?>
-                                    </table>
                                     <div class="text-center mt-5">
                                         <button class="btn btn-danger mb-3" type="button">
                                             <i class='bx bxs-x-circle'></i> Cancel
@@ -248,14 +248,36 @@ $cat .= "</select>";
                                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search " action="postransac.php" method="POST">
                                     <p style="margin-top: 10px;">Barcode Search</p>
 
+
                                     <input type="text" class="form-control bg-light border-0 small mb-3" name="bar_code">
 
+                                    <input type="text" name="tans_code" value="<?php echo $id=$_GET['invoice']; ?>" />
+
+
+
+                                    <?php
+                                        $sales_detail = mysqli_query($con,"SELECT sum(total) as 'details' FROM sales WHERE invoice_code = '$id'");
+
+                                        while ($bows=mysqli_fetch_assoc($sales_detail)) { 
+
+                                            $total_tax = $bows['details'] * 0.12;
+                                            $total_amount = $bows['details'] + $total_tax;
+                                    ?>
+
+                                    <input type="number" name="tax" value="<?php echo $total_tax;  ?>" readonly>
+                                    <input type="number" name="sub_total" value="<?php echo $bows['details'];  ?>"readonly >
+                                    <input type="number" name="total" value="<?php echo $total_amount;  ?>" readonly>
+
+                                    <?php
+                                    }  
+                                    ?>
 
                                     <button class="btn btn-primary w-100 mb-3" type="submit" name="create">
                                         <i class='bx bx-plus-medical'></i> Add Catalog
                                     </button>
-                                    <button class="btn btn-secondary w-100 mb-3 discountbtn" type="button">
-                                        <i class='bx bxs-coupon'></i> Discount
+
+                                    <button class="btn btn-secondary w-100 mb-3 changebtn" type="button" data-toggle="modal">
+                                        <i class='bx bxs-coupon'></i> Change
                                     </button>
                                     <button class="btn btn-success w-100 mb-3" type="button">
                                         <i class='bx bx-cart' ></i> New Sale
@@ -284,6 +306,7 @@ $cat .= "</select>";
                      <input type="hidden" name="update_id" id="update_id">
                      <input type="number" class="form-control-sm" name="quantity_number" id="sales_quantity"><br><br>
                      <input type="text" class="form-control-sm" name="bar_code" id="bar_code">
+                     <input type="text" name="update_code" value="<?php echo $id=$_GET['invoice']; ?>">
 
                     <div class="modal-footer">
                         <button type="submit" name="update" class="btn btn-success">ADD</button>
@@ -302,9 +325,14 @@ $cat .= "</select>";
             <div class="modal-header">
                 <h5 class="modal-title" id="mediumModalLabel">Add Quantity</h5>
             </div>
+
+
             <form action="deletecash.php" method="POST">
+               
+
                 <div class="modal-body">
                      <input type="hidden" name="delete_id" id="delete_id">
+                     <input type="text" name="tans_code" value=" <?php echo $id=$_GET['invoice']; ?>">
                     <div class="modal-footer">
                         <button type="submit" name="delete" class="btn btn-success">Delete</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCEL</button>
@@ -324,18 +352,30 @@ $cat .= "</select>";
             </div>
             <form action="savepos.php" method="POST">
                 <div class="modal-body">
-                     <input type="hidden" name="save_id" id="save_id">
                      <?php
 
-                     echo $cat;  
+                     echo $cat;
+
+                     $sales_detail = mysqli_query($con,"SELECT sum(total) as 'details' FROM sales WHERE invoice_code = '$id'");
+
+                     while ($bows=mysqli_fetch_assoc($sales_detail)) { 
 
                      ?>
-
                        <p style="margin-top: 10px;">Enter your Cash</p>
 
                        <input type="number" class="form-control bg-light border-0 small mb-3" name="cash">
 
-                       <input type="hidden" class="form-control bg-light border-0 small mb-3" name="subtotal">
+                        <p style="margin-top: 10px;">Date Purchase</p>
+
+                       <input type="date" class="form-control bg-light border-0 small mb-3" name="date">
+
+                        <input type="hidden" name="taxes" value="<?php echo $total_tax;  ?>" readonly>
+                        <input type="hidden" name="sub_totals" value="<?php echo $bows['details'];  ?>"readonly >
+                        <input type="hidden" name="totals" value="<?php echo $total_amount;  ?>" readonly>
+                        <input type="hidden" name="invoys" value="<?php echo $id=$_GET['invoice']; ?>">
+
+                    <?php } ?>
+
                                     
                     <div class="modal-footer">
                         <button type="submit" name="save" class="btn btn-success">Save</button>
@@ -412,6 +452,9 @@ $cat .= "</select>";
         })
     });
 </script>
+
+
+
 
 
 

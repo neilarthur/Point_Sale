@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2022 at 07:44 PM
+-- Generation Time: Jul 07, 2022 at 11:19 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -90,8 +90,8 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `orignal_price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`, `date_expired`) VALUES
-(1, 165716772, 'Cream O chips', 24, 40, 50, 10, 100, 1, 2, '2022-07-11', '2022-07-11'),
-(2, 331433843, 'Plus Apple Drinks', 84, 10, 12, 2, 50, 3, 4, '2022-02-11', '2022-07-11'),
+(1, 165716772, 'Cream O chips', 46, 40, 50, 10, 100, 1, 2, '2022-07-11', '2022-07-11'),
+(2, 331433843, 'Plus Apple Drinks', 85, 10, 12, 2, 50, 3, 4, '2022-02-11', '2022-07-11'),
 (3, 331435967, 'Red Horse', 7, 80, 75, -5, 15, 3, 4, '2022-02-11', '2022-07-11');
 
 -- --------------------------------------------------------
@@ -126,7 +126,6 @@ CREATE TABLE `sales` (
   `sales_id` int(11) NOT NULL,
   `item_id` bigint(11) NOT NULL,
   `product_code` varchar(255) NOT NULL,
-  `invoice_code` varchar(255) NOT NULL,
   `product_name` varchar(255) NOT NULL,
   `sales_price` double NOT NULL,
   `sales_profit` double NOT NULL,
@@ -138,8 +137,10 @@ CREATE TABLE `sales` (
 -- Dumping data for table `sales`
 --
 
-INSERT INTO `sales` (`sales_id`, `item_id`, `product_code`, `invoice_code`, `product_name`, `sales_price`, `sales_profit`, `sales_quantity`, `Total`) VALUES
-(2, 1, '165716772', 'RS-020790', 'Cream O chips', 40, 10, 3, 120);
+INSERT INTO `sales` (`sales_id`, `item_id`, `product_code`, `product_name`, `sales_price`, `sales_profit`, `sales_quantity`, `Total`) VALUES
+(1, 1, '165716772', 'Cream O chips', 40, 0, 3, 120),
+(5, 2, '331433843', 'Plus Apple Drinks', 10, 2, 3, 30),
+(6, 3, '331435967', 'Red Horse', 80, -5, 1, 80);
 
 -- --------------------------------------------------------
 
@@ -149,21 +150,14 @@ INSERT INTO `sales` (`sales_id`, `item_id`, `product_code`, `invoice_code`, `pro
 
 CREATE TABLE `sales_detail` (
   `transac_id` int(11) NOT NULL,
-  `transac_code` varchar(255) NOT NULL,
-  `transac_subtotal` double NOT NULL,
+  `sales_id` int(11) NOT NULL,
+  `sales_subtotal` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
-  `transac_tax` double NOT NULL,
-  `transac_total` double NOT NULL,
+  `sales_tax` double NOT NULL,
+  `sales_total` double NOT NULL,
   `cash` double NOT NULL,
-  `date_purchase` date DEFAULT current_timestamp()
+  `date_purchase` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `sales_detail`
---
-
-INSERT INTO `sales_detail` (`transac_id`, `transac_code`, `transac_subtotal`, `customer_id`, `transac_tax`, `transac_total`, `cash`, `date_purchase`) VALUES
-(1, 'RS-020790', 120, 3, 14.4, 134.4, 1000, '2022-02-11');
 
 -- --------------------------------------------------------
 
@@ -256,6 +250,7 @@ ALTER TABLE `sales`
 --
 ALTER TABLE `sales_detail`
   ADD PRIMARY KEY (`transac_id`),
+  ADD KEY `sales_id` (`sales_id`),
   ADD KEY `customer_id` (`customer_id`);
 
 --
@@ -303,13 +298,13 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sales_detail`
 --
 ALTER TABLE `sales_detail`
-  MODIFY `transac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `transac_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `supplier`
@@ -344,7 +339,8 @@ ALTER TABLE `sales`
 -- Constraints for table `sales_detail`
 --
 ALTER TABLE `sales_detail`
-  ADD CONSTRAINT `sales_detail_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`);
+  ADD CONSTRAINT `sales_detail_ibfk_1` FOREIGN KEY (`sales_id`) REFERENCES `sales` (`sales_id`),
+  ADD CONSTRAINT `sales_detail_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`);
 
 --
 -- Constraints for table `supplier`
