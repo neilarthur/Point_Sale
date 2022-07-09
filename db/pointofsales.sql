@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2022 at 07:44 PM
+-- Generation Time: Jul 09, 2022 at 06:14 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -90,8 +90,8 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `orignal_price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`, `date_expired`) VALUES
-(1, 165716772, 'Cream O chips', 24, 40, 50, 10, 100, 1, 2, '2022-07-11', '2022-07-11'),
-(2, 331433843, 'Plus Apple Drinks', 84, 10, 12, 2, 50, 3, 4, '2022-02-11', '2022-07-11'),
+(1, 165716772, 'Cream O chips', 20, 40, 50, 10, 100, 1, 2, '2022-07-11', '2022-07-11'),
+(2, 331433843, 'Plus Apple Drinks', 81, 10, 12, 2, 50, 3, 4, '2022-02-11', '2022-07-11'),
 (3, 331435967, 'Red Horse', 7, 80, 75, -5, 15, 3, 4, '2022-02-11', '2022-07-11');
 
 -- --------------------------------------------------------
@@ -139,7 +139,8 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`sales_id`, `item_id`, `product_code`, `invoice_code`, `product_name`, `sales_price`, `sales_profit`, `sales_quantity`, `Total`) VALUES
-(2, 1, '165716772', 'RS-020790', 'Cream O chips', 40, 10, 3, 120);
+(1, 1, '165716772', 'RS-3330253', 'Cream O chips', 40, 10, 4, 160),
+(2, 2, '331433843', 'RS-3330253', 'Plus Apple Drinks', 10, 2, 3, 30);
 
 -- --------------------------------------------------------
 
@@ -163,7 +164,7 @@ CREATE TABLE `sales_detail` (
 --
 
 INSERT INTO `sales_detail` (`transac_id`, `transac_code`, `transac_subtotal`, `customer_id`, `transac_tax`, `transac_total`, `cash`, `date_purchase`) VALUES
-(1, 'RS-020790', 120, 3, 14.4, 134.4, 1000, '2022-02-11');
+(1, 'RS-3330253', 190, 3, 22.8, 212.8, 1000, '2022-02-11');
 
 -- --------------------------------------------------------
 

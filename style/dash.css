@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Albert+Sans&family=Fira+Sans&family=Inter:wght@200&family=Montserrat:ital,wght@0,400;0,500;1,400&family=Roboto+Condensed:ital,wght@0,700;1,400&family=Russo+One&family=Source+Sans+Pro&family=Ubuntu:wght@700&display=swap');
+
+*{
+    font-family: 'Fira Sans', sans-serif;
+}
+
+
 ::-webkit-scrollbar {
     width: 5px;
 }

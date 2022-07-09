@@ -205,7 +205,7 @@ include 'connection.php';
                         <div class="col d-flex justify-content">
                             <br>
                             <div class="w-50">
-                                <h2 class="text-dark text-start ps-3 ">Supplier</h2>
+                                <h2 class="text-dark text-start ps-3 fw-bold">Supplier</h2>
                             </div>
                             <div class="position-left w-50">
                                 <button type="button" class="btn btn-primary px-5 pb-2" data-bs-toggle="modal" data-bs-target="#create" style="margin-left: 55%"><b><i class='bx bxs-plus-circle'></i> </b> ADD</button>

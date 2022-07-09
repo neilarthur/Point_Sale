@@ -203,7 +203,7 @@ include 'connection.php';
             <div class="col py-3 d-flex justify-content-center overflow-auto">
                 <div class="container-fluid">
                     <div class="row">
-                        <h2 class="text-dark text-start ps-3">Products</h2><br>
+                        <h2 class="text-dark text-start ps-3 fw-bold"> Products</h2><br>
                     </div>
 
                     <!-- Table -->

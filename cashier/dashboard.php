@@ -251,7 +251,11 @@ $finalcode='RS-'.createRandomPassword();
 
                                     <input type="text" class="form-control bg-light border-0 small mb-3" name="bar_code">
 
-                                    <input type="text" name="tans_code" value="<?php echo $id=$_GET['invoice']; ?>" />
+                                    <div class="input-group mb-3">
+                                        <input type="text" class ="form-control" name="tans_code" value="<?php echo $id=$_GET['invoice']; ?>" />
+                                    </div>
+
+                                    
 
 
 
@@ -264,9 +268,19 @@ $finalcode='RS-'.createRandomPassword();
                                             $total_amount = $bows['details'] + $total_tax;
                                     ?>
 
-                                    <input type="number" name="tax" value="<?php echo $total_tax;  ?>" readonly>
-                                    <input type="number" name="sub_total" value="<?php echo $bows['details'];  ?>"readonly >
-                                    <input type="number" name="total" value="<?php echo $total_amount;  ?>" readonly>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Tax:</span>
+                                        <input type="number" class="form-control" name="tax" value="<?php echo $total_tax;  ?>" readonly>
+                                    </div>
+                                     <div class="input-group mb-3">
+                                         <span class="input-group-text">Sub total:</span>
+                                         <input type="number" class="form-control" name="sub_total" value="<?php echo $bows['details'];  ?>"readonly >
+                                     </div>
+                                     <div class="input-group mb-3">
+                                        <span class="input-group-text">Total:</span>
+                                        <input type="number" class="form-control" name="total" value="<?php echo $total_amount;  ?>" readonly>
+
+                                     </div>
 
                                     <?php
                                     }  
@@ -300,11 +314,14 @@ $finalcode='RS-'.createRandomPassword();
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="mediumModalLabel">Add Quantity</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="updatequantity.php" method="POST">
                 <div class="modal-body">
                      <input type="hidden" name="update_id" id="update_id">
-                     <input type="number" class="form-control-sm" name="quantity_number" id="sales_quantity"><br><br>
+                     <span>Input: </span>
+                     <input type="number" class="form-control-sm ms-4" name="quantity_number" id="sales_quantity" ><br><br>
+                     <span>Barcode:</span>
                      <input type="text" class="form-control-sm" name="bar_code" id="bar_code">
                      <input type="text" name="update_code" value="<?php echo $id=$_GET['invoice']; ?>">
 
