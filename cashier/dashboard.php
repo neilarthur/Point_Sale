@@ -119,19 +119,6 @@ $finalcode='RS-'.createRandomPassword();
                             </div>
                         </a>
                     </li>
-                    <li class="navigation-list-item">
-                        <a class="navigation-link" href="customer.php">
-                            <div class="row">
-                                <div class="col-2">
-                                    <i class='bx bx-group'></i>
-                                </div>
-                                <div class="col-9">
-                                    Customer
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                   
                    <li class="navigation-list-item" style="margin-top: 350px;">
                         <div class="dropdown pb-1">
                             <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -229,16 +216,7 @@ $finalcode='RS-'.createRandomPassword();
 
 
 
-
-
-                                    <div class="text-center mt-5">
-                                        <button class="btn btn-danger mb-3" type="button">
-                                            <i class='bx bxs-x-circle'></i> Cancel
-                                        </button>
-                                        <button class="btn btn-primary mb-3 changebtn" type="button" data-toggle="modal">
-                                            <i class='bx bxs-shopping-bag-alt' ></i> Change
-                                        </button>
-                                    </div>
+                                
                                 </div>
                             </div>
                         </div>
@@ -251,8 +229,9 @@ $finalcode='RS-'.createRandomPassword();
 
                                     <input type="text" class="form-control bg-light border-0 small mb-3" name="bar_code">
 
+
                                     <div class="input-group mb-3">
-                                        <input type="text" class ="form-control" name="tans_code" value="<?php echo $id=$_GET['invoice']; ?>" />
+                                        <input type="hidden" class ="form-control" name="tans_code" value="<?php echo $id=$_GET['invoice']; ?>" />
                                     </div>
 
                                     
@@ -276,6 +255,7 @@ $finalcode='RS-'.createRandomPassword();
                                          <span class="input-group-text">Sub total:</span>
                                          <input type="number" class="form-control" name="sub_total" value="<?php echo $bows['details'];  ?>"readonly >
                                      </div>
+                                     
                                      <div class="input-group mb-3">
                                         <span class="input-group-text">Total:</span>
                                         <input type="number" class="form-control" name="total" value="<?php echo $total_amount;  ?>" readonly>
@@ -289,12 +269,13 @@ $finalcode='RS-'.createRandomPassword();
                                     <button class="btn btn-primary w-100 mb-3" type="submit" name="create">
                                         <i class='bx bx-plus-medical'></i> Add Catalog
                                     </button>
-
-                                    <button class="btn btn-secondary w-100 mb-3 changebtn" type="button" data-toggle="modal">
-                                        <i class='bx bxs-coupon'></i> Change
+                                    <button class="btn btn-primary w-100 mb-3 productbtn" type="button" data-toggle="modal">
+                                        <i class='bx bx-plus-medical'></i> Products
                                     </button>
-                                    <button class="btn btn-success w-100 mb-3" type="button">
-                                        <i class='bx bx-cart' ></i> New Sale
+
+
+                                    <button class="btn btn-success w-100 mb-3 changebtn" type="button" data-toggle="modal">
+                                        <i class='bx bxs-coupon'></i> Save
                                     </button>
                                 </form>
                             </div>
@@ -319,11 +300,10 @@ $finalcode='RS-'.createRandomPassword();
             <form action="updatequantity.php" method="POST">
                 <div class="modal-body">
                      <input type="hidden" name="update_id" id="update_id">
-                     <span>Input: </span>
-                     <input type="number" class="form-control-sm ms-4" name="quantity_number" id="sales_quantity" ><br><br>
-                     <span>Barcode:</span>
-                     <input type="text" class="form-control-sm" name="bar_code" id="bar_code">
-                     <input type="text" name="update_code" value="<?php echo $id=$_GET['invoice']; ?>">
+                     <span>Input:</span>
+                     <input type="number" class="form-control bg-light border-0 small mb-3" name="quantity_number" id="sales_quantity">
+                     <input type="hidden" class="form-control-sm" name="bar_code" id="bar_code">
+                     <input type="hidden" name="update_code" value="<?php echo $id=$_GET['invoice']; ?>">
 
                     <div class="modal-footer">
                         <button type="submit" name="update" class="btn btn-success">ADD</button>
@@ -340,7 +320,7 @@ $finalcode='RS-'.createRandomPassword();
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">Add Quantity</h5>
+                <h5 class="modal-title" id="mediumModalLabel">DELETE PRODUCTS</h5>
             </div>
 
 
@@ -377,6 +357,7 @@ $finalcode='RS-'.createRandomPassword();
 
                      while ($bows=mysqli_fetch_assoc($sales_detail)) { 
 
+
                      ?>
                        <p style="margin-top: 10px;">Enter your Cash</p>
 
@@ -385,6 +366,8 @@ $finalcode='RS-'.createRandomPassword();
                         <p style="margin-top: 10px;">Date Purchase</p>
 
                        <input type="date" class="form-control bg-light border-0 small mb-3" name="date">
+
+                       <input type="hidden" class="form-control-sm" name="sales_can">
 
                         <input type="hidden" name="taxes" value="<?php echo $total_tax;  ?>" readonly>
                         <input type="hidden" name="sub_totals" value="<?php echo $bows['details'];  ?>"readonly >
@@ -403,6 +386,7 @@ $finalcode='RS-'.createRandomPassword();
         </div>
     </div>
 </div>
+
  
 <script>
     let sidebarToggle = document.querySelector(".sidebarToggle");
@@ -469,10 +453,6 @@ $finalcode='RS-'.createRandomPassword();
         })
     });
 </script>
-
-
-
-
 
 
 

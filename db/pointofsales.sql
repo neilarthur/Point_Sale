@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2022 at 06:14 AM
+-- Generation Time: Jul 09, 2022 at 12:38 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -90,9 +90,10 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `orignal_price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`, `date_expired`) VALUES
-(1, 165716772, 'Cream O chips', 20, 40, 50, 10, 100, 1, 2, '2022-07-11', '2022-07-11'),
-(2, 331433843, 'Plus Apple Drinks', 81, 10, 12, 2, 50, 3, 4, '2022-02-11', '2022-07-11'),
-(3, 331435967, 'Red Horse', 7, 80, 75, -5, 15, 3, 4, '2022-02-11', '2022-07-11');
+(1, 165716772, 'Cream O chips', -63, 40, 50, 10, 100, 1, 2, '2022-07-11', '2022-07-11'),
+(2, 331433843, 'Plus Apple Drinks', 34, 10, 12, 2, 50, 3, 4, '2022-02-11', '2022-07-11'),
+(4, 165735753, 'Piatos Snacks', 94, 10, 15, 5, 50, 1, 2, '2022-02-11', '2022-07-11'),
+(5, 165735756, 'MR chips', 96, 5, 8, 3, 100, 1, 4, '2022-07-11', '2022-08-15');
 
 -- --------------------------------------------------------
 
@@ -139,8 +140,14 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`sales_id`, `item_id`, `product_code`, `invoice_code`, `product_name`, `sales_price`, `sales_profit`, `sales_quantity`, `Total`) VALUES
-(1, 1, '165716772', 'RS-3330253', 'Cream O chips', 40, 10, 4, 160),
-(2, 2, '331433843', 'RS-3330253', 'Plus Apple Drinks', 10, 2, 3, 30);
+(1, 5, '165735756', 'RS-2003203', 'MR chips', 5, 3, 4, 20),
+(2, 4, '165735753', 'RS-329370', 'Piatos Snacks', 10, 5, 3, 30),
+(3, 2, '331433843', '', 'Plus Apple Drinks', 10, 2, 3, 30),
+(4, 1, '165716772', 'RS-2003203', 'Cream O chips', 40, 10, 8, 320),
+(5, 4, '165735753', 'RS-329370', 'Piatos Snacks', 10, 5, 3, 30),
+(6, 2, '331433843', '', 'Plus Apple Drinks', 10, 2, 3, 30),
+(7, 1, '165716772', 'RS-38382', 'Cream O chips', 40, 10, 12, 320),
+(8, 1, '165716772', 'RS-38382', 'Cream O chips', 40, 10, 8, 320);
 
 -- --------------------------------------------------------
 
@@ -156,6 +163,7 @@ CREATE TABLE `sales_detail` (
   `transac_tax` double NOT NULL,
   `transac_total` double NOT NULL,
   `cash` double NOT NULL,
+  `sales_change` double NOT NULL,
   `date_purchase` date DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -163,8 +171,11 @@ CREATE TABLE `sales_detail` (
 -- Dumping data for table `sales_detail`
 --
 
-INSERT INTO `sales_detail` (`transac_id`, `transac_code`, `transac_subtotal`, `customer_id`, `transac_tax`, `transac_total`, `cash`, `date_purchase`) VALUES
-(1, 'RS-3330253', 190, 3, 22.8, 212.8, 1000, '2022-02-11');
+INSERT INTO `sales_detail` (`transac_id`, `transac_code`, `transac_subtotal`, `customer_id`, `transac_tax`, `transac_total`, `cash`, `sales_change`, `date_purchase`) VALUES
+(1, 'RS-2003203', 240, 1, 28.8, 268.8, 500, 0, '2022-07-09'),
+(2, 'RS-329370', 60, 4, 7.2, 67.2, 100, -32.8, '2022-07-11'),
+(3, '', 60, 1, 7.2, 67.2, 100, 32.8, '2022-07-11'),
+(4, 'RS-38382', 640, 4, 76.8, 716.8, 1000, 283.2, '2022-07-11');
 
 -- --------------------------------------------------------
 
@@ -292,7 +303,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `location`
@@ -304,13 +315,13 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `sales_detail`
 --
 ALTER TABLE `sales_detail`
-  MODIFY `transac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `transac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `supplier`

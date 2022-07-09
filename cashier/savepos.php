@@ -15,7 +15,11 @@ if (isset($_POST['save'])) {
 	$dat = $_POST['date'];
 
 
-	$bin = "INSERT INTO sales_detail (transac_code, transac_subtotal, customer_id, transac_tax, transac_total, cash, date_purchase) Values ('$invoys','$sub_amount','$cust','$tax','$total_amount','$cas','$dat')";
+
+	$total_pay = $cas - $total_amount;
+
+
+	$bin = "INSERT INTO sales_detail (transac_code, transac_subtotal, customer_id, transac_tax, transac_total, cash, sales_change,  date_purchase) Values ('$invoys','$sub_amount','$cust','$tax','$total_amount','$cas','$total_pay','$dat')";
 
 	$results = mysqli_query($con,$bin);
 

@@ -77,22 +77,18 @@ include 'connection.php';
                             </div>
                         </a>
                     </li>
-                   <li class="navigation-list-item">
-                        <a href="#submenu1" data-bs-toggle="collapse" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" >
-                            <i class='bx bxs-report bi'></i><span class="mx-2 text-white ">Sales Report</span></a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="Weekly.php" class="nav-link px-2 mx-2 li_one text-white"><span class="d-none d-sm-inline text-white fs-6">Weekly Report</span></a>
-                            </li>
-                            <li class="w-100">
-                                <a href="monthly.php" class="nav-link px-2 mx-2 li_one text-white"> <span class="d-none d-sm-inline text-white fs-6">Monthly Report</span></a>
-                            </li>
-                            <li>
-                                <a href="yearly.php" class="nav-link px-2 mx-2 li_one text-white"> <span class="d-none d-sm-inline text-white fs-6">Yearly Report</span></a>
-                            </li>
-                        </ul>
+                                          <li class="navigation-list-item">
+                        <a class="navigation-link" href="transaction.php">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bxl-product-hunt' ></i>
+                                </div>
+                                <div class="col-9">
+                                    Transaction
+                                </div>
+                            </div>
+                        </a>
                     </li>
-                        
                     
                     <li class="navigation-list-item">
                         <a class="navigation-link" href="product.php">

@@ -5,13 +5,13 @@ require_once '../php/connection.php';
 
 if (isset($_POST['update'])) {
   	
-  	$id = $_POST['update_id'];
+  	$update = $_POST['update_id'];
   	$qty = $_POST['quantity_number'];
   	$code = $_POST['bar_code'];
     $id = $_POST['update_code'];
 
 
-  	$sales_run = "UPDATE sales SET sales_quantity = '$qty', invoice_code = '$id' WHERE product_code = '$code'";
+  	$sales_run = "UPDATE sales SET sales_quantity = '$qty' WHERE sales_id = '$update'";
 
   	if ($con -> query($sales_run) === TRUE) {
 

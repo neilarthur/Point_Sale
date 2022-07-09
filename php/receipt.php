@@ -9,6 +9,8 @@ if (!isset($_SESSION["username"])) {
 include 'connection.php';
 
 ?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -77,22 +79,19 @@ include 'connection.php';
                             </div>
                         </a>
                     </li>
-                   <li class="navigation-list-item">
-                        <a href="#submenu1" data-bs-toggle="collapse" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" >
-                            <i class='bx bxs-report bi'></i><span class="mx-2 text-white">Sales Reports</span></a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                                                        <li class="w-100">
-                                <a href="Weekly.php" class="nav-link px-2 mx-2 li_one text-white"><span class="d-none d-sm-inline text-white fs-6">Weekly Report</span></a>
-                            </li>
-                            <li class="w-100">
-                                <a href="monthly.php" class="nav-link px-2 mx-2 li_one text-white"> <span class="d-none d-sm-inline text-white fs-6">Monthly Report</span></a>
-                            </li>
-                            <li>
-                                <a href="yearly.php" class="nav-link px-2 mx-2 li_one text-white"> <span class="d-none d-sm-inline text-white fs-6">Yearly Report</span></a>
-                            </li>
-                        </ul>
+
+                    <li class="navigation-list-item">
+                        <a class="navigation-link" href="transaction.php">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bxl-product-hunt' ></i>
+                                </div>
+                                <div class="col-9">
+                                    Transaction
+                                </div>
+                            </div>
+                        </a>
                     </li>
-                        
                     
                     <li class="navigation-list-item">
                         <a class="navigation-link" href="product.php">
@@ -207,41 +206,82 @@ include 'connection.php';
                         <div class="col d-flex justify-content">
                             <br>
                             <div class="w-50">
-                                <h2 class="text-dark text-start ps-3 ">Weekly Reports </h2>
+                                <h2 class="text-dark  text-center" style="text-align: center; margin-right: -25rem;">Neil Walmart</h2>
+                                <h4 class="text-dark text-center " style="text-align: center; margin-right: -25rem;">Sta Cruz, Laguna</h4>
+                                <h6 class="text-dark  text-center" style="text-align: center; margin-right: -25rem;">Cell No#:094956372</h6>
                             </div>                            
                         </div>
                     </div>
                 <!-- Table -->
-                    <div class="row">
-                        <div class="col ">
-                            <div class="card">
-                                <div class="card-body rounded-3 m-4 table-responsive-sm">
-                                    <table class="table table-striped align-middle">
-                                        <thead>
-                                            <tr>
-                                                <th style="display: none;">#</th>
-                                                <th scope="col">Item Code</th>
-                                                <th scope="col">Item Name</th>
-                                                <th scope="col">Quantity</th>
-                                                <th scope="col">On Hand</th>
-                                                <th scope="col">Category</th>
-                                                <th scope="col">Date Stock In</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>adasdadsd</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
+                    <table class="table">
+                            <thead>
+                                <tr class="text-light" style="background: #01A7EC;">
+                                     <th scope="col"><b>Transaction Code</b></th>
+                                    <th scope="col"><b>Product Name</b></th>
+                                    <th scope="col"><b>Quantity</b></th>
+                                    <th scope="col"><b>Price</b></th>
+                                    <th scope="col"><b>Date Purchase</b></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+
+                                $id = $_GET['invoice'];
+
+                                $table = mysqli_query($con, "SELECT * FROM sales, sales_detail WHERE(sales_detail.transac_code='{$id}') AND (sales.invoice_code='{$id}')");
+
+                               //$table1 = mysqli_query($con,"SELECT * FROM sales_detail,customers  WHERE(sales_detail.customer_id=customers.customer_id)");
+
+                                while ($rows = mysqli_fetch_assoc($table)) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $rows['transac_code'];  ?></td>
+                                    <td><?php echo $rows['product_name'];  ?></td>
+                                    <td><?php echo $rows['sales_quantity'];  ?></td>
+                                    <td><?php echo $rows['sales_price'];  ?></td>
+                                     <td><?php echo $rows['date_purchase'];  ?></td>
+                                </tr>
+                                <?php } 
+
+
+                                $table2 = mysqli_query($con,"SELECT * FROM sales_detail WHERE transac_code = '$id' ");
+
+                                while ($bows = mysqli_fetch_assoc($table2)) {
+                                ?>
+
+                                <tr>
+                                    <th class="text-end" colspan="4">Tax: </th>
+                                    <td colspan="5">P<?php echo $bows['transac_tax'];  ?></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-end" colspan="4">Subtotal: </th>
+                                    <td colspan="5">P<?php echo $bows['transac_subtotal'];  ?></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-end" colspan="4">payment: </th>
+                                    <td colspan="5">P<?php echo $bows['cash'];  ?></td>
+                                </tr>
+                                <tr>
+                                    <th class="text-end" colspan="4">Total: </th>
+                                    <td colspan="5">P<?php echo $bows['transac_total'];  ?></td>
+                                </tr>
+
+                                <tr>
+                                    
+                                    <th class="text-end" colspan="4">Change: </th>
+                                    <td colspan="5">P<?php echo $bows['sales_change'];  ?></td>
+                                </tr>
+
+                            <?php  } ?>
+                            </tbody>
+                        </table>
+
+                        <button class="btn btn-success" onClick="window.print()">Print this page</button>`
                 </div> 
             </div>
-        </div> 
+        </div>
     </div>
 
 
