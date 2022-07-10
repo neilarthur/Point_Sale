@@ -372,7 +372,7 @@ $finalcode='RS-'.createRandomPassword();
                         <input type="hidden" name="taxes" value="<?php echo $total_tax;  ?>" readonly>
                         <input type="hidden" name="sub_totals" value="<?php echo $bows['details'];  ?>"readonly >
                         <input type="hidden" name="totals" value="<?php echo $total_amount;  ?>" readonly>
-                        <input type="hidden" name="invoys" value="<?php echo $id=$_GET['invoice']; ?>">
+                        <input type="text" name="invoys" value="<?php echo $id=$_GET['invoice']; ?>">
 
                     <?php } ?>
 
