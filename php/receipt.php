@@ -22,34 +22,30 @@ include 'connection.php';
 
     <link rel="stylesheet" type="text/css" href="../style/dash.css">
 
-    
+
     <!-- Font Awesome -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-      rel="stylesheet"
-    />
-    
-    <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-      rel="stylesheet"
-    />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-
-    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    
+      rel="stylesheet"/>
+      <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous">
     </script>
 
     </head>
-    
+    <style type="text/css">
+        @media print {
+            .sd {
+                display: none !important; 
+            }
+        }
+    </style>
     <body>
    
     <div class="page">
 
-        <div class="sidebar">
+        <div class="sidebar sd" >
             <div class="sidebar-header">
                 <div class="sidebar-logo-container">
                     <div class="logo-container">
@@ -71,10 +67,10 @@ include 'connection.php';
                         <a class="navigation-link" href="dashboard.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxs-home-alt-2'></i>
+                                    <i class='bx bxs-dashboard'></i>
                                 </div>
                                 <div class="col-9">
-                                    Home
+                                    Dashboard
                                 </div>
                             </div>
                         </a>
@@ -84,7 +80,7 @@ include 'connection.php';
                         <a class="navigation-link" href="transaction.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxl-product-hunt' ></i>
+                                    <i class='bx bx-transfer-alt'></i>
                                 </div>
                                 <div class="col-9">
                                     Transaction
@@ -180,41 +176,28 @@ include 'connection.php';
         </div>
         <!-- Toggle -->
         <div class="content">
-            <div class="navigationBar">
+            <div class="navigationBar sd">
                 <button id="sidebarToggle" class="btn sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </button>
-
-                <!-- Search bar -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
             </div>
-            <!-- Main content -->
+           
 
              <!-- Main content -->
-            <div class="col py-3 d-flex justify-content-center overflow-auto">
-                 <div class="container-fluid">
+             <div class="col py-3 d-flex justify-content-center overflow-auto">
+                <div class="container">
                 <div class="row">
                         <div class="col d-flex justify-content">
                             <br>
                             <div class="w-50">
-                                <h2 class="text-dark  text-center" style="text-align: center; margin-right: -25rem;">Neil Walmart</h2>
-                                <h4 class="text-dark text-center " style="text-align: center; margin-right: -25rem;">Sta Cruz, Laguna</h4>
-                                <h6 class="text-dark  text-center" style="text-align: center; margin-right: -25rem;">Cell No#:094956372</h6>
+                                <h2 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Ralph's Supermarket</h2>
+                                <h4 class="text-dark text-center " style="text-align: center; margin-right: -30rem;">Sta Cruz, Laguna</h4>
+                                <h6 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Cell No#:094956372</h6>
                             </div>                            
                         </div>
                     </div>
-                <!-- Table -->
 
-
+                    <!-- Table -->
                     <table class="table">
                             <thead>
                                 <tr class="text-light" style="background: #01A7EC;">
@@ -253,34 +236,39 @@ include 'connection.php';
 
                                 <tr>
                                     <th class="text-end" colspan="4">Tax: </th>
-                                    <td colspan="5">P<?php echo $bows['transac_tax'];  ?></td>
+                                    <td colspan="5">PHP <?php echo $bows['transac_tax'];  ?></td>
                                 </tr>
                                 <tr>
                                     <th class="text-end" colspan="4">Subtotal: </th>
-                                    <td colspan="5">P<?php echo $bows['transac_subtotal'];  ?></td>
+                                    <td colspan="5">PHP <?php echo $bows['transac_subtotal'];  ?></td>
                                 </tr>
                                 <tr>
                                     <th class="text-end" colspan="4">payment: </th>
-                                    <td colspan="5">P<?php echo $bows['cash'];  ?></td>
+                                    <td colspan="5">PHP <?php echo $bows['cash'];  ?></td>
                                 </tr>
                                 <tr>
                                     <th class="text-end" colspan="4">Total: </th>
-                                    <td colspan="5">P<?php echo $bows['transac_total'];  ?></td>
+                                    <td colspan="5">PHP <?php echo $bows['transac_total'];  ?></td>
                                 </tr>
 
                                 <tr>
                                     
                                     <th class="text-end" colspan="4">Change: </th>
-                                    <td colspan="5">P<?php echo $bows['sales_change'];  ?></td>
+                                    <td colspan="5">PHP <?php echo $bows['sales_change'];  ?></td>
                                 </tr>
 
                             <?php  } ?>
                             </tbody>
                         </table>
-
-                        <button class="btn btn-success" onClick="window.print()">Print this page</button>`
+                        <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
+                            <button class="btn btn-success sd" onClick="window.print()">Print this page</button>
+                        </div>
                 </div> 
-            </div>
+                 
+             </div>
+                 
+             </div>
+            
         </div>
     </div>
 

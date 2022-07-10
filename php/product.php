@@ -81,7 +81,7 @@ include 'connection.php';
                         <a class="navigation-link" href="transaction.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxl-product-hunt' ></i>
+                                    <i class='bx bx-transfer-alt'></i>
                                 </div>
                                 <div class="col-9">
                                     Transaction
@@ -211,7 +211,7 @@ include 'connection.php';
                                     <table class="table table-striped align-middle" id="ProductTab">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Bar code</th>
+                                                <th scope="col">Barcode</th>
                                                 <th scope="col">Item Name</th>
                                                 <th scope="col">Price</th>
                                                 <th scope="col">Category</th>

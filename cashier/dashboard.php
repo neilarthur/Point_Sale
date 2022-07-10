@@ -59,9 +59,6 @@ $finalcode='RS-'.createRandomPassword();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="../style/dash.css">
-
-    
     <!-- Font Awesome -->
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
@@ -84,84 +81,37 @@ $finalcode='RS-'.createRandomPassword();
 
     </head>
     
-    <body>
+    <body style="background-color: rgb(230, 230, 230);">
    
     <div class="page">
-
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-logo-container">
-                    <div class="logo-container">
-                        <img class="logo-sidebar" src="../image/logo.png" />
+        <nav class="navbar navbar-dark fw-bold" style="background-color: rgb(78, 115, 223);">
+            <a class="navbar-brand" href="#">
+                <img src="../image/logo.png" width="30" height="30" class="d-inline-block align-top" alt=""> Point of Sale and Inventory System</a>
+             <div class="dropdown pb-1 me-4">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="col-2 ms-4">
+                        <img class="mr-3" src="../image/user_35px.png" />
                     </div>
-                    <div class="sys-name-container mt-2">
-                        <p class="sys-name">
-                            POS and <br>
-                            <span class="brand-subname">
-                            Inventory System
-                            </span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-             <hr style="color:rgb(255, 255, 255);margin-top:10px;">
-            <div class="sidebar-body">
-                <ul class="navigation-list">
-                    <li class="navigation-list-item">
-                        <a class="navigation-link" href="dashboard.php?invoice=<?php echo $finalcode ?>">
-                            <div class="row">
-                                <div class="col-2">
-                                    <i class='bx bxs-bar-chart-square' ></i>
-                                </div>
-                                <div class="col-9">
-                                    POS
-                                </div>
-                            </div>
-                        </a>
+                    <span class="d-none d-sm-inline mx-1 ms-4"><?php echo $_SESSION["username"];  ?></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
+                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
                     </li>
-                   <li class="navigation-list-item" style="margin-top: 350px;">
-                        <div class="dropdown pb-1">
-                            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div class="col-2">
-                                    <img src="../image/user_35px.png" />
-                                </div>
-                                <span class="d-none d-sm-inline mx-1"><?php echo $_SESSION["username"];  ?></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="../php/logout.php">Sign out</a></li>
-                            </ul>
-                        </div>
+                    <li>
+                        <a class="dropdown-item" href="../php/logout.php">Sign out</a>
                     </li>
                 </ul>
-                <!--End Sidebar -->
 
             </div>
 
-        </div>
-        <!-- Toggle -->
+        </nav>
+
+        
         <div class="content">
-            <div class="navigationBar">
-                <button id="sidebarToggle" class="btn sidebarToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
 
-                <!-- Search bar -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
             <!-- Main content -->
             <div class="container-fluid">
                 <p></p>
@@ -227,7 +177,7 @@ $finalcode='RS-'.createRandomPassword();
                                     <p style="margin-top: 10px;">Barcode Search</p>
 
 
-                                    <input type="text" class="form-control bg-light border-0 small mb-3" name="bar_code">
+                                    <input type="text" class="form-control bg-light border-0 small mb-3" name="bar_code" required="">
 
 
                                     <div class="input-group mb-3">
@@ -269,8 +219,8 @@ $finalcode='RS-'.createRandomPassword();
                                     <button class="btn btn-primary w-100 mb-3" type="submit" name="create">
                                         <i class='bx bx-plus-medical'></i> Add Catalog
                                     </button>
-                                    <button class="btn btn-primary w-100 mb-3 productbtn" type="button" data-toggle="modal">
-                                        <i class='bx bx-plus-medical'></i> Products
+                                    <button class="btn btn-secondary w-100 mb-3 productbtn" type="button" data-toggle="modal">
+                                        <i class='bx bxl-product-hunt'></i> Products
                                     </button>
 
 
@@ -346,6 +296,7 @@ $finalcode='RS-'.createRandomPassword();
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="mediumModalLabel">Do you want to Save</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="savepos.php" method="POST">
                 <div class="modal-body">
@@ -361,25 +312,25 @@ $finalcode='RS-'.createRandomPassword();
                      ?>
                        <p style="margin-top: 10px;">Enter your Cash</p>
 
-                       <input type="number" class="form-control bg-light border-0 small mb-3" name="cash">
+                       <input type="number" class="form-control bg-light border-0 small mb-3" name="cash" required="">
 
                         <p style="margin-top: 10px;">Date Purchase</p>
 
-                       <input type="date" class="form-control bg-light border-0 small mb-3" name="date">
+                       <input type="date" class="form-control bg-light border-0 small mb-3" name="date" required="">
 
                        <input type="hidden" class="form-control-sm" name="sales_can">
 
                         <input type="hidden" name="taxes" value="<?php echo $total_tax;  ?>" readonly>
                         <input type="hidden" name="sub_totals" value="<?php echo $bows['details'];  ?>"readonly >
                         <input type="hidden" name="totals" value="<?php echo $total_amount;  ?>" readonly>
-                        <input type="text" name="invoys" value="<?php echo $id=$_GET['invoice']; ?>">
+                        <input type="hidden" name="invoys" value="<?php echo $id=$_GET['invoice']; ?>">
 
                     <?php } ?>
 
                                     
                     <div class="modal-footer">
                         <button type="submit" name="save" class="btn btn-success">Save</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCEL</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </form>

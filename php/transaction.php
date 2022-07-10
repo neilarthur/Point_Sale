@@ -71,10 +71,10 @@ include 'connection.php';
                         <a class="navigation-link" href="dashboard.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxs-home-alt-2'></i>
+                                    <i class='bx bxs-dashboard'></i>
                                 </div>
                                 <div class="col-9">
-                                    Home
+                                    Dashboard
                                 </div>
                             </div>
                         </a>
@@ -84,7 +84,7 @@ include 'connection.php';
                         <a class="navigation-link" href="transaction.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxl-product-hunt' ></i>
+                                    <i class='bx bx-transfer-alt'></i>
                                 </div>
                                 <div class="col-9">
                                     Transaction
@@ -186,9 +186,9 @@ include 'connection.php';
                 </button>
 
                 <!-- Search bar -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ms-3">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2"id="SearchMo" onkeyup="myFunction()">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button">
                                 <i class="fas fa-search fa-sm"></i>
@@ -197,34 +197,29 @@ include 'connection.php';
                     </div>
                 </form>
             </div>
-            <!-- Main content -->
+          
 
              <!-- Main content -->
             <div class="col py-3 d-flex justify-content-center overflow-auto">
                  <div class="container-fluid">
-                <div class="row">
-                        <div class="col d-flex justify-content">
-                            <br>
-                            <div class="w-50">
-                                <h2 class="text-dark text-start ps-3 ">Transaction Reports </h2>
-                            </div>                            
-                        </div>
+                    <div class="row">
+                        <h2 class="text-dark text-start ps-3 fw-bold ">Transaction Reports </h2><br>
                     </div>
                 <!-- Table -->
                     <div class="row">
                         <div class="col ">
                             <div class="card">
                                 <div class="card-body rounded-3 m-4 table-responsive-sm">
-                                    <table class="table table-striped align-middle">
+                                    <table class="table table-striped align-middle" id="TransTab">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
                                                 <th scope="col">Transaction Code</th>
                                                 <th scope="col">Customer name</th>
-                                                <th scope="col">total</th>
-                                                <th scope="col">cash</th>
+                                                <th scope="col">Total</th>
+                                                <th scope="col">Amount</th>
                                                 <th scope="col">Date</th>
-                                                <th scope="col">Details</th>
+                                                <th scope="col" style="padding-left: 40px;">Details</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -243,8 +238,8 @@ include 'connection.php';
                                                 <td><?php echo $row['cash'];  ?></td>
                                                 <td><?php echo $row['date_purchase'];  ?></td>
                                                 <td>
-                                                    <div class="d-flex flex-row justify-content-center">                                                       
-                                                        <a href="receipt.php?invoice=<?php echo $row['transac_code']; ?>"><button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button></a>
+                                                                                                      
+                                                        <a href="receipt.php?invoice=<?php echo $row['transac_code']; ?>"><button class="btn btn-primary editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-eye"data-toggle="tooltip" title="edit"></i> View</button></a>
 
 
                                                 </td>
@@ -272,7 +267,37 @@ include 'connection.php';
     sidebarToggle.addEventListener("click", function(){
         document.querySelector("body").classList.toggle("active");
         document.getElementById("sidebarToggle").classList.toggle("active");
+
     })
+</script>
+
+<script type="text/javascript">
+    function myFunction() {
+        var input, filter, table, tr, i, j, column_length, count_td;
+        column_length = document.getElementById('TransTab').rows[0].cells.length;
+        input = document.getElementById("SearchMo");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("TransTab");
+        tr = table.getElementsByTagName("tr");
+        for (i = 1; i < tr.length; i++) {
+        count_td = 0;
+        for (j = 1; j < column_length - 1; j++) {
+          td = tr[i].getElementsByTagName("td")[j];
+
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+              count_td++;
+            }
+          }
+        }
+        if (count_td > 0) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>

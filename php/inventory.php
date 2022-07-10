@@ -110,7 +110,7 @@ $supp .= "</select>";
                         <a class="navigation-link" href="transaction.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxl-product-hunt' ></i>
+                                    <i class='bx bx-transfer-alt'></i>
                                 </div>
                                 <div class="col-9">
                                     Transaction
@@ -242,7 +242,7 @@ $supp .= "</select>";
                             $expired = mysqli_query($con, "SELECT * FROM inventory WHERE (( date_expired - INTERVAL 8 DAY) <= current_date()) ORDER BY date_expired asc");
 
                             while($row = mysqli_fetch_array($expired)) { ?>
-                            <h6 class="bg-warning p-1 ps-3 rounded-pill">Item Expiring: [<?php echo $row['bar_code']. "] - " .$row['item_name']. " - [" .$row['date_expired']; ?>]</h6>
+                            <h6 class="bg-warning p-1 ps-2 rounded-pill w-50">Item Expiring: [<?php echo $row['item_name']. "] - " .$row['bar_code']. " - [" .$row['date_expired']; ?>]</h6>
                             <?php
                             }
                             ?>
@@ -407,6 +407,7 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
                 <form action="Updateinventory.php" method="Post">
                     <div class="modal-header">
                         <h4 class="title"> Update Inventory Item</h4>
+                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="update_id" id="update_id">
@@ -482,12 +483,13 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
             <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="mediumModalLabel">Delete Inventory</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="deleteinventory.php" method="POST">
                 <div class="modal-body">
                     <input type="hidden" name="delete_id" id="delete_id">
 
-                    <p align="center">Are you sure? You want to Delete this Account?</p>
+                    <p align="center">Are you sure? You want to Delete these?</p>
                     <div class="modal-footer">
                         <button type="submit" name="delete" class="btn btn-success">YES</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>

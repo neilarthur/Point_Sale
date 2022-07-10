@@ -82,7 +82,7 @@ include 'connection.php';
                         <a class="navigation-link" href="transaction.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxl-product-hunt' ></i>
+                                    <i class='bx bx-transfer-alt'></i>
                                 </div>
                                 <div class="col-9">
                                     Transaction
@@ -319,6 +319,7 @@ include 'connection.php';
                 <form action="updateCustomer.php" method="Post">
                     <div class="modal-header">
                         <h4 class="title"> Update Personal Information</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="update_id" id="update_id">
@@ -356,12 +357,13 @@ include 'connection.php';
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">Delete Account</h5>
+                <h5 class="modal-title" id="mediumModalLabel">Delete Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="customer_delete.php" method="POST">
                 <div class="modal-body">
                     <input type="hidden" name="delete_id" id="delete_id">
-                    <p align="center">Are you sure? You want to Delete this Account?</p>
+                    <p align="center">Are you sure? Delete these customer</p>
                     <div class="modal-footer">
                         <button type="submit" name="deletedata" class="btn btn-success">YES</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
