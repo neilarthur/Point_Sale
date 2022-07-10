@@ -223,14 +223,16 @@ include 'connection.php';
                 <!-- Table -->
                 <form action="transaction_report.php" method="GET">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Date</span>
+                        <span class="input-group-text" id="basic-addon1">From</span>
                         <input type="date" name="sales" class="form-control ">
-                        <span class="input-group-text" id="basic-addon1">Date</span>
+                        <span class="input-group-text" id="basic-addon1">To</span>
                         <input type="date" name="trans" class="form-control ">
                         <input type="submit" class="btn-success">
                     </div>
-                </form>
 
+                    <h3 class="text-center">Show Date</h3>
+                    <h5 class="text-center">From: <?php echo $_GET['sales']." To: ".$_GET['trans'];  ?></h5>
+                </form>
 
                     <div class="row">
                         <div class="col ">
@@ -239,11 +241,10 @@ include 'connection.php';
                                     <table class="table table-striped align-middle">
                                         <thead>
                                             <tr>
-                                                <th style="display: none;">#</th>
+                                                <th scope="col">#</th>
                                                 <th scope="col">Transaction Code</th>
-                                                <th scope="col">Sub total</th>
                                                 <th scope="col">Customer name</th>
-                                                <th scope="col">Transaction Total</th>
+                                                <th scope="col">Total</th>
                                                 <th scope="col">Date Purchase</th>
                                             </tr>
                                         </thead>
@@ -256,18 +257,40 @@ include 'connection.php';
                                             $code = mysqli_query($con,"SELECT * FROM sales_detail,customers WHERE(sales_detail.customer_id=customers.customer_id) AND (date_purchase BETWEEN '{$sales}' AND '{$trans}') ORDER BY transac_id DESC ");
 
                                             while ($row = mysqli_fetch_array($code)) {
+
+
                                             ?>
                                             <tr>
+                                                <td><?php echo $row['transac_id'];  ?></td>
                                                 <td><?php echo $row['transac_code'];  ?></td>
-                                                <td><?php echo $row['transac_subtotal'];  ?></td>
                                                 <td><?php echo $row['first_name']." ". $row['last_name'];  ?></td>
                                                 <td><?php echo $row['transac_total'];  ?></td>
                                                 <td><?php echo $row['date_purchase'];  ?></td>
 
+
+
                                             </tr>
                                             <?php } ?>
+                                            <tr>
+                                                <?php
+
+                                                $les = $_GET['sales'];
+                                                $ans = $_GET['trans'];
+
+                                                $code1 = mysqli_query($con, "SELECT SUM(transac_total) as 'base' FROM sales_detail WHERE (date_purchase BETWEEN '{$les}' AND '{$ans}') ");
+
+                                                while ($cow = mysqli_fetch_array($code1)) {  ?>
+                                                <th class="text-end" colspan="3">Total: </th>
+                                                <td colspan="2">PHP <?php echo $cow['base'];  ?></td>
+                                            </tr>
+                                        <?php  } ?>
+
+                                            
                                         </tbody>
                                     </table>
+                                    <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
+                                        <button class="btn btn-success sd hide" onClick="window.print()">Print this page</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
