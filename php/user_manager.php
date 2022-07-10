@@ -77,7 +77,19 @@ include 'connection.php';
                             </div>
                         </a>
                     </li>
-                                          <li class="navigation-list-item">
+                    <li class="navigation-list-item">
+                        <a class="navigation-link" href="transaction_report.php?sales=0&trans=0">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bxl-product-hunt' ></i>
+                                </div>
+                                <div class="col-9">
+                                    Sales Report
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navigation-list-item">
                         <a class="navigation-link" href="transaction.php">
                             <div class="row">
                                 <div class="col-2">

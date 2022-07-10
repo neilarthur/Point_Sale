@@ -75,6 +75,18 @@ include 'connection.php';
                             </div>
                         </a>
                     </li>
+                    <li class="navigation-list-item">
+                        <a class="navigation-link" href="transaction_report.php?sales=0&trans=0">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bxl-product-hunt' ></i>
+                                </div>
+                                <div class="col-9">
+                                    Sales Report
+                                </div>
+                            </div>
+                        </a>
+                    </li>
 
                     <li class="navigation-list-item">
                         <a class="navigation-link" href="transaction.php">
@@ -190,7 +202,7 @@ include 'connection.php';
                         <div class="col d-flex justify-content">
                             <br>
                             <div class="w-50">
-                                <h2 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Ralph's Supermarket</h2>
+                                <h2 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Youth's Supermarket</h2>
                                 <h4 class="text-dark text-center " style="text-align: center; margin-right: -30rem;">Sta Cruz, Laguna</h4>
                                 <h6 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Cell No#:094956372</h6>
                             </div>                            

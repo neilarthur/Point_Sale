@@ -72,25 +72,34 @@ include 'connection.php';
                                     <i class='bx bxs-home-alt-2'></i>
                                 </div>
                                 <div class="col-9">
-                                    Home
+                                    Dashboard
                                 </div>
                             </div>
                         </a>
                     </li>
                     <li class="navigation-list-item">
-                        <a href="#submenu1" data-bs-toggle="collapse" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" >
-                            <i class='bx bxs-report bi'></i><span class="mx-2 text-white">Sales Report</span></a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu1" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="Weekly.php" class="nav-link px-2 mx-2 li_one text-white"><span class="d-none d-sm-inline text-white fs-6">Weekly Report</span></a>
-                            </li>
-                            <li class="w-100">
-                                <a href="monthly.php" class="nav-link px-2 mx-2 li_one text-white"> <span class="d-none d-sm-inline text-white fs-6">Monthly Report</span></a>
-                            </li>
-                            <li>
-                                <a href="yearly.php" class="nav-link px-2 mx-2 li_one text-white"> <span class="d-none d-sm-inline text-white fs-6">Yearly Report</span></a>
-                            </li>
-                        </ul>
+                        <a class="navigation-link" href="transaction_report.php?sales=0&trans=0">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bxl-product-hunt' ></i>
+                                </div>
+                                <div class="col-9">
+                                    Sales Report
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navigation-list-item">
+                        <a class="navigation-link" href="transaction.php">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bx-transfer-alt' ></i>
+                                </div>
+                                <div class="col-9">
+                                    Transaction
+                                </div>
+                            </div>
+                        </a>
                     </li>
                         
                     
@@ -207,11 +216,22 @@ include 'connection.php';
                         <div class="col d-flex justify-content">
                             <br>
                             <div class="w-50">
-                                <h2 class="text-dark text-start ps-3 ">Yearly Report </h2>
+                                <h2 class="text-dark text-start ps-3 ">Sales Report </h2>
                             </div>                            
                         </div>
                     </div>
                 <!-- Table -->
+                <form action="transaction_report.php" method="GET">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">Date</span>
+                        <input type="date" name="sales" class="form-control ">
+                        <span class="input-group-text" id="basic-addon1">Date</span>
+                        <input type="date" name="trans" class="form-control ">
+                        <input type="submit" class="btn-success">
+                    </div>
+                </form>
+
+
                     <div class="row">
                         <div class="col ">
                             <div class="card">
@@ -220,19 +240,32 @@ include 'connection.php';
                                         <thead>
                                             <tr>
                                                 <th style="display: none;">#</th>
-                                                <th scope="col">Item Code</th>
-                                                <th scope="col">Item Name</th>
-                                                <th scope="col">Quantity</th>
-                                                <th scope="col">On Hand</th>
-                                                <th scope="col">Category</th>
-                                                <th scope="col">Date Stock In</th>
-                                                <th scope="col">Action</th>
+                                                <th scope="col">Transaction Code</th>
+                                                <th scope="col">Sub total</th>
+                                                <th scope="col">Customer name</th>
+                                                <th scope="col">Transaction Total</th>
+                                                <th scope="col">Date Purchase</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php
+
+                                            $sales = $_GET['sales'];
+                                            $trans = $_GET['trans'];
+
+                                            $code = mysqli_query($con,"SELECT * FROM sales_detail,customers WHERE(sales_detail.customer_id=customers.customer_id) AND (date_purchase BETWEEN '{$sales}' AND '{$trans}') ORDER BY transac_id DESC ");
+
+                                            while ($row = mysqli_fetch_array($code)) {
+                                            ?>
                                             <tr>
-                                                <td>adasdadsd</td>
+                                                <td><?php echo $row['transac_code'];  ?></td>
+                                                <td><?php echo $row['transac_subtotal'];  ?></td>
+                                                <td><?php echo $row['first_name']." ". $row['last_name'];  ?></td>
+                                                <td><?php echo $row['transac_total'];  ?></td>
+                                                <td><?php echo $row['date_purchase'];  ?></td>
+
                                             </tr>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>

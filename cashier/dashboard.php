@@ -155,7 +155,7 @@ $finalcode='RS-'.createRandomPassword();
                                                         <i class='bx bx-plus'></i>
                                                     </button>
 
-                                                    <button class="btn btn-danger deletebtn" data-toggle="modal"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i></button>
+                                                    <button class="btn btn-danger deletebtn" data-bs-toggle="modal"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i></button>
                                                          
                                                 </TD>
                                             </tr>
@@ -176,8 +176,15 @@ $finalcode='RS-'.createRandomPassword();
                                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search " action="postransac.php" method="POST">
                                     <p style="margin-top: 10px;">Barcode Search</p>
 
+                                    <?php   
+                                    if (isset($_GET['error404'])) {
 
-                                    <input type="text" class="form-control bg-light border-0 small mb-3" name="bar_code" required="">
+                                        echo "<p class='text-danger'>Barcode Not Found</p>";
+                                    }
+                                    ?>
+
+                                    <input type="text" class="form-control bg-light border-0 small mb-3" name="bar_code"required="">
+
 
 
                                     <div class="input-group mb-3">
@@ -314,10 +321,6 @@ $finalcode='RS-'.createRandomPassword();
 
                        <input type="number" class="form-control bg-light border-0 small mb-3" name="cash" required="">
 
-                        <p style="margin-top: 10px;">Date Purchase</p>
-
-                       <input type="date" class="form-control bg-light border-0 small mb-3" name="date" required="">
-
                        <input type="hidden" class="form-control-sm" name="sales_can">
 
                         <input type="hidden" name="taxes" value="<?php echo $total_tax;  ?>" readonly>
@@ -405,10 +408,7 @@ $finalcode='RS-'.createRandomPassword();
     });
 </script>
 
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>

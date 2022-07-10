@@ -35,20 +35,19 @@ if (isset($_POST['save'])) {
 	$sub_amount = $_POST['sub_totals'];
 	$total_amount = $_POST['totals'];
 	$invoys = $_POST['invoys'];
-	$dat = $_POST['date'];
 
 
 
 	$total_pay = $cas - $total_amount;
 
 
-	$bin = "INSERT INTO sales_detail (transac_code, transac_subtotal, customer_id, transac_tax, transac_total, cash, sales_change,  date_purchase) Values ('$invoys','$sub_amount','$cust','$tax','$total_amount','$cas','$total_pay','$dat')";
+	$bin = "INSERT INTO sales_detail (transac_code, transac_subtotal, customer_id, transac_tax, transac_total, cash, sales_change) Values ('$invoys','$sub_amount','$cust','$tax','$total_amount','$cas','$total_pay')";
 
 	$results = mysqli_query($con,$bin);
 
 	if ($results) {
 		
-		header("location: dashboard.php?invoice=$invoys?$finalcode");
+		header("location: dashboard.php?invoice=$finalcode");
 
 	}
 	else{
