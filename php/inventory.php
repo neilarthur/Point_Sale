@@ -259,7 +259,7 @@ $supp .= "</select>";
                             $expired = mysqli_query($con, "SELECT * FROM inventory WHERE (( date_expired - INTERVAL 8 DAY) <= current_date()) ORDER BY date_expired asc");
 
                             while($row = mysqli_fetch_array($expired)) { ?>
-                            <h6 class="bg-danger p-1 ps-2 rounded-pill w-50">Item Expiring: [<?php echo $row['item_name']. "] - " .$row['bar_code']. " - [" .$row['date_expired']; ?>]</h6>
+                            <h6 class="bg-danger p-1 ps-2 text-white rounded-pill w-50">Item Expiring: [<?php echo $row['item_name']. "] - " .$row['bar_code']. " - [" .$row['date_expired']; ?>]</h6>
                             <?php
                             }
                             ?>
