@@ -198,7 +198,7 @@ include 'connection.php';
                                 <div class="col-2">
                                     <img class="mr-5" src="../image/user_35px.png" />
                                 </div>
-                                <span class="d-none d-sm-inline mx-1"><?php echo $_SESSION["username"];  ?></span>
+                                <span class="d-none d-sm-inline mx-1 ms-3"><?php echo $_SESSION["username"];  ?></span>
                                
                             </a>
                             <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
