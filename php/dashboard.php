@@ -110,7 +110,7 @@ include 'connection.php';
                         <a class="navigation-link" href="transaction_report.php?sales=0&trans=0">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxl-product-hunt' ></i>
+                                    <i class='bx bxs-report'></i>
                                 </div>
                                 <div class="col-9">
                                     Sales Report
@@ -223,18 +223,6 @@ include 'connection.php';
                 <button id="sidebarToggle" class="btn sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </button>
-
-                <!-- Search bar -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
             </div>
             <!-- Main content -->
 

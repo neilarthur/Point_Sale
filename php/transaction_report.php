@@ -47,12 +47,19 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
     </script>
 
     </head>
+    <style type="text/css">
+        @media print {
+            .sd {
+                display: none !important; 
+            }
+        }
+    </style>
     
     <body>
    
     <div class="page">
 
-        <div class="sidebar">
+        <div class="sidebar sd">
             <div class="sidebar-header">
                 <div class="sidebar-logo-container">
                     <div class="logo-container">
@@ -74,7 +81,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         <a class="navigation-link" href="dashboard.php">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxs-home-alt-2'></i>
+                                    <i class='bx bxs-dashboard'></i>
                                 </div>
                                 <div class="col-9">
                                     Dashboard
@@ -86,7 +93,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         <a class="navigation-link" href="transaction_report.php?sales=0&trans=0">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxl-product-hunt' ></i>
+                                    <i class='bx bxs-report'></i>
                                 </div>
                                 <div class="col-9">
                                     Sales Report
@@ -195,15 +202,15 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
         </div>
         <!-- Toggle -->
         <div class="content">
-            <div class="navigationBar">
+            <div class="navigationBar sd">
                 <button id="sidebarToggle" class="btn sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </button>
 
                 <!-- Search bar -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ms-3">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2" id="SearchMo" onkeyup="myFunction()">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button">
                                 <i class="fas fa-search fa-sm"></i>
@@ -217,33 +224,46 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
             <!-- Main content -->
             <div class="col py-3 d-flex justify-content-center overflow-auto">
                  <div class="container-fluid">
-                <div class="row">
+                <div class="row sd">
                         <div class="col d-flex justify-content">
                             <br>
                             <div class="w-50">
-                                <h2 class="text-dark text-start ps-3 ">Sales Report </h2>
+                                <h2 class="text-dark text-start ps-3 fw-bold mb-4">Sales Report </h2>
                             </div>                            
                         </div>
                     </div>
-                <!-- Table -->
-                <form action="transaction_report.php" method="GET">
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">From</span>
-                        <input type="date" name="sales" class="form-control ">
-                        <span class="input-group-text" id="basic-addon1">To</span>
-                        <input type="date" name="trans" class="form-control ">
-                        <input type="submit" class="btn-success">
+                    <div class="sd">
+                        <form action="transaction_report.php" method="GET" >
+                            <div class="row g-3 align-items-center justify-content-center mb-1">
+                                <div class="col-auto">
+                                    <span class="input-group-text" id="basic-addon1">From</span>
+                                    <input type="date" name="sales" class="form-control input-sm">
+                                </div>
+                                <div class="col-auto">
+                                    <span class="input-group-text" id="basic-addon1">To</span>
+                                    <input type="date" name="trans" class="form-control ">
+                                </div>
+                                <div class="col-auto">
+                                    <input type="submit" class="btn btn-primary">
+                                </div>
+                                <div class="justify-content-center">
+                                    <p style="text-align: center; font-weight: bold;">Show Date:</p>
+                                    <h5 class="text-center">From: <?php echo $_GET['sales']."  To: ".$_GET['trans'];  ?></h5>
+                                </div> 
+                            </div>
+                        </form>
                     </div>
 
-                    <h3 class="text-center">Show Date</h3>
-                    <h5 class="text-center">From: <?php echo $_GET['sales']." To: ".$_GET['trans'];  ?></h5>
-                </form>
+                
+              
+
+                <!-- Table -->
 
                     <div class="row">
                         <div class="col ">
                             <div class="card">
                                 <div class="card-body rounded-3 m-4 table-responsive-sm">
-                                    <table class="table table-striped align-middle">
+                                    <table class="table table-striped align-middle" id="SalesTab">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>
@@ -330,6 +350,34 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
         document.querySelector("body").classList.toggle("active");
         document.getElementById("sidebarToggle").classList.toggle("active");
     })
+</script>
+<script type="text/javascript">
+    function myFunction() {
+        var input, filter, table, tr, i, j, column_length, count_td;
+        column_length = document.getElementById('SalesTab').rows[0].cells.length;
+        input = document.getElementById("SearchMo");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("SalesTab");
+        tr = table.getElementsByTagName("tr");
+        for (i = 1; i < tr.length; i++) {
+        count_td = 0;
+        for (j = 1; j < column_length - 1; j++) {
+          td = tr[i].getElementsByTagName("td")[j];
+
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+              count_td++;
+            }
+          }
+        }
+        if (count_td > 0) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
