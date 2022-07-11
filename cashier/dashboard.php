@@ -79,9 +79,12 @@ $finalcode='RS-'.createRandomPassword();
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous">
     </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
 
     </head>
     
@@ -187,7 +190,10 @@ $finalcode='RS-'.createRandomPassword();
                                     }
                                     ?>
 
-                                    <input type="text" class="form-control bg-light border-0 small mb-3" name="bar_code"required="">
+
+                                    <input type="text" class="form-control bg-light border-0 small mb-3" name="bar_code" autocomplete="off" id="search-box"  required="">
+
+                                    <div id="suggesstion-box"></div>
 
 
 
@@ -293,10 +299,11 @@ $finalcode='RS-'.createRandomPassword();
 
                 <div class="modal-body">
                      <input type="hidden" name="delete_id" id="delete_id">
-                     <input type="text" name="tans_code" value=" <?php echo $id=$_GET['invoice']; ?>">
+                     <h6>Do you want to delete ? </h6>
+                     <input type="hidden" name="tans_code" value=" <?php echo $id=$_GET['invoice']; ?>">
                     <div class="modal-footer">
-                        <button type="submit" name="delete" class="btn btn-success">Delete</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CANCEL</button>
+                        <button type="submit" name="delete" class="btn btn-success">Yes</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -418,7 +425,38 @@ $finalcode='RS-'.createRandomPassword();
     });
 </script>
 
+<script type="text/javascript">
+    // AJAX call for autocomplete 
+$(document).ready(function() {
+    $("#search-box").keyup(function() {
+        $.ajax({
+            type: "POST",
+            url: "pos.php",
+            data: 'keyword=' + $(this).val(),
+            beforeSend: function() {
+                $("#search-box").css("background", "#FFF url(LoaderIcon.gif) no-repeat 165px");
+            },
+            success: function(data) {
+                $("#suggesstion-box").show();
+                $("#suggesstion-box").html(data);
+                $("#search-box").css("background", "#FFF");
+            }
+        });
+    });
+});
+
+function selectProduct(val) {
+    $("#search-box").val(val);
+    $("#suggesstion-box").hide();
+}
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </body>
 
 </html>

@@ -386,7 +386,7 @@ include 'connection.php';
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Dropdown Card Example</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary"><center>Display Available Products</center></h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -402,13 +402,35 @@ include 'connection.php';
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-                                    Dropdown menus can be placed in the card header in order to extend the functionality
-                                    of a basic card. In this dropdown card example, the Font Awesome vertical ellipsis
-                                    icon in the card header can be clicked on in order to toggle a dropdown menu.
+                                
+                                
+                                <div class="card-body card-body rounded-3 m-4 table-responsive-lg">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Bar Code</th>
+                                                <th scope="col">Product_Name</th>
+                                            </tr>
+                                        </thead>
+                                    <tbody>
+                                        <?php
+
+                                $display = mysqli_query($con, "SELECT * FROM inventory");
+
+                                while ($row = mysqli_fetch_array($display)) {
+                                ?>
+                                        <tr>
+                                          <td><?php echo $row['bar_code']; ?></td>
+                                          <td><?php echo $row['item_name']; ?></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                    
+                                </table>
                                 </div>
+                              
                             </div>
+
 
                             <!-- Collapsable Card Example -->
                             <div class="card shadow mb-1">
