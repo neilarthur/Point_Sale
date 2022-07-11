@@ -34,6 +34,7 @@ if (isset($_POST['save'])) {
 	$tax = $_POST['taxes'];
 	$sub_amount = $_POST['sub_totals'];
 	$total_amount = $_POST['totals'];
+	$trans = $_POST['trans_profit'];
 	$invoys = $_POST['invoys'];
 
 
@@ -41,7 +42,7 @@ if (isset($_POST['save'])) {
 	$total_pay = $cas - $total_amount;
 
 
-	$bin = "INSERT INTO sales_detail (transac_code, transac_subtotal, customer_id, transac_tax, transac_total, cash, sales_change) Values ('$invoys','$sub_amount','$cust','$tax','$total_amount','$cas','$total_pay')";
+	$bin = "INSERT INTO sales_detail (transac_code, transac_subtotal, customer_id, transac_tax, transac_total, transac_profit, cash, sales_change) Values ('$invoys','$sub_amount','$cust','$tax','$total_amount','$trans','$cas','$total_pay')";
 
 	$results = mysqli_query($con,$bin);
 

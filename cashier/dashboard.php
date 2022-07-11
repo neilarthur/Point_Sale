@@ -6,6 +6,10 @@ if (!isset($_SESSION["username"])) {
 
 }
 
+if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'cashier') {
+  header("location: ../php/dashboard.php");
+  exit;
+}
 include '../php/connection.php';
 
 
@@ -198,7 +202,9 @@ $finalcode='RS-'.createRandomPassword();
                                     <?php
                                         $sales_detail = mysqli_query($con,"SELECT sum(total) as 'details' FROM sales WHERE invoice_code = '$id'");
 
-                                        while ($bows=mysqli_fetch_assoc($sales_detail)) { 
+                                        $sign = mysqli_query($con,"SELECT sum(sales_profit) as 'prof' FROM sales WHERE invoice_code = '$id'");
+
+                                        while ($bows=mysqli_fetch_assoc($sales_detail) AND $lows=mysqli_fetch_assoc($sign) ) { 
 
                                             $total_tax = $bows['details'] * 0.12;
                                             $total_amount = $bows['details'] + $total_tax;
@@ -212,6 +218,12 @@ $finalcode='RS-'.createRandomPassword();
                                          <span class="input-group-text">Sub total:</span>
                                          <input type="number" class="form-control" name="sub_total" value="<?php echo $bows['details'];  ?>"readonly >
                                      </div>
+
+                                    <div class="input-group mb-3">
+                                         <span class="input-group-text">Profit:</span>
+                                         <input type="number" class="form-control" name="sale_profit" value="<?php echo $lows['prof'];  ?>"readonly >
+                                     </div>
+
                                      
                                      <div class="input-group mb-3">
                                         <span class="input-group-text">Total:</span>
@@ -226,11 +238,6 @@ $finalcode='RS-'.createRandomPassword();
                                     <button class="btn btn-primary w-100 mb-3" type="submit" name="create">
                                         <i class='bx bx-plus-medical'></i> Add Catalog
                                     </button>
-                                    <button class="btn btn-secondary w-100 mb-3 productbtn" type="button" data-toggle="modal">
-                                        <i class='bx bxl-product-hunt'></i> Products
-                                    </button>
-
-
                                     <button class="btn btn-success w-100 mb-3 changebtn" type="button" data-toggle="modal">
                                         <i class='bx bxs-coupon'></i> Save
                                     </button>
@@ -313,6 +320,8 @@ $finalcode='RS-'.createRandomPassword();
 
                      $sales_detail = mysqli_query($con,"SELECT sum(total) as 'details' FROM sales WHERE invoice_code = '$id'");
 
+
+
                      while ($bows=mysqli_fetch_assoc($sales_detail)) { 
 
 
@@ -326,6 +335,7 @@ $finalcode='RS-'.createRandomPassword();
                         <input type="hidden" name="taxes" value="<?php echo $total_tax;  ?>" readonly>
                         <input type="hidden" name="sub_totals" value="<?php echo $bows['details'];  ?>"readonly >
                         <input type="hidden" name="totals" value="<?php echo $total_amount;  ?>" readonly>
+                        <input type="hidden" name="trans_profit" value="<?php echo $lows['prof'];  ?>" readonly>
                         <input type="hidden" name="invoys" value="<?php echo $id=$_GET['invoice']; ?>">
 
                     <?php } ?>

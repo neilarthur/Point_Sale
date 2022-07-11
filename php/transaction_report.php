@@ -8,6 +8,11 @@ if (!isset($_SESSION["username"])) {
 
 include 'connection.php';
 
+if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
+  header("location: ../cashier/dashboard.php?invoice=$finalcode");
+  exit;
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -245,6 +250,7 @@ include 'connection.php';
                                                 <th scope="col">Transaction Code</th>
                                                 <th scope="col">Customer name</th>
                                                 <th scope="col">Total</th>
+                                                <th scope="col">Profit</th>
                                                 <th scope="col">Date Purchase</th>
                                             </tr>
                                         </thead>
@@ -256,7 +262,10 @@ include 'connection.php';
 
                                             $code = mysqli_query($con,"SELECT * FROM sales_detail,customers WHERE(sales_detail.customer_id=customers.customer_id) AND (date_purchase BETWEEN '{$sales}' AND '{$trans}') ORDER BY transac_id DESC ");
 
+
                                             while ($row = mysqli_fetch_array($code)) {
+
+
 
 
                                             ?>
@@ -265,8 +274,8 @@ include 'connection.php';
                                                 <td><?php echo $row['transac_code'];  ?></td>
                                                 <td><?php echo $row['first_name']." ". $row['last_name'];  ?></td>
                                                 <td><?php echo $row['transac_total'];  ?></td>
+                                                <td><?php echo $row['transac_profit'];  ?></td>
                                                 <td><?php echo $row['date_purchase'];  ?></td>
-
 
 
                                             </tr>
@@ -279,9 +288,22 @@ include 'connection.php';
 
                                                 $code1 = mysqli_query($con, "SELECT SUM(transac_total) as 'base' FROM sales_detail WHERE (date_purchase BETWEEN '{$les}' AND '{$ans}') ");
 
-                                                while ($cow = mysqli_fetch_array($code1)) {  ?>
+
+                                                $code5 = mysqli_query($con, "SELECT SUM(transac_profit) as 'nums' FROM sales_detail WHERE (date_purchase BETWEEN '{$les}' AND '{$ans}') ");
+
+
+       
+                                                while ($cow = mysqli_fetch_array($code1) AND $num = mysqli_fetch_array($code5)) { 
+
+                                                 ?>
                                                 <th class="text-end" colspan="3">Total: </th>
                                                 <td colspan="2">PHP <?php echo $cow['base'];  ?></td>
+                                                <tr>
+                                                    <th class="text-end" colspan="3">Profit: </th>
+                                                    <td colspan="2">PHP <?php echo $num['nums'];  ?></td>
+                                                </tr>
+
+
                                             </tr>
                                         <?php  } ?>
 

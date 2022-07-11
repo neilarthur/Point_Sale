@@ -30,8 +30,9 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
   $username = $_POST['username'];
 	$password = $_POST['password'];
+  $encrpt = md5($password);
 
-	$query = "SELECT * FROM users WHERE username='".$username."' AND password='".$password."'";
+	$query = "SELECT * FROM users WHERE username='".$username."' AND password='".$encrpt."'";
   	$result = mysqli_query($con,$query);
 
 
@@ -39,12 +40,14 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
   	if ($row["position"]=='admin') {
 
+      $_SESSION["position"] = $row['position'];
   		$_SESSION["username"] = $username;
   		$_SESSION["login"]=true;
-  		header("Location:dashboard.php");
+  		header("Location:dashboard.php?invoice=$finalcode");
   	}
   	elseif ($row["position"]=='cashier') {
 
+       $_SESSION["position"] = $row['position'];
   		 $_SESSION["username"] = $username;
   		 $_SESSION["login"]=true;
   		header("Location:../cashier/dashboard.php?invoice=$finalcode");

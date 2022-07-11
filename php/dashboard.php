@@ -1,11 +1,38 @@
 <?php
 session_start();
 
+function createRandomPassword() {
+    $chars = "003232303232023232023456789";
+    srand((double)microtime()*1000000);
+    $i = 0;
+    $pass = '' ;
+    while ($i <= 7) {
+
+        $num = rand() % 33;
+
+        $tmp = substr($chars, $num, 1);
+
+        $pass = $pass . $tmp;
+
+        $i++;
+
+    }
+    return $pass;
+}
+$finalcode='RS-'.createRandomPassword();
+
+
 if (!isset($_SESSION["username"])) {
     header("location: ../index.php");
 
 }
+
+if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
+  header("location: ../cashier/dashboard.php?invoice=$finalcode");
+  exit;
+}
 include 'connection.php';
+
 
 ?>
 

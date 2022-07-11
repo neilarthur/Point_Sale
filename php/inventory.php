@@ -8,6 +8,11 @@ if (!isset($_SESSION["username"])) {
 
 include 'connection.php';
 
+if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
+  header("location: ../cashier/dashboard.php?invoice=$finalcode");
+  exit;
+}
+
 
 $cat_run = "SELECT DISTINCT category_name, category_id FROM category order by category_id asc";
 
@@ -254,7 +259,7 @@ $supp .= "</select>";
                             $expired = mysqli_query($con, "SELECT * FROM inventory WHERE (( date_expired - INTERVAL 8 DAY) <= current_date()) ORDER BY date_expired asc");
 
                             while($row = mysqli_fetch_array($expired)) { ?>
-                            <h6 class="bg-warning p-1 ps-2 rounded-pill w-50">Item Expiring: [<?php echo $row['item_name']. "] - " .$row['bar_code']. " - [" .$row['date_expired']; ?>]</h6>
+                            <h6 class="bg-danger p-1 ps-2 rounded-pill w-50">Item Expiring: [<?php echo $row['item_name']. "] - " .$row['bar_code']. " - [" .$row['date_expired']; ?>]</h6>
                             <?php
                             }
                             ?>

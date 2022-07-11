@@ -6,7 +6,13 @@ if (!isset($_SESSION["username"])) {
 
 }
 
+
 include 'connection.php';
+
+if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
+  header("location: ../cashier/dashboard.php?invoice=$finalcode");
+  exit;
+}
 
 ?>
 <!doctype html>

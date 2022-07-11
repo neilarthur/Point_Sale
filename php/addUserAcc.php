@@ -7,9 +7,10 @@ if (isset($_POST['add'])) {
     $email_address = $_POST['email_address'];
     $contact_no = $_POST['contact_no'];
     $password    = $_POST['password'];
+    $encrypt = md5($password);
     $position = $_POST['position'];
 
-    $sql = "INSERT INTO users (username,email_address,contact_no,password,position) VALUES('$username','$email_address','$contact_no','$password','$position')";
+    $sql = "INSERT INTO users (username,email_address,contact_no,password,position) VALUES('$username','$email_address','$contact_no','$encrypt','$position')";
     $result = mysqli_query($con,$sql);
     if ($result) {
         header("location:user_manager.php"); 
