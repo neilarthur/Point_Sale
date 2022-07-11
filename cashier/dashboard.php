@@ -137,7 +137,7 @@ $finalcode='RS-'.createRandomPassword();
                                                 <th scope="col">Total</th>
                                                 <th scope="col">Profit</th>
                                                 <th scope="col">Invoice</th>
-                                                <th scope="col">Action</th>
+                                                <th scope="col" style="padding-left:20px;">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
