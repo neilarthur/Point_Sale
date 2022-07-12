@@ -257,6 +257,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                     <table class="table table-striped align-middle" id="ProductTab">
                                         <thead>
                                             <tr>
+                                                <th scope="col">#</th>
                                                 <th scope="col">Barcode</th>
                                                 <th scope="col">Item Name</th>
                                                 <th scope="col">Price</th>
@@ -277,6 +278,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                             while ($row=mysqli_fetch_assoc($query_run) AND $rows=mysqli_fetch_assoc($sql_run) AND $crows=mysqli_fetch_assoc($sup_run)) { ?>
 
                                                 <tr>
+                                                    <td><?php echo $row['item_id'];  ?></td>
                                                     <td><?php echo $row['bar_code'];  ?></td>
                                                     <td><?php echo $row['item_name'];  ?></td>
                                                     <td><?php echo $row['price'];  ?></td>
@@ -289,6 +291,8 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                                     <td>
                                                         <div class="d-flex flex-row justify-content-center">
                                                             <button class="btn btn-primary editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-eye"data-toggle="tooltip" title="edit"></i> </i>View</button>
+
+                                                        <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i>Delete</button>
                                                     </td>
                                                 </tr>
                                             <?php }  ?>
@@ -378,6 +382,28 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
     </div>
 
 
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Delete Inventory</h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="deleteinventory.php" method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="delete_id" id="delete_id">
+
+                    <p align="center">Are you sure? You want to Delete these?</p>
+                    <div class="modal-footer">
+                        <button type="submit" name="delete" class="btn btn-success">YES</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
 <script type="text/javascript">
     
     $(document).ready(function(){
@@ -437,6 +463,24 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
 
     }
   </script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.deletebtn').on('click', function() {
+
+            $('#delete').modal('show');
+
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+            console.log(data);
+            $('#delete_id').val(data[0]);
+
+        })
+    });
+</script>
 
 
 

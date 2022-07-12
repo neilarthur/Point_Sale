@@ -11,10 +11,10 @@ if (isset($_POST['delete'])) {
 
 	if ($sql_run) {
 
-		header("location: inventory.php");
+		header("location: product.php");
 	}
 	else {
-		header("location: inventory.php");
+		echo 'error1, ' . $con -> error;
 	}
   }  
 ?>

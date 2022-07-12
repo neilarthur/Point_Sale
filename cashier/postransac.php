@@ -37,12 +37,12 @@ if (isset($_POST['create'])) {
 				if ($wer) {
 					while ($row = mysqli_fetch_array($wer)) {
 
-						$qty_inventory = $row['quantity'];
+						$qty_inventory = $row['on_hand'];
 
 						$total = $qty_inventory - $quantity;
 
 
-						$inventory_run = "UPDATE inventory SET quantity = '$total' WHERE bar_code = '$bar_code'";
+						$inventory_run = "UPDATE inventory SET on_hand = '$total' WHERE bar_code = '$bar_code'";
 		  				$ivty = mysqli_query($con, $inventory_run);
 
 

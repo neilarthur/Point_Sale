@@ -345,8 +345,6 @@ $supp .= "</select>";
                                                 <td>
                                                     <div class="d-flex flex-row justify-content-center">
                                                         <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
-
-                                                        <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i>Delete</button>
                                                 </td>
                                             </tr>
                                         <?php }  ?>
@@ -527,26 +525,7 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
     </div>
 
 
-    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">Delete Inventory</h5>
-                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="deleteinventory.php" method="POST">
-                <div class="modal-body">
-                    <input type="hidden" name="delete_id" id="delete_id">
 
-                    <p align="center">Are you sure? You want to Delete these?</p>
-                    <div class="modal-footer">
-                        <button type="submit" name="delete" class="btn btn-success">YES</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
 
 
 
@@ -595,48 +574,34 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('.deletebtn').on('click', function() {
 
-            $('#delete').modal('show');
-
-            $tr = $(this).closest('tr');
-
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
-            console.log(data);
-            $('#delete_id').val(data[0]);
-
-        })
-    });
     function myFunction() {
 
-      var input, filter, table, tr, i, j, column_length, count_td;
-      column_length = document.getElementById('InventoryTab').rows[0].cells.length;
-      input = document.getElementById("SearchMo");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("InventoryTab");
-      tr = table.getElementsByTagName("tr");
-      for (i = 1; i < tr.length; i++) {
-        count_td = 0;
-        for (j = 1; j < column_length - 1; j++) {
-          td = tr[i].getElementsByTagName("td")[j];
+        var input, filter, table, tr, i, j, column_length, count_td;
 
-          if (td) {
-            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-              count_td++;
+        column_length = document.getElementById('InventoryTab').rows[0].cells.length;
+        input = document.getElementById("SearchMo");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("InventoryTab");
+        tr = table.getElementsByTagName("tr");
+        for (i = 1; i < tr.length; i++) {
+            count_td = 0;
+            for (j = 1; j < column_length - 1; j++) {
+            td = tr[i].getElementsByTagName("td")[j];
+
+            if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    count_td++;
+                }
             }
-          }
         }
         if (count_td > 0) {
-          tr[i].style.display = "";
+            tr[i].style.display = "";
         } else {
-          tr[i].style.display = "none";
+            tr[i].style.display = "none";
         }
-      }
-
     }
+}
 </script>
 
 
