@@ -250,6 +250,7 @@ $finalcode='RS-'.createRandomPassword();
                                     </div>
                                      <div class="input-group mb-3">
                                          <span class="input-group-text">Sub total:</span>
+                                         <span class="input-group-text">₱</span>
                                          <input type="number" class="form-control" name="sub_total" value="<?php echo $bows['details'];  ?>"readonly >
                                      </div>
 
@@ -261,6 +262,7 @@ $finalcode='RS-'.createRandomPassword();
                                      
                                      <div class="input-group mb-3">
                                         <span class="input-group-text">Total:</span>
+                                        <span class="input-group-text">₱</span>
                                         <input type="number" class="form-control" name="total" value="<?php echo $total_amount;  ?>" readonly>
 
                                      </div>
@@ -273,7 +275,7 @@ $finalcode='RS-'.createRandomPassword();
                                         <i class='bx bx-plus-medical'></i> Add Catalog
                                     </button>
                                     <button class="btn btn-secondary w-100 mb-3 changebtn" type="button" data-toggle="modal">
-                                        <i class='bx bxs-coupon'></i>Customer
+                                        <i class="fas fa-users"></i></i> Customer
                                     </button>
                                 </form>
                             </div>
@@ -341,10 +343,10 @@ $finalcode='RS-'.createRandomPassword();
 
 
 <div class="modal fade" id="change" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">Do you want to Save</h5>
+                <h5 class="modal-title" id="mediumModalLabel">Enter Customer</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="savepos.php" method="POST">
@@ -361,7 +363,7 @@ $finalcode='RS-'.createRandomPassword();
 
 
                      ?>
-                       <p style="margin-top: 10px;">Enter your Cash</p>
+                       <p style="margin-top: 10px;">Enter your Cash:</p>
 
                        <input type="number" class="form-control bg-light border-0 small mb-3" name="cash" required="">
 
@@ -377,7 +379,7 @@ $finalcode='RS-'.createRandomPassword();
 
                                     
                     <div class="modal-footer">
-                        <button type="submit" name="save" class="btn btn-success">Save</button>
+                        <button type="submit" name="save" class="btn btn-success">Submit</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </div>
