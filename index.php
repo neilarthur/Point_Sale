@@ -52,14 +52,8 @@ include_once 'php/connection.php';
                 <span class="fas fa-lock p-2"></span>
                 <input class="form-control" type="password" name="password" required placeholder="Password">
               </div>
-              <div class="row">
-                <div class="col-5 text-center">
-                  <button type="submit" class="btn btn-primary px-4">Login</button>
-                </div>
-                <div class="form-check col-7 text-right mt-2" style="padding-left:80px;">
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                  <label class="form-check-label" for="defaultCheck1">Remember Me</label>
-                </div>
+              <div class="row w-75 ms-5">
+                <button type="submit" class="btn btn-primary px-4">Login</button>
               </div>
               </form>
             </div>
