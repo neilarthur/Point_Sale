@@ -322,7 +322,7 @@ $supp .= "</select>";
                                             <?php
 
 
-                                            $query_run = mysqli_query($con,"SELECT * FROM inventory");
+                                            $query_run = mysqli_query($con,"SELECT * FROM inventory WHERE status = 'active'");
 
                                             $sql_run = mysqli_query($con,"SELECT * FROM category,inventory WHERE(category.category_id=inventory.category_id)");
 

@@ -3,11 +3,6 @@
 require_once '../php/connection.php';
 
 
-
-
-
-
-
 if (isset($_POST['save'])) {
 	
 

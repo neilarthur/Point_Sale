@@ -4,7 +4,7 @@
 require_once ("../php/connection.php");
 
 if (! empty($_POST["keyword"])) {
-    $query = "SELECT * FROM inventory WHERE bar_code like '" . $_POST["keyword"] . "%' ORDER BY bar_code LIMIT 0,6";
+    $query = "SELECT * FROM inventory WHERE bar_code like '" . $_POST["keyword"] . "%' AND status = 'active' ORDER BY bar_code LIMIT 0,6";
     $result =mysqli_query($con, $query);
     if (! empty($result)) {
         ?>

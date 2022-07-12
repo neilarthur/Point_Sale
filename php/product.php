@@ -269,7 +269,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                         <tbody>
                                             <?php
 
-                                            $query_run = mysqli_query($con,"SELECT * FROM inventory");
+                                            $query_run = mysqli_query($con,"SELECT * FROM inventory WHERE status = 'active'");
 
                                             $sql_run = mysqli_query($con,"SELECT * FROM category,inventory WHERE(category.category_id=inventory.category_id)");
 
@@ -391,11 +391,11 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
             </div>
             <form action="deleteinventory.php" method="POST">
                 <div class="modal-body">
-                    <input type="hidden" name="delete_id" id="delete_id">
+                    <input type="hidden" name="update_id" id="delete_id">
 
                     <p align="center">Are you sure? You want to Delete these?</p>
                     <div class="modal-footer">
-                        <button type="submit" name="delete" class="btn btn-success">YES</button>
+                        <button type="submit" name="update" class="btn btn-success">YES</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
                     </div>
                 </div>

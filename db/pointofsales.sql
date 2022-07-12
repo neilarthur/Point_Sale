@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2022 at 09:17 AM
+-- Generation Time: Jul 12, 2022 at 05:53 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -62,7 +62,7 @@ CREATE TABLE `customers` (
 INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `address`, `contact_no`, `date_created`) VALUES
 (1, 'Neil', 'Pornela', 'santa cruz', '094832123', '2022-06-01'),
 (3, 'richard', 'ramos', 'sta cruz', '947374757', '2022-06-23'),
-(4, 'Ralph Vincent', 'Pagcaliwagan', 'santa cruz', '947374757', '2022-01-11');
+(4, 'Ralph Vincent', 'Pagcaliwagan', 'Calauan,Laguna', '947374757', '2022-01-11');
 
 -- --------------------------------------------------------
 
@@ -82,18 +82,17 @@ CREATE TABLE `inventory` (
   `category_id` int(11) NOT NULL,
   `supplier_id` int(11) NOT NULL,
   `stock_in` date NOT NULL,
-  `date_expired` date NOT NULL
+  `date_expired` date NOT NULL,
+  `status` enum('active','archive') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `orignal_price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`, `date_expired`) VALUES
-(1, 165716772, 'Cream O chips', -69, 40, 50, 10, 100, 1, 2, '2022-07-11', '2022-07-11'),
-(2, 331433843, 'Plus Apple Drinks', 27, 10, 12, 2, 50, 3, 4, '2022-02-11', '2022-07-11'),
-(4, 165735753, 'Piatos Snacks', 88, 10, 15, 5, 50, 1, 2, '2022-02-11', '2022-07-11'),
-(5, 165735756, 'MR chips', 94, 5, 8, 3, 100, 1, 4, '2022-07-11', '2022-08-15');
+INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `orignal_price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`, `date_expired`, `status`) VALUES
+(2, 331527334, 'Hansel Chocolate Snacks', 100, 5, 10, 5, 45, 1, 2, '2022-07-12', '2023-01-11', 'archive'),
+(4, 165764046, 'Hansel Chocolate Snacks', 100, 5, 8, 3, 97, 1, 7, '2022-07-11', '2022-07-11', 'active');
 
 -- --------------------------------------------------------
 
@@ -115,7 +114,9 @@ INSERT INTO `location` (`location_id`, `province`, `city`) VALUES
 (1, 'Makati', 'santa cruz'),
 (2, 'Makati', 'Calauan'),
 (3, 'Cebu', 'Clex'),
-(4, 'Makati', 'santa cruz');
+(4, 'Makati', 'santa cruz'),
+(5, 'Laguna', 'Pagsanjan Purok 3'),
+(7, 'Laguna', 'Santa Rosa');
 
 -- --------------------------------------------------------
 
@@ -140,13 +141,10 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`sales_id`, `item_id`, `product_code`, `invoice_code`, `product_name`, `sales_price`, `sales_profit`, `sales_quantity`, `Total`) VALUES
-(1, 1, '165716772', 'RS-2032', 'Cream O chips', 40, 10, 1, 40),
-(2, 2, '331433843', 'RS-2032', 'Plus Apple Drinks', 10, 2, 1, 10),
-(3, 4, '165735753', 'RS-2032', 'Piatos Snacks', 10, 5, 1, 10),
-(4, 5, '165735756', 'RS-2032', 'MR chips', 5, 3, 1, 5),
-(5, 1, '165716772', 'RS-0304523', 'Cream O chips', 40, 10, 1, 40),
-(6, 2, '331433843', 'RS-0304523', 'Plus Apple Drinks', 10, 2, 1, 10),
-(7, 4, '165735753', 'RS-0304523', 'Piatos Snacks', 10, 5, 1, 10);
+(1, 2, '331527334', 'RS-222256', 'Hansel Chocolate Snacks', 5, 5, 3, 25),
+(2, 2, '331527334', 'RS-30733', 'Hansel Chocolate Snacks', 5, 5, 5, 25),
+(3, 2, '331527334', 'RS-7209623', 'Hansel Chocolate Snacks', 5, 5, 5, 25),
+(4, 4, '165764046', 'RS-620398', 'Hansel Chocolate Snacks', 5, 3, 3, 15);
 
 -- --------------------------------------------------------
 
@@ -172,8 +170,10 @@ CREATE TABLE `sales_detail` (
 --
 
 INSERT INTO `sales_detail` (`transac_id`, `transac_code`, `transac_subtotal`, `customer_id`, `transac_tax`, `transac_total`, `transac_profit`, `cash`, `sales_change`, `date_purchase`) VALUES
-(1, 'RS-2032', 65, 4, 7.8, 72.8, 20, 100, 27.2, '2022-07-11'),
-(2, 'RS-0304523', 60, 1, 7.2, 67.2, 17, 100, 32.8, '2022-07-11');
+(1, 'RS-222256', 15, 4, 1.8, 16.8, 5, 40, 23.2, '2022-07-12'),
+(2, 'RS-30733', 25, 4, 3, 28, 5, 100, 72, '2022-07-12'),
+(3, 'RS-7209623', 25, 1, 3, 28, 5, 100, 72, '2022-07-12'),
+(4, 'RS-620398', 15, 1, 1.8, 16.8, 3, 50, 33.2, '2022-07-12');
 
 -- --------------------------------------------------------
 
@@ -196,7 +196,9 @@ INSERT INTO `supplier` (`supplier_id`, `company_name`, `location_id`, `phone_no`
 (1, 'Accenture Tech Corp.', 1, 2147483647),
 (2, 'bisquit Corporation LT.', 2, 2147483647),
 (3, 'ALASKA', 3, 938465231),
-(4, 'rebisco', 4, 2147483647);
+(4, 'rebisco', 4, 2147483647),
+(5, 'Red Horse Corporation', 5, 938465231),
+(7, 'Chocolate Factory Corporation', 7, 949352634);
 
 -- --------------------------------------------------------
 
@@ -219,7 +221,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `email_address`, `password`, `contact_no`, `position`) VALUES
 (1, 'ralphvincent', 'ralphvincent.p11@gmail.com', '0192023a7bbd73250516f069df18b500', '0947574632', 'admin'),
-(2, 'Chadwick', 'chadwick@yahoo.com', 'dbb8c54ee649f8af049357a5f99cede6', '0947574632', 'cashier');
+(2, 'Chadwick', 'chadwick@yahoo.com', 'dbb8c54ee649f8af049357a5f99cede6', '0947574632', 'cashier'),
+(3, 'NeilArthur', 'neil.pornela@yahoo.com', '0192023a7bbd73250516f069df18b500', '0947574632', 'admin');
 
 --
 -- Indexes for dumped tables
@@ -292,43 +295,43 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sales_detail`
 --
 ALTER TABLE `sales_detail`
-  MODIFY `transac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `transac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -338,8 +341,8 @@ ALTER TABLE `users`
 -- Constraints for table `inventory`
 --
 ALTER TABLE `inventory`
-  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `inventory_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
+  ADD CONSTRAINT `inventory_ibfk_2` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`);
 
 --
 -- Constraints for table `sales`

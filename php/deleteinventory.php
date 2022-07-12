@@ -2,19 +2,23 @@
 
 require_once 'connection.php';
 
-if (isset($_POST['delete'])) {
+if (isset($_POST['update'])) {
+  $update_id = $_POST['update_id'];
+  $status = 'archive';
 
-	$id = $_POST['delete_id'];
+  $query= "UPDATE inventory SET status = '$status' WHERE item_id='$update_id' ";
+  $query_run = mysqli_query($con, $query);
 
-	$sql = "DELETE FROM inventory WHERE item_id = '$id'";
-	$sql_run = mysqli_query($con, $sql);
+  
 
-	if ($sql_run) {
 
-		header("location: product.php");
-	}
-	else {
-		echo 'error1, ' . $con -> error;
-	}
-  }  
+  if ($query_run) {
+    echo '<script> alert("Data Updated");</script>';
+    header("Location:product.php");
+  }
+  else{
+
+    echo '<script?> alert ("Data Not Updated"); </script';
+  }
+}  
 ?>
