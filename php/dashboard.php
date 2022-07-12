@@ -351,9 +351,9 @@ include 'connection.php';
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row justify-content-end">
                         <div class="col-lg-4">
-                            <div class="card shadow mb-1">
+                            <div class="card shadow h-100 text-dark bg-light mb-3" >
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" >
                                     <h6 class="m-0 font-weight-bold text-primary"><center>Display Available Products</center></h6>
                                 </div>
