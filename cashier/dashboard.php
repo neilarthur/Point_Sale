@@ -6,10 +6,7 @@ if (!isset($_SESSION["username"])) {
 
 }
 
-if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'cashier') {
-  header("location: ../php/dashboard.php");
-  exit;
-}
+
 include '../php/connection.php';
 
 
@@ -91,10 +88,18 @@ $finalcode='RS-'.createRandomPassword();
     <body style="background-color: rgb(230, 230, 230);">
    
     <div class="page">
+
+        <?php
+
+        if ($_SESSION['position'] =='admin') { ?> 
+
         <nav class="navbar navbar-dark fw-bold" style="background-color: rgb(78, 115, 223);">
-            <a class="navbar-brand" href="#">
+
+                
+                <a class="navbar-brand" href="../php/dashboard.php">
                 <img src="../image/logo.png" width="30" height="30" class="d-inline-block align-top" alt=""> Point of Sale and Inventory System</a>
-             <div class="dropdown pb-1 me-4">
+
+                 <div class="dropdown pb-1 me-4">
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="col-2 ms-4">
                         <img class="mr-3" src="../image/user_35px.png" />
@@ -111,6 +116,34 @@ $finalcode='RS-'.createRandomPassword();
 
         </nav>
 
+
+            <?php } elseif ($_SESSION['position'] =='cashier') { ?>
+
+                <nav class="navbar navbar-dark fw-bold" style="background-color: rgb(78, 115, 223);">
+
+                
+                <a class="navbar-brand" href="#">
+                <img src="../image/logo.png" width="30" height="30" class="d-inline-block align-top" alt=""> Point of Sale and Inventory System</a>
+
+                 <div class="dropdown pb-1 me-4">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="col-2 ms-4">
+                        <img class="mr-3" src="../image/user_35px.png" />
+                    </div>
+                    <span class="d-none d-sm-inline mx-1 ms-3"><?php echo $_SESSION["username"];  ?></span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
+                    
+                        <a class="dropdown-item" href="../php/logout.php">Sign out</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+           <?php } ?>
+
+            
         
         <div class="content">
 
@@ -239,8 +272,8 @@ $finalcode='RS-'.createRandomPassword();
                                     <button class="btn btn-primary w-100 mb-3" type="submit" name="create">
                                         <i class='bx bx-plus-medical'></i> Add Catalog
                                     </button>
-                                    <button class="btn btn-success w-100 mb-3 changebtn" type="button" data-toggle="modal">
-                                        <i class='bx bxs-coupon'></i> Save
+                                    <button class="btn btn-secondary w-100 mb-3 changebtn" type="button" data-toggle="modal">
+                                        <i class='bx bxs-coupon'></i>Customer
                                     </button>
                                 </form>
                             </div>
@@ -352,6 +385,9 @@ $finalcode='RS-'.createRandomPassword();
         </div>
     </div>
 </div>
+
+
+
 
  
 <script>

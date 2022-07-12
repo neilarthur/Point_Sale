@@ -74,6 +74,8 @@ include 'connection.php';
     </head>
     
     <body>
+
+
    
     <div class="page">
 
@@ -152,6 +154,18 @@ include 'connection.php';
                                 </div>
                                 <div class="col-9">
                                     Inventory
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navigation-list-item">
+                        <a class="navigation-link" href="../cashier/dashboard.php?invoice=<?php echo $finalcode;  ?>">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bxs-box'></i>
+                                </div>
+                                <div class="col-9">
+                                    POS
                                 </div>
                             </div>
                         </a>
