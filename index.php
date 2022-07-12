@@ -52,7 +52,7 @@ include_once 'php/connection.php';
                 <span class="fas fa-lock p-2"></span>
                 <input class="form-control" type="password" name="password" required placeholder="Password">
               </div>
-              <div class="row w-75 ms-5">
+              <div class="row w-75 ms-5" style="padding-left: 20px;">
                 <button type="submit" class="btn btn-primary px-4">Login</button>
               </div>
               </form>
