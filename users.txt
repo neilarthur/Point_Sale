@@ -1,0 +1,5 @@
+admin: ralphvincent
+pass: admin123
+
+cashier: Chadwick
+pass: cashier123

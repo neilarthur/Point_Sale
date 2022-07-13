@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2022 at 09:16 AM
--- Server version: 10.4.19-MariaDB
--- PHP Version: 7.3.28
+-- Generation Time: Jul 13, 2022 at 09:21 AM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 8.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,7 +61,9 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `address`, `contact_no`, `customer_status`, `date_created`) VALUES
-(3, 'richard', 'ramos', 'sta cruz', '947374757', 'archieve', '2022-06-23');
+(3, 'richard', 'ramos', 'sta cruz', '947374757', 'archieve', '2022-06-23'),
+(6, 'Jireh ', 'Ramos', 'Publicion 5 Santa Cruz Laguna', '09192345976', 'active', '2022-07-12'),
+(7, 'John Lloyd', 'Araza', 'Sitio 2 Magdalena laguna', '09196913652', 'active', '2022-07-12');
 
 -- --------------------------------------------------------
 
@@ -286,7 +288,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `inventory`
