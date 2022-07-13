@@ -287,7 +287,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                         <tbody>
                                             <?php
 
-                                            $query_run = mysqli_query($con,"SELECT * FROM customers");
+                                            $query_run = mysqli_query($con,"SELECT * FROM customers WHERE customer_status='active'");
                                             while ($row=mysqli_fetch_assoc($query_run)) { ?>
 
                                             <tr>
@@ -412,10 +412,10 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
             </div>
             <form action="customer_delete.php" method="POST">
                 <div class="modal-body">
-                    <input type="hidden" name="delete_id" id="delete_id">
+                    <input type="hidden" name="update_id" id="delete_id">
                     <p align="center">Are you sure? Delete these customer</p>
                     <div class="modal-footer">
-                        <button type="submit" name="deletedata" class="btn btn-success">YES</button>
+                        <button type="submit" name="updated" class="btn btn-success">YES</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
                     </div>
                 </div>

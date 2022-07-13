@@ -3,19 +3,22 @@
 include_once 'connection.php';
 
 
-if (isset($_POST['deletedata'])) {
+if (isset($_POST['updated'])) {
   	
-  	$id = $_POST['delete_id'];
+  	$id = $_POST['update_id'];
+    $status = 'archieve';
 
-  	$sql = "DELETE FROM customers WHERE customer_id = '$id'";
-  	$sql_run = mysqli_query($con,$sql);
 
-  	if ($sql_run) {
+
+    $sql= "UPDATE customers SET customer_status = '$status' WHERE customer_id='$id' ";
+    $query_run = mysqli_query($con, $sql);
+
+  	if ($query_run) {
   		header("Location:customer.php");
   	}
   	else {
 
-  		header("Location:customer.php");
+  		echo 'error1, ' . $con -> error;
   	}
   }  
 ?>
