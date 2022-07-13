@@ -379,7 +379,7 @@ include 'connection.php';
                                     <tbody>
                                         <?php
 
-                                $display = mysqli_query($con, "SELECT * FROM inventory");
+                                $display = mysqli_query($con, "SELECT * FROM inventory WHERE status='active'");
 
                                 while ($row = mysqli_fetch_array($display)) {
                                 ?>
