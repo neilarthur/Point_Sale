@@ -225,10 +225,24 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
         </div>
         <!-- Toggle -->
         <div class="content">
-            <div class="navigationBar sd">
+            <div class="navigationBar justify-content-between sd">
                 <button id="sidebarToggle" class="btn sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </button>
+                <div class="dropdown pb-1 me-4 ">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="col-2">
+                            <img class="mr-3" src="../image/user_35px.png" />
+                        </div>
+                        <span class="d-none d-sm-inline mx-1 ms-3 text-dark"><?php echo $_SESSION["username"];  ?></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
+                         <li><a class="dropdown-item" href="#">Settings</a></li>
+                         <li><a class="dropdown-item" href="#">Profile</a></li>
+                         <li><hr class="dropdown-divider"></li>
+                        <a class="dropdown-item" href="../php/logout.php">Sign out</a>
+                    </ul>
+                </div>
             </div>
            
 
@@ -310,7 +324,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                             </tbody>
                         </table>
                         <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
-                            <button class="btn btn-success sd" onClick="window.print()">Print this page</button>
+                            <button class="btn btn-success sd" onClick="window.print()">DOWNLOAD</button>
                         </div>
                 </div> 
                  
