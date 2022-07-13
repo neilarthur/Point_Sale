@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2022 at 05:53 PM
+-- Generation Time: Jul 13, 2022 at 09:16 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -52,6 +52,7 @@ CREATE TABLE `customers` (
   `last_name` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL,
   `contact_no` varchar(255) NOT NULL,
+  `customer_status` enum('active','archieve') NOT NULL,
   `date_created` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -59,10 +60,8 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `address`, `contact_no`, `date_created`) VALUES
-(1, 'Neil', 'Pornela', 'santa cruz', '094832123', '2022-06-01'),
-(3, 'richard', 'ramos', 'sta cruz', '947374757', '2022-06-23'),
-(4, 'Ralph Vincent', 'Pagcaliwagan', 'Calauan,Laguna', '947374757', '2022-01-11');
+INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `address`, `contact_no`, `customer_status`, `date_created`) VALUES
+(3, 'richard', 'ramos', 'sta cruz', '947374757', 'archieve', '2022-06-23');
 
 -- --------------------------------------------------------
 
@@ -92,7 +91,8 @@ CREATE TABLE `inventory` (
 
 INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `orignal_price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`, `date_expired`, `status`) VALUES
 (2, 331527334, 'Hansel Chocolate Snacks', 100, 5, 10, 5, 45, 1, 2, '2022-07-12', '2023-01-11', 'archive'),
-(4, 165764046, 'Hansel Chocolate Snacks', 100, 5, 8, 3, 97, 1, 7, '2022-07-11', '2022-07-11', 'active');
+(4, 165764046, 'Hansel Chocolate Snacks', 100, 5, 8, 3, 96, 1, 7, '2022-07-11', '2022-07-11', 'active'),
+(5, 165764227, 'Plus Apple Drinks', 100, 7, 10, 3, 50, 3, 2, '2022-02-11', '2023-08-11', 'active');
 
 -- --------------------------------------------------------
 
@@ -144,7 +144,8 @@ INSERT INTO `sales` (`sales_id`, `item_id`, `product_code`, `invoice_code`, `pro
 (1, 2, '331527334', 'RS-222256', 'Hansel Chocolate Snacks', 5, 5, 3, 25),
 (2, 2, '331527334', 'RS-30733', 'Hansel Chocolate Snacks', 5, 5, 5, 25),
 (3, 2, '331527334', 'RS-7209623', 'Hansel Chocolate Snacks', 5, 5, 5, 25),
-(4, 4, '165764046', 'RS-620398', 'Hansel Chocolate Snacks', 5, 3, 3, 15);
+(4, 4, '165764046', 'RS-620398', 'Hansel Chocolate Snacks', 5, 3, 3, 15),
+(5, 4, '165764046', 'RS-7229833', 'Hansel Chocolate Snacks', 5, 3, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -164,16 +165,6 @@ CREATE TABLE `sales_detail` (
   `sales_change` double NOT NULL,
   `date_purchase` date DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `sales_detail`
---
-
-INSERT INTO `sales_detail` (`transac_id`, `transac_code`, `transac_subtotal`, `customer_id`, `transac_tax`, `transac_total`, `transac_profit`, `cash`, `sales_change`, `date_purchase`) VALUES
-(1, 'RS-222256', 15, 4, 1.8, 16.8, 5, 40, 23.2, '2022-07-12'),
-(2, 'RS-30733', 25, 4, 3, 28, 5, 100, 72, '2022-07-12'),
-(3, 'RS-7209623', 25, 1, 3, 28, 5, 100, 72, '2022-07-12'),
-(4, 'RS-620398', 15, 1, 1.8, 16.8, 3, 50, 33.2, '2022-07-12');
 
 -- --------------------------------------------------------
 
@@ -301,7 +292,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `location`
@@ -313,7 +304,7 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `sales_detail`
