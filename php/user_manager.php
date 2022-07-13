@@ -159,7 +159,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         <a class="navigation-link" href="../cashier/dashboard.php?invoice=<?php echo $finalcode;  ?>">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxs-box'></i>
+                                    <i class='bx bx-money-withdraw'></i>
                                 </div>
                                 <div class="col-9">
                                     POS
@@ -204,20 +204,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         </a>
                     </li>
                     <hr style="color:rgb(255, 255, 255);margin-top:10px;">
-                     <li class="navigation-list-item" style="margin-top:45%;">
-                        <div class="dropdown pb-1">
-                            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div class="col-2">
-                                    <img src="../image/user_35px.png" />
-                                </div>
-                                <span class="d-none d-sm-inline mx-1 ms-3"><?php echo $_SESSION["username"];  ?></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
-                                
-                                <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    
                 </ul>
                 <!--End Sidebar -->
 
@@ -226,13 +213,13 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
         </div>
         <!-- Toggle -->
         <div class="content">
-            <div class="navigationBar">
+            <div class="navigationBar justify-content-between">
                 <button id="sidebarToggle" class="btn sidebarToggle">
                     <i class="fas fa-bars"></i>
                 </button>
 
                 <!-- Search bar -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ms-3">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ms-3"style="padding-right: 65%;">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2" id="SearchMo" onkeyup="myFunction()">
                         <div class="input-group-append">
@@ -242,6 +229,23 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         </div>
                     </div>
                 </form>
+             <!-- Sign Out -->
+                 <div>
+                    <div class="dropdown pb-1 me-4">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="col-2">
+                                <img class="mr-3" src="../image/user_35px.png" />
+                            </div>
+                            <span class="d-none d-sm-inline mx-1 ms-3 text-dark"><?php echo $_SESSION["username"];  ?></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <a class="dropdown-item" href="../php/logout.php">Sign out</a>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <!-- Main content -->

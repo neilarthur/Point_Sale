@@ -125,20 +125,17 @@ $finalcode='RS-'.createRandomPassword();
                 <a class="navbar-brand" href="#">
                 <img src="../image/logo.png" width="30" height="30" class="d-inline-block align-top" alt=""> Point of Sale and Inventory System</a>
 
-                 <div class="dropdown pb-1 me-4">
-                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <div class="col-2 ms-4">
-                        <img class="mr-3" src="../image/user_35px.png" />
-                    </div>
-                    <span class="d-none d-sm-inline mx-1 ms-3"><?php echo $_SESSION["username"];  ?></span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
-                    
+                <div class="dropdown pb-1 me-4">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="col-2 ms-4">
+                            <img class="mr-3" src="../image/user_35px.png" />
+                        </div>
+                        <span class="d-none d-sm-inline mx-1 ms-3"><?php echo $_SESSION["username"];  ?></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
                         <a class="dropdown-item" href="../php/logout.php">Sign out</a>
-                    </li>
-                </ul>
-
-            </div>
+                    </ul>
+                </div>
 
         </nav>
            <?php } ?>

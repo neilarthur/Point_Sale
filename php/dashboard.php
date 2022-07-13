@@ -162,7 +162,7 @@ include 'connection.php';
                         <a class="navigation-link" href="../cashier/dashboard.php?invoice=<?php echo $finalcode;  ?>">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxs-box'></i>
+                                   <i class='bx bx-money-withdraw'></i>
                                 </div>
                                 <div class="col-9">
                                     POS
@@ -207,20 +207,7 @@ include 'connection.php';
                         </a>
                     </li>
                      <hr style="color:rgb(255, 255, 255);margin-top:10px;">
-                    <li class="navigation-list-item" style="margin-top: 45%;">
-                        <div class="dropdown pb-1">
-                            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div class="col-2">
-                                    <img class="mr-5" src="../image/user_35px.png" />
-                                </div>
-                                <span class="d-none d-sm-inline mx-1 ms-3"><?php echo $_SESSION["username"];  ?></span>
-                               
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
-                                <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
-                            </ul>
-                        </div>
-                    </li>
+
                 </ul>
                 <!--End Sidebar -->
 
@@ -229,10 +216,24 @@ include 'connection.php';
         </div>
         <!-- Toggle -->
         <div class="content">
-            <div class="navigationBar">
+            <div class="navigationBar justify-content-between">
                 <button id="sidebarToggle" class="btn sidebarToggle">
                     <i class="fas fa-bars"></i>
-                </button>       
+                </button>  
+                <div class="dropdown pb-1 me-4 ">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="col-2">
+                            <img class="mr-3" src="../image/user_35px.png" />
+                        </div>
+                        <span class="d-none d-sm-inline mx-1 ms-3 text-dark"><?php echo $_SESSION["username"];  ?></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
+                         <li><a class="dropdown-item" href="#">Settings</a></li>
+                         <li><a class="dropdown-item" href="#">Profile</a></li>
+                         <li><hr class="dropdown-divider"></li>
+                        <a class="dropdown-item" href="../php/logout.php">Sign out</a>
+                    </ul>
+                </div>     
             </div>
            
             <!-- Main content -->
