@@ -45,6 +45,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="../style/dash.css">
+    <link rel="icon" href="../image/logo.ico">
 
     
     <!-- Font Awesome -->
@@ -279,7 +280,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                     <input type="date" name="trans" class="form-control ">
                                 </div>
                                 <div class="col-auto">
-                                    <input type="submit" class="btn btn-primary">
+                                    <input type="submit" class="btn btn-primary" value="Search">
                                 </div>
                                 <div class="justify-content-center">
                                     <p style="text-align: center; font-weight: bold;">Show Date:</p>

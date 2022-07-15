@@ -45,6 +45,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="../style/dash.css">
+    <link rel="icon" href="../image/logo.ico">
 
     
     <!-- Font Awesome -->
@@ -341,30 +342,12 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         </div>
                         <div class="form-group">
                             <label for="name">Category</label>
-                            <select class="form-select" aria-label="Default select example" name="category" id="category_name" readonly="" disabled="">
-                                <?php
-                                    $sup=mysqli_query($con,"SELECT * FROM category");
-                                    while($suprow=mysqli_fetch_array($sup)){
-                                        ?>
-                                        <option><?php echo $suprow['category_name']; ?></option>
-                                        <?php
-                                    }
-                                ?>
-                            </select>
+                            <input type="text" class="form-control" name="category_name" id="category_name" readonly="">
                         </div>
 
                         <div class="form-group">
-                            <label for="name">Category</label>
-                            <select class="form-select" aria-label="Default select example" name="supplier" id="company_name" readonly="" disabled="">
-                                <?php
-                                    $sup=mysqli_query($con,"SELECT * FROM supplier");
-                                    while($suprow=mysqli_fetch_array($sup)){
-                                        ?>
-                                        <option><?php echo $suprow['company_name']; ?></option>
-                                        <?php
-                                    }
-                                ?>
-                            </select>
+                            <label for="name">Supplier</label>
+                            <input type="text" class="form-control" name="company_name" id="company_name" readonly="">
                         </div>
                         <div class="form-group">
                             <label for="name">On Hand</label>
@@ -373,7 +356,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
 
                         <div class="form-group">
                             <label for="name">Date Stock in </label>
-                            <input type="Date" class="form-control" name="stock_in" id="stock_in" readonly="">
+                            <input type="text" class="form-control" name="stock_in" id="stock_in" readonly="">
                         </div>
 
                         <div class="modal-footer">
@@ -428,14 +411,14 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
 
 
         $('#update_id').val(data[0]);
-        $('#bar_code').val(data[0]);
-        $('#item_name').val(data[1]);
-        $('#quantity').val(data[2]);
-        $('#price').val(data[4]);
-        $('#category_name').val(data[3]);
-        $('#company_name').val(data[6]);
-        $('#on_hand').val(data[5]);
-        $('#stock_in').val(data[7]);
+        $('#bar_code').val(data[1]);
+        $('#item_name').val(data[2]);
+        $('#quantity').val(data[5]);
+        $('#price').val(data[3]);
+        $('#category_name').val(data[4]);
+        $('#company_name').val(data[7]);
+        $('#on_hand').val(data[6]);
+        $('#stock_in').val(data[8]);
 
       })
     });

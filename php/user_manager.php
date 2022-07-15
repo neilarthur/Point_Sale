@@ -46,6 +46,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="../style/dash.css">
+     <link rel="icon" href="../image/logo.ico">
 
     
     <!-- Font Awesome -->
@@ -373,7 +374,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel"> Edit Admin Data </h5>
-                        <span aria-hidden="true">&times;</span>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </button>
                 </div>
 
@@ -433,13 +434,14 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
             </div>
         </div>
     </div>
-
-
+    
+    <!--Delete modadl -->
     <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="mediumModalLabel">Delete Account</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </button>
                             </div>
 

@@ -45,6 +45,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="../style/dash.css">
+    <link rel="icon" href="../image/logo.ico">
 
     
     <!-- Font Awesome -->
@@ -353,6 +354,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                 <form action="Updatesupplier.php" method="Post">
                     <div class="modal-header">
                         <h4 class="title"> Update Personal Information</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <input type="hidden" name="update_id" id="update_id">
@@ -386,13 +388,14 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">Delete Account</h5>
+                <h5 class="modal-title" id="mediumModalLabel">Delete Supplier</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="deletesupplier.php" method="POST">
                 <div class="modal-body">
                     <input type="hidden" name="delete_id" id="delete_id">
 
-                    <p align="center">Are you sure? You want to Delete this Account?</p>
+                    <p align="center">Are you sure? You want to Delete this Supplier?</p>
                     <div class="modal-footer">
                         <button type="submit" name="delete" class="btn btn-success">YES</button>
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>

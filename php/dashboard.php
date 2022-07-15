@@ -45,7 +45,9 @@ include 'connection.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
+    <!-- Dash Css -->
     <link rel="stylesheet" type="text/css" href="../style/dash.css">
+    <link rel="icon" href="../image/logo.ico">
 
     
     <!-- Font Awesome -->
@@ -75,8 +77,6 @@ include 'connection.php';
     
     <body>
 
-
-   
     <div class="page">
 
         <div class="sidebar">
@@ -247,7 +247,7 @@ include 'connection.php';
 
                     <div class="row">
 
-                        <!-- Earnings (Weekly) Card Example -->
+                        <!-- Accounts Card Example -->
                         <div class="col-xl-3 col-md-6 mb-5">
                             <div class="card border-left-success shadow h-100 py-1">
                                 <div class="card-body">
@@ -275,7 +275,7 @@ include 'connection.php';
                             </div>
                         </div>
 
-                        <!-- Earnings (Monthly) Card Example -->
+                        <!-- Supplier Card Example -->
                         <div class="col-xl-3 col-md-6 mb-5">
                             <div class="card border-left-success shadow h-100 py-1">
                                 <div class="card-body">
@@ -305,7 +305,7 @@ include 'connection.php';
                         </div>
 
                        
-                        <!-- Earnings (Annual) Card Example -->
+                        <!-- Customers Card Example -->
                         <div class="col-xl-3 col-md-6 mb-5">
                             <div class="card border-left-success shadow h-100 py-1">
                                 <div class="card-body">
@@ -316,7 +316,7 @@ include 'connection.php';
 
                                                 <?php
 
-                                                $query_run = "SELECT customer_id FROM customers ORDER BY customer_id";
+                                                $query_run = "SELECT customer_id FROM customers WHERE customer_status='active' ORDER BY customer_id";
                                                 $query_result = mysqli_query($con,$query_run);
 
                                                 $raw = mysqli_num_rows($query_result);
@@ -334,7 +334,7 @@ include 'connection.php';
                         </div>
                       
 
-                        <!-- Pending Requests Card Example -->
+                        <!-- Products Card Example -->
                         <div class="col-xl-3 col-md-6 mb-5">
                             <div class="card border-left-warning shadow h-100 py-1">
                                 <div class="card-body">
@@ -344,7 +344,7 @@ include 'connection.php';
                                                 PRODUCTS</div>
                                               <?php
 
-                                                $query_run = "SELECT item_id FROM inventory ORDER BY item_id";
+                                                $query_run = "SELECT item_id FROM inventory WHERE status='active' ORDER BY item_id";
                                                 $query_result = mysqli_query($con,$query_run);
 
                                                 $raw = mysqli_num_rows($query_result);

@@ -46,6 +46,7 @@ $finalcode='RS-'.createRandomPassword();
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="../style/dash.css">
+     <link rel="icon" href="../image/logo.ico">
 
 
     <!-- Font Awesome -->
@@ -102,7 +103,7 @@ $finalcode='RS-'.createRandomPassword();
                         <div class="col d-flex justify-content">
                             <br>
                             <div class="w-50">
-                                <h2 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Youth's Supermarket</h2>
+                                <h2 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Mini C Supermarket</h2>
                                 <h4 class="text-dark text-center " style="text-align: center; margin-right: -30rem;">Sta Cruz, Laguna</h4>
                                 <h6 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Cell No#:094956372</h6>
                             </div>                            
@@ -178,12 +179,10 @@ $finalcode='RS-'.createRandomPassword();
                             </tbody>
                         </table>
                         <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
-                            <button class="btn btn-success sd" onClick="window.print()">Print</button>
+                            <button class="btn btn-success sd" onClick="window.print()">PRINT</button>
+                            <a class="btn btn-primary sd" href="dashboard.php?invoice=$id">Back</a>
                         </div>
 
-                        <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
-                            <a class="btn btn-success sd" href="dashboard.php?invoice=$id">Back</a>
-                        </div>
                 </div> 
                  
              </div>

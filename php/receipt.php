@@ -46,6 +46,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="../style/dash.css">
+    <link rel="icon" href="../image/logo.ico">
 
 
     <!-- Font Awesome -->
@@ -253,7 +254,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         <div class="col d-flex justify-content">
                             <br>
                             <div class="w-50">
-                                <h2 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Youth's Supermarket</h2>
+                                <h2 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Mini C Supermarket</h2>
                                 <h4 class="text-dark text-center " style="text-align: center; margin-right: -30rem;">Sta Cruz, Laguna</h4>
                                 <h6 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Cell No#:094956372</h6>
                             </div>                            

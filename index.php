@@ -27,6 +27,7 @@ include_once 'php/connection.php';
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
       rel="stylesheet"
     />
+  <link rel="icon" href="image/logo.ico">
 
 </head>
 <body style="background-color: rgb(78, 115, 223);">
