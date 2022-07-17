@@ -63,7 +63,7 @@ $supp .= "</select>";
 
 
 ?>
-<!doctype html>
+
 <html lang="en">
   <head>
     <title>Dashboard</title>
@@ -300,14 +300,8 @@ $supp .= "</select>";
                             
                         </div>
                     </div>
-                    <?php
-                            $expired = mysqli_query($con, "SELECT * FROM inventory WHERE (( date_expired - INTERVAL 8 DAY) <= current_date()) ORDER BY date_expired asc");
 
-                            while($row = mysqli_fetch_array($expired)) { ?>
-                            <h6 class="bg-danger p-1 ps-2 text-white rounded-pill w-50">Item Expiring: [<?php echo $row['item_name']. "] - " .$row['bar_code']. " - [" .$row['date_expired']; ?>]<a href="inventory.php" style="margin-left: 30%;">X</a></h6>
-                            <?php
-                            }
-                            ?>
+
 
                 <!-- Table -->
                     <div class="row">
@@ -327,7 +321,8 @@ $supp .= "</select>";
                                                 <th scope="col">Original Price</th>
                                                 <th scope="col">Price</th>
                                                 <th scope="col">Profit</th>
-                                                <th scope="col">Expirated Date</th>
+                                                <th scope="col">Expiration Date</th>
+                                                <th scope="col" style="text-align: center;">Status</th>
                                                 <th scope="col" style="text-align: center;">Action</th>
                                             </tr>
                                         </thead>
@@ -354,9 +349,49 @@ $supp .= "</select>";
                                                 <td ><?php echo $row['price'];  ?></td>
                                                 <td ><?php echo $row['profit'];  ?></td>
                                                 <td><?php echo $row['date_expired'];  ?></td>
+
+                                                <?php 
+                                                $date = $row['date_expired'];
+                                                $barcode =$row['bar_code'];
+                                                $week = date("Y-m-d", strtotime('-7 days'));
+                                                   if ($date == date("Y-m-d")) {
+                                                       echo '
+                                                         <td style="color: red; font-weight: bold;">EXPIRED</td>
+                                                       ';
+                                                       $archive = mysqli_query($con,"UPDATE inventory SET status = 'archive' WHERE bar_code = '$barcode'");
+                                                       if ($archive) {
+                                                           echo '
+                                                               <script>
+                                                                    function refreshPage()
+                                                                    {
+                                                                        window.location = window.location.href;
+                                                                    }
+                                                                    setInterval("refreshPage()",0);
+                                                                </script>
+                                                                                                                           ';
+                                                       }
+                                                       else{
+                                                          echo mysqli_error($con);
+                                                       }
+                                                   }
+                                                   
+                                                   elseif ($date < $week) {
+                                                        echo '
+                                                         <td style="color: yellow; font-weight: bold;">FOR EXPIRING</td>
+                                                       ';
+                                                   }
+                                                   else{
+                                                    echo '
+                                                         <td style="color: green; font-weight: bold;">AVAILABLE</td>
+                                                       ';
+                                                   }
+
+
+                                                ?>
+                                               
                                                 <td>
                                                     <div class="d-flex flex-row justify-content-center">
-                                                        <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+                                                        <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i></button>
                                                 </td>
                                             </tr>
                                         <?php }  ?>
