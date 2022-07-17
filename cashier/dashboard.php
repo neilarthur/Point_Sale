@@ -135,7 +135,8 @@ $finalcode='RS-'.createRandomPassword();
                         <span class="d-none d-sm-inline mx-1 ms-3"><?php echo $_SESSION["username"];  ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
-                        <a class="dropdown-item" href="../php/logout.php">Sign out</a>
+                            <a class="dropdown-item" name="out" href="../php/logout.php">Sign out</a>
+                        
                     </ul>
                 </div>
 
@@ -245,6 +246,7 @@ $finalcode='RS-'.createRandomPassword();
 
                                     <div class="input-group mb-3">
                                         <span class="input-group-text">Tax:</span>
+                                        <span class="input-group-text">₱</span>
                                         <input type="number" class="form-control" name="tax" value="<?php echo $total_tax;  ?>" readonly>
                                     </div>
                                      <div class="input-group mb-3">
@@ -255,6 +257,7 @@ $finalcode='RS-'.createRandomPassword();
 
                                     <div class="input-group mb-3">
                                          <span class="input-group-text">Profit:</span>
+                                         <span class="input-group-text">₱</span>
                                          <input type="number" class="form-control" name="sale_profit" value="<?php echo $lows['prof'];  ?>"readonly >
                                      </div>
 

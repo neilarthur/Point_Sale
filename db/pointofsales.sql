@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2022 at 09:21 AM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.8
+-- Generation Time: Jul 17, 2022 at 08:41 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 7.3.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,12 +24,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `activity`
+--
+
+CREATE TABLE `activity` (
+  `id` int(11) NOT NULL,
+  `date_time` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `category`
 --
 
 CREATE TABLE `category` (
   `category_id` int(11) NOT NULL,
-  `category_name` enum('foods','drinks') NOT NULL
+  `category_name` enum('foods','drinks','detergents') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -38,7 +49,8 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`category_id`, `category_name`) VALUES
 (1, 'foods'),
-(3, 'drinks');
+(2, 'drinks'),
+(3, 'detergents');
 
 -- --------------------------------------------------------
 
@@ -61,9 +73,10 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `first_name`, `last_name`, `address`, `contact_no`, `customer_status`, `date_created`) VALUES
-(3, 'richard', 'ramos', 'sta cruz', '947374757', 'archieve', '2022-06-23'),
-(6, 'Jireh ', 'Ramos', 'Publicion 5 Santa Cruz Laguna', '09192345976', 'active', '2022-07-12'),
-(7, 'John Lloyd', 'Araza', 'Sitio 2 Magdalena laguna', '09196913652', 'active', '2022-07-12');
+(1, 'Christian Jay', 'Villante', 'Binan Laguna', '09384625212', 'active', '2022-07-16'),
+(2, 'JohnLlyod', 'Malabanan', 'Magdalena, laguna', '094726253421', 'active', '2022-07-15'),
+(3, 'John Richard', 'Santos', 'Sitio Uno Brgy. Mabait, Santa Cruz', '09475625231', 'archieve', '2022-07-14'),
+(4, 'john Elmar', 'Mercurio', 'santa cruz, Laguna', '09485762512', 'active', '2022-07-16');
 
 -- --------------------------------------------------------
 
@@ -79,7 +92,6 @@ CREATE TABLE `inventory` (
   `price` double NOT NULL,
   `orignal_price` double NOT NULL,
   `profit` double NOT NULL,
-  `on_hand` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `supplier_id` int(11) NOT NULL,
   `stock_in` date NOT NULL,
@@ -91,10 +103,11 @@ CREATE TABLE `inventory` (
 -- Dumping data for table `inventory`
 --
 
-INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `orignal_price`, `profit`, `on_hand`, `category_id`, `supplier_id`, `stock_in`, `date_expired`, `status`) VALUES
-(2, 331527334, 'Hansel Chocolate Snacks', 100, 5, 10, 5, 45, 1, 2, '2022-07-12', '2023-01-11', 'archive'),
-(4, 165764046, 'Hansel Chocolate Snacks', 100, 5, 8, 3, 96, 1, 7, '2022-07-11', '2022-07-11', 'active'),
-(5, 165764227, 'Plus Apple Drinks', 100, 7, 10, 3, 50, 3, 2, '2022-02-11', '2023-08-11', 'active');
+INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `orignal_price`, `profit`, `category_id`, `supplier_id`, `stock_in`, `date_expired`, `status`) VALUES
+(1, 331589415, 'Hansel Chocolate Snacks', 200, 7, 10, 3, 1, 2, '2022-03-11', '2023-02-20', 'active'),
+(2, 165794712, 'Loaded Snacks', 100, 5, 8, 3, 1, 2, '2022-05-11', '2022-08-11', 'active'),
+(3, 165794834, 'Joy Detergent', 200, 30, 35, 5, 3, 8, '2022-01-11', '2023-08-30', 'active'),
+(4, 331591243, 'Spirte', 100, 10, 15, 5, 2, 5, '2022-08-11', '2022-07-16', 'active');
 
 -- --------------------------------------------------------
 
@@ -118,7 +131,8 @@ INSERT INTO `location` (`location_id`, `province`, `city`) VALUES
 (3, 'Cebu', 'Clex'),
 (4, 'Makati', 'santa cruz'),
 (5, 'Laguna', 'Pagsanjan Purok 3'),
-(7, 'Laguna', 'Santa Rosa');
+(7, 'Laguna', 'Santa Rosa'),
+(8, 'Laguna', 'Binan');
 
 -- --------------------------------------------------------
 
@@ -143,11 +157,12 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`sales_id`, `item_id`, `product_code`, `invoice_code`, `product_name`, `sales_price`, `sales_profit`, `sales_quantity`, `Total`) VALUES
-(1, 2, '331527334', 'RS-222256', 'Hansel Chocolate Snacks', 5, 5, 3, 25),
-(2, 2, '331527334', 'RS-30733', 'Hansel Chocolate Snacks', 5, 5, 5, 25),
-(3, 2, '331527334', 'RS-7209623', 'Hansel Chocolate Snacks', 5, 5, 5, 25),
-(4, 4, '165764046', 'RS-620398', 'Hansel Chocolate Snacks', 5, 3, 3, 15),
-(5, 4, '165764046', 'RS-7229833', 'Hansel Chocolate Snacks', 5, 3, 1, 5);
+(1, 3, '165794834', 'RS-8220626', 'Joy Detergent', 30, 5, 3, 90),
+(2, 3, '165794834', 'RS-0233224', 'Joy Detergent', 30, 5, 1, 90),
+(3, 3, '165794834', 'RS-2220', 'Joy Detergent', 30, 5, 5, 90),
+(4, 2, '165794712', 'RS-3232933', 'Loaded Snacks', 5, 3, 1, 5),
+(5, 3, '165794834', 'RS-42260372', 'Joy Detergent', 30, 5, 4, 90),
+(6, 3, '165794834', 'RS-052022', 'Joy Detergent', 30, 5, 3, 90);
 
 -- --------------------------------------------------------
 
@@ -167,6 +182,15 @@ CREATE TABLE `sales_detail` (
   `sales_change` double NOT NULL,
   `date_purchase` date DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `sales_detail`
+--
+
+INSERT INTO `sales_detail` (`transac_id`, `transac_code`, `transac_subtotal`, `customer_id`, `transac_tax`, `transac_total`, `transac_profit`, `cash`, `sales_change`, `date_purchase`) VALUES
+(1, 'RS-2220', 150, 1, 18, 168, 5, 300, 132, '2022-07-16'),
+(2, 'RS-42260372', 120, 4, 14.4, 134.4, 5, 200, 65.6, '2022-07-16'),
+(3, 'RS-052022', 90, 1, 10.8, 100.8, 5, 200, 99.2, '2022-07-16');
 
 -- --------------------------------------------------------
 
@@ -191,7 +215,8 @@ INSERT INTO `supplier` (`supplier_id`, `company_name`, `location_id`, `phone_no`
 (3, 'ALASKA', 3, 938465231),
 (4, 'rebisco', 4, 2147483647),
 (5, 'Red Horse Corporation', 5, 938465231),
-(7, 'Chocolate Factory Corporation', 7, 949352634);
+(7, 'Chocolate Factory Corporation', 7, 949352634),
+(8, 'Detergents Corporation', 8, 2147483647);
 
 -- --------------------------------------------------------
 
@@ -215,11 +240,17 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `username`, `email_address`, `password`, `contact_no`, `position`) VALUES
 (1, 'ralphvincent', 'ralphvincent.p11@gmail.com', '0192023a7bbd73250516f069df18b500', '0947574632', 'admin'),
 (2, 'Chadwick', 'chadwick@yahoo.com', 'dbb8c54ee649f8af049357a5f99cede6', '0947574632', 'cashier'),
-(3, 'NeilArthur', 'neil.pornela@yahoo.com', '0192023a7bbd73250516f069df18b500', '0947574632', 'admin');
+(3, 'NeilArthur', 'neil.pornela@yahoo.com', '0192023a7bbd73250516f069df18b500', '0947574632', 'cashier');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `activity`
+--
+ALTER TABLE `activity`
+  ADD KEY `id` (`id`);
 
 --
 -- Indexes for table `category`
@@ -288,37 +319,37 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `inventory`
 --
 ALTER TABLE `inventory`
-  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `item_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `location`
 --
 ALTER TABLE `location`
-  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sales_detail`
 --
 ALTER TABLE `sales_detail`
-  MODIFY `transac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `transac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -329,6 +360,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `activity`
+--
+ALTER TABLE `activity`
+  ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `inventory`

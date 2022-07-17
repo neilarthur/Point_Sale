@@ -69,7 +69,7 @@ $finalcode='RS-'.createRandomPassword();
     </style>
     <body>
 
-    <div class="page">
+    <div class="page sd">
         <nav class="navbar navbar-dark fw-bold" style="background-color: rgb(78, 115, 223);">
             <a class="navbar-brand" href="#">
                 <img src="../image/logo.png" width="30" height="30" class="d-inline-block align-top" alt=""> Point of Sale and Inventory System</a>

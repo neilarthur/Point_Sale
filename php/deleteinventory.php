@@ -6,7 +6,8 @@ if (isset($_POST['update'])) {
   $update_id = $_POST['update_id'];
   $status = 'archive';
 
-  $query= "UPDATE inventory SET status = '$status' WHERE item_id='$update_id' ";
+
+  $query= "UPDATE inventory SET status = '$status' WHERE item_id='$update_id'";
   $query_run = mysqli_query($con, $query);
 
   

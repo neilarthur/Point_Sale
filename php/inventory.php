@@ -218,6 +218,18 @@ $supp .= "</select>";
                         </a>
                     </li>
                     <li class="navigation-list-item">
+                        <a class="navigation-link" href="loghistory.php">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bx-history'></i>
+                                </div>
+                                <div class="col-9">
+                                    Log History
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navigation-list-item">
                         <a class="navigation-link" href="user_manager.php">
                             <div class="row">
                                 <div class="col-2">
@@ -292,10 +304,11 @@ $supp .= "</select>";
                             $expired = mysqli_query($con, "SELECT * FROM inventory WHERE (( date_expired - INTERVAL 8 DAY) <= current_date()) ORDER BY date_expired asc");
 
                             while($row = mysqli_fetch_array($expired)) { ?>
-                            <h6 class="bg-danger p-1 ps-2 text-white rounded-pill w-50">Item Expiring: [<?php echo $row['item_name']. "] - " .$row['bar_code']. " - [" .$row['date_expired']; ?>]</h6>
+                            <h6 class="bg-danger p-1 ps-2 text-white rounded-pill w-50">Item Expiring: [<?php echo $row['item_name']. "] - " .$row['bar_code']. " - [" .$row['date_expired']; ?>]<a href="inventory.php" style="margin-left: 30%;">X</a></h6>
                             <?php
                             }
                             ?>
+
                 <!-- Table -->
                     <div class="row">
                         <div class="col ">
@@ -308,7 +321,6 @@ $supp .= "</select>";
                                                 <th scope="col">Bar Code</th>
                                                 <th scope="col">Item Name</th>
                                                 <th scope="col">Quantity</th>
-                                                <th scope="col">On Hand</th>
                                                 <th scope="col">Category</th>
                                                 <th scope="col">Supplier Name</th>
                                                 <th scope="col">Date Stock</th>
@@ -335,14 +347,13 @@ $supp .= "</select>";
                                                 <td><?php echo $row['bar_code'];  ?></td>
                                                 <td><?php echo $row['item_name'];  ?></td>
                                                 <td ><?php echo $row['quantity'];  ?></td>
-                                                <td><?php echo $row['on_hand'];  ?></td>
                                                 <td ><?php echo $rows['category_name'];  ?></td>
                                                 <td><?php echo $raw['company_name'];  ?></td>
                                                 <td><?php echo $row['stock_in'];  ?></td>
                                                 <td ><?php echo $row['orignal_price'];  ?></td>
                                                 <td ><?php echo $row['price'];  ?></td>
                                                 <td ><?php echo $row['profit'];  ?></td>
-                                                <td ><?php echo $row['date_expired'];  ?></td>
+                                                <td><?php echo $row['date_expired'];  ?></td>
                                                 <td>
                                                     <div class="d-flex flex-row justify-content-center">
                                                         <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
@@ -394,10 +405,6 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
                         <div class="form-group">
                             <label for="name">Profit</label>
                             <input type="text" class="form-control" name="profit" id="txt3" required="">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">On hand </label>
-                            <input type="number" class="form-control" name="on_hand" required="">
                         </div>
                         <div class="form-group">
                             <label for="name">Category </label>
@@ -471,11 +478,6 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
                             <label for="name">quantity</label>
                             <input type="text" class="form-control" name="quantity" id="quantity">
                         </div>
-                        <div class="form-group">
-                            <label for="name">On Hand</label>
-                            <input type="text" class="form-control" name="on_hand" id="on_hand">
-                        </div>
-
                         <div class="form-group">
                             <label for="name">Category </label>
                             <?php
@@ -561,14 +563,13 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
         $('#bar_code').val(data[1]);
         $('#item_name').val(data[2]);
         $('#quantity').val(data[3]);
-        $('#on_hand').val(data[4]);
-        $('#category_name').val(data[5]);
-        $('#company_name').val(data[6]);
-        $('#stock_in').val(data[7]);
-        $('#orignal_price').val(data[8]);
-        $('#price').val(data[9]);
-        $('#profit').val(data[10]);
-        $('#date_expired').val(data[11]);
+        $('#category_name').val(data[4]);
+        $('#company_name').val(data[5]);
+        $('#stock_in').val(data[6]);
+        $('#orignal_price').val(data[7]);
+        $('#price').val(data[8]);
+        $('#profit').val(data[9]);
+        $('#date_expired').val(data[10]);
       })
     });
   </script>

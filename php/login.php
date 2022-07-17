@@ -49,8 +49,20 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
        $_SESSION["position"] = $row['position'];
   		 $_SESSION["username"] = $username;
+       $_SESSION["id"] =$row['id'];
+
   		 $_SESSION["login"]=true;
-  		header("Location:../cashier/dashboard.php?invoice=$finalcode");
+
+       $log = "INSERT INTO activity (id) Values ('{$_SESSION['id']}')";
+       $ins = mysqli_query($con,$log);
+
+       if ($ins) {
+
+         header("Location:../cashier/dashboard.php?invoice=$finalcode");
+       }
+       else{
+        echo 'error1, ' . $con -> error;
+       }
   	}
   	else {
   		header("Location: ../index.php?error=Username and Password is incorrect.");

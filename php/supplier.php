@@ -190,6 +190,18 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         </a>
                     </li>
                     <li class="navigation-list-item">
+                        <a class="navigation-link" href="loghistory.php">
+                            <div class="row">
+                                <div class="col-2">
+                                    <i class='bx bx-history'></i>
+                                </div>
+                                <div class="col-9">
+                                    Log History
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="navigation-list-item">
                         <a class="navigation-link" href="user_manager.php">
                             <div class="row">
                                 <div class="col-2">

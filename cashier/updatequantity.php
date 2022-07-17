@@ -24,7 +24,7 @@ if (isset($_POST['update'])) {
 
           $price_inventory = $row['price'];
 
-  				$qty_inventory = $row['on_hand'];
+  				$qty_inventory = $row['quantity'];
 
 
   				$total = ($qty_inventory - $qty) + 1;
@@ -33,7 +33,7 @@ if (isset($_POST['update'])) {
 
 
 
-  				$inventory_run = "UPDATE inventory SET on_hand = '$total' WHERE bar_code = '$code'";
+  				$inventory_run = "UPDATE inventory SET quantity = '$total' WHERE bar_code = '$code'";
   				$ivty = mysqli_query($con, $inventory_run);
 
   				if ($ivty) {
