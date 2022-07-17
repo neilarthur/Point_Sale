@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2022 at 08:41 AM
+-- Generation Time: Jul 17, 2022 at 07:40 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -28,9 +28,25 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `activity` (
+  `id_act` int(11) NOT NULL,
   `id` int(11) NOT NULL,
-  `date_time` datetime DEFAULT current_timestamp()
+  `login_time` datetime DEFAULT current_timestamp(),
+  `logout_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `activity`
+--
+
+INSERT INTO `activity` (`id_act`, `id`, `login_time`, `logout_time`) VALUES
+(2, 2, '2022-07-18 01:16:38', '2022-07-18 01:27:47'),
+(3, 3, '2022-07-18 01:18:12', NULL),
+(4, 2, '2022-07-18 01:21:31', NULL),
+(5, 2, '2022-07-18 01:22:37', NULL),
+(6, 2, '2022-07-18 01:27:34', NULL),
+(7, 2, '2022-07-18 01:30:13', NULL),
+(8, 2, '2022-07-18 01:31:47', NULL),
+(9, 2, '2022-07-18 01:32:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -230,17 +246,20 @@ CREATE TABLE `users` (
   `email_address` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `contact_no` varchar(11) NOT NULL,
-  `position` enum('admin','cashier') NOT NULL
+  `position` enum('admin','cashier') NOT NULL,
+  `log_time` datetime DEFAULT NULL,
+  `out_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email_address`, `password`, `contact_no`, `position`) VALUES
-(1, 'ralphvincent', 'ralphvincent.p11@gmail.com', '0192023a7bbd73250516f069df18b500', '0947574632', 'admin'),
-(2, 'Chadwick', 'chadwick@yahoo.com', 'dbb8c54ee649f8af049357a5f99cede6', '0947574632', 'cashier'),
-(3, 'NeilArthur', 'neil.pornela@yahoo.com', '0192023a7bbd73250516f069df18b500', '0947574632', 'cashier');
+INSERT INTO `users` (`id`, `username`, `email_address`, `password`, `contact_no`, `position`, `log_time`, `out_time`) VALUES
+(1, 'ralphvincent', 'ralphvincent.p11@gmail.com', '0192023a7bbd73250516f069df18b500', '0947574632', 'admin', '2022-07-17 23:33:11', '2022-07-18 00:40:33'),
+(2, 'Chadwick', 'chadwick@yahoo.com', 'dbb8c54ee649f8af049357a5f99cede6', '0947574632', 'cashier', '2022-07-18 01:32:25', '2022-07-18 01:27:47'),
+(3, 'NeilArthur', 'neil.pornela@yahoo.com', '0192023a7bbd73250516f069df18b500', '0947574632', 'cashier', '2022-07-18 01:18:12', '2022-07-17 23:58:44'),
+(4, 'richard', 'richard.ramos@yahoo.com', '0192023a7bbd73250516f069df18b500', '0948567', 'cashier', '2022-07-18 01:37:34', NULL);
 
 --
 -- Indexes for dumped tables
@@ -250,6 +269,7 @@ INSERT INTO `users` (`id`, `username`, `email_address`, `password`, `contact_no`
 -- Indexes for table `activity`
 --
 ALTER TABLE `activity`
+  ADD PRIMARY KEY (`id_act`),
   ADD KEY `id` (`id`);
 
 --
@@ -310,6 +330,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `activity`
+--
+ALTER TABLE `activity`
+  MODIFY `id_act` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
@@ -355,7 +381,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables

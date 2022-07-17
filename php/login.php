@@ -51,17 +51,27 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
   		 $_SESSION["username"] = $username;
        $_SESSION["id"] =$row['id'];
 
+
+
+       $base = $_SESSION['id'];
+
+
   		 $_SESSION["login"]=true;
 
-       $log = "INSERT INTO activity (id) Values ('{$_SESSION['id']}')";
-       $ins = mysqli_query($con,$log);
 
-       if ($ins) {
 
-         header("Location:../cashier/dashboard.php?invoice=$finalcode");
+
+
+       $data = "UPDATE users SET log_time = now() WHERE id = '$base'";
+       $data1 = mysqli_query($con,$data);
+
+
+       if ($data1) {
+
+        header("Location:../cashier/dashboard.php?invoice=$finalcode&id=$base");
        }
        else{
-        echo 'error1, ' . $con -> error;
+        echo mysqli_error($con);
        }
   	}
   	else {

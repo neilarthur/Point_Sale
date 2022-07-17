@@ -135,7 +135,13 @@ $finalcode='RS-'.createRandomPassword();
                         <span class="d-none d-sm-inline mx-1 ms-3"><?php echo $_SESSION["username"];  ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
-                            <a class="dropdown-item" name="out" href="../php/logout.php">Sign out</a>
+
+                        <form action="../php/logout_cashier.php" method="POST">
+                            <input type="text" name="id_act" value="<?php echo $_SESSION['id']  ?>">
+                            <input type="text" name="id_act" value="<?php echo $_SESSION['time']  ?>">
+                           <input type="submit" class="dropdown-item" value="Sign out">
+                        </form>
+                            
                         
                     </ul>
                 </div>
