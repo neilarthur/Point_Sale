@@ -260,24 +260,47 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                 </div>
             </div>
 
+    <div class="col py-3 mt-3 d-flex justify-content-center overflow-auto">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col d-flex justify-content">
+                    <br>
+                    <div class="w-50">
+                        <h2 class="text-dark text-start ps-3 fw-bold ">Login History</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col ">
+                        <div class="card">
+                            <div class="card-body rounded-3 m-4 table-responsive-lg">
+                                <table class="table table-striped align-middle" id="CustomerTab">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Log in On</th>
+                                            <th scope="col">Last Seen</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
 
+                                        $history = mysqli_query($con,"SELECT * FROM activity,users WHERE(activity.id=users.id)"); while ($rows = mysqli_fetch_array($history)) { ?>
 
- 
-    <div class="card container-fluid py-3 mt-3 d-flex justify-content-center overflow-auto">
-  <div class="card-body">
-    <h2 class="text-center">Log History</h2>
-     <?php
-
-                            $history = mysqli_query($con,"SELECT * FROM activity,users WHERE(activity.id=users.id)"); 
-
-                            while ($rows = mysqli_fetch_array($history)) { ?>
-
-                                <h3 class="text-primary mt-5"><?php echo $rows['username'];  ?></h3>
-                                <h5><?php echo $rows['username']." Has log in ". $rows['date_time'];  ?></h5>
-                                
-                            <?php } ?>
-  </div>
-</div>  
+                                            <tr>
+                                                <td><?php echo $rows['username'];  ?></td>
+                                                <td><?php echo $rows['date_time'];?></td>
+                                                <td> any time</td>
+                                            </tr>
+                                        <?php }  ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script>
     let sidebarToggle = document.querySelector(".sidebarToggle");
