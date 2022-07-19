@@ -337,7 +337,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                             </tbody>
                         </table>
                         <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
-                            <button class="btn btn-success sd" onClick="window.print()">DOWNLOAD</button>
+                            <button class="btn btn-success sd" onClick="window.print()">PRINT</button>
                         </div>
                 </div> 
                  

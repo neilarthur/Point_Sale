@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 	$password = $_POST['password'];
   $encrpt = md5($password);
 
-	$query = "SELECT * FROM users WHERE username='".$username."' AND password='".$encrpt."'";
+	$query = "SELECT * FROM users WHERE username='".$username."' AND password='".$encrpt."'AND status ='active'";
   	$result = mysqli_query($con,$query);
 
 

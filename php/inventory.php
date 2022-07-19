@@ -300,107 +300,124 @@ $supp .= "</select>";
                             
                         </div>
                     </div>
+                    <section>
+                         <div class="container-fluid">
+                             <div class="row">
+                                 <div class="col-md-12">
+                                     <nav>
+                                        <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                                            <button class="nav-link active" id="nav-product-tab" data-bs-toggle="tab" data-bs-target="#nav-product" type="button" role="tab" aria-controls="nav-product" aria-selected="true">Products</button>
+                                            <button class="nav-link" id="nav-stock-tab" data-bs-toggle="tab" data-bs-target="#nav-stock" type="button" role="tab" aria-controls="nav-stock" aria-selected="false">Out of Stock</button>
+                                            <button class="nav-link" id="nav-expired-tab" data-bs-toggle="tab" data-bs-target="#nav-expired" type="button" role="tab" aria-controls="nav-expired" aria-selected="false">Expired Product</button>
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
+                                            <!-- Table -->
+                                            <div class="row">
+                                                <div class="col ">
+                                                    <div class="card">
+                                                        <div class="card-body rounded-3 m-4 table-responsive-sm">
+                                                            <table class="table table-striped align-middle" id="InventoryTab">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="display: none;">#</th>
+                                                                        <th scope="col">Barcode</th>
+                                                                        <th scope="col">Item Name</th>
+                                                                        <th scope="col">Quantity</th>
+                                                                        <th scope="col">Category</th>
+                                                                        <th scope="col">Supplier Name</th>
+                                                                        <th scope="col">Date Stock</th>
+                                                                        <th scope="col">Original Price</th>
+                                                                        <th scope="col">Price</th>
+                                                                        <th scope="col">Profit</th>
+                                                                        <th scope="col">Expiration Date</th>
+                                                                        <th scope="col" style="text-align: center;">Status</th>
+                                                                        <th scope="col" style="text-align: center;">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
 
 
+                                                                    $query_run = mysqli_query($con,"SELECT * FROM inventory WHERE status = 'active'");
 
-                <!-- Table -->
-                    <div class="row">
-                        <div class="col ">
-                            <div class="card">
-                                <div class="card-body rounded-3 m-4 table-responsive-sm">
-                                    <table class="table table-striped align-middle" id="InventoryTab">
-                                        <thead>
-                                            <tr>
-                                                <th style="display: none;">#</th>
-                                                <th scope="col">Bar Code</th>
-                                                <th scope="col">Item Name</th>
-                                                <th scope="col">Quantity</th>
-                                                <th scope="col">Category</th>
-                                                <th scope="col">Supplier Name</th>
-                                                <th scope="col">Date Stock</th>
-                                                <th scope="col">Original Price</th>
-                                                <th scope="col">Price</th>
-                                                <th scope="col">Profit</th>
-                                                <th scope="col">Expiration Date</th>
-                                                <th scope="col" style="text-align: center;">Status</th>
-                                                <th scope="col" style="text-align: center;">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
+                                                                    $sql_run = mysqli_query($con,"SELECT * FROM category,inventory WHERE(category.category_id=inventory.category_id)");
 
+                                                                    $sup_run = mysqli_query($con,"SELECT * FROM supplier,inventory WHERE(supplier.supplier_id=inventory.supplier_id)");
 
-                                            $query_run = mysqli_query($con,"SELECT * FROM inventory WHERE status = 'active'");
+                                                                    while ($row=mysqli_fetch_assoc($query_run) AND $rows=mysqli_fetch_assoc($sql_run) AND $raw=mysqli_fetch_assoc($sup_run)) { ?>
+                                                                    <tr>
+                                                                        <td style="display: none;"><?php echo $row['item_id'];  ?></td>
+                                                                        <td><?php echo $row['bar_code'];  ?></td>
+                                                                        <td><?php echo $row['item_name'];  ?></td>
+                                                                        <td ><?php echo $row['quantity'];  ?></td>
+                                                                        <td ><?php echo $rows['category_name'];  ?></td>
+                                                                        <td><?php echo $raw['company_name'];  ?></td>
+                                                                        <td><?php echo $row['stock_in'];  ?></td>
+                                                                        <td ><?php echo $row['orignal_price'];  ?></td>
+                                                                        <td ><?php echo $row['price'];  ?></td>
+                                                                        <td ><?php echo $row['profit'];  ?></td>
+                                                                        <td><?php echo $row['date_expired'];  ?></td>
 
-                                            $sql_run = mysqli_query($con,"SELECT * FROM category,inventory WHERE(category.category_id=inventory.category_id)");
+                                                                        <?php 
+                                                                        $date = $row['date_expired'];
+                                                                        $barcode =$row['bar_code'];
+                                                                        $qty = $row['quantity'];
+                                                                        
+                                                                           if ($date == date("Y-m-d")) {
+                                                                               echo '
+                                                                                 <td style="color: red; font-weight: bold;">EXPIRED</td>
+                                                                               ';
+                                                                               $archive = mysqli_query($con,"UPDATE inventory SET status = 'archive' WHERE bar_code = '$barcode'");
+                                                                               if ($archive) {
+                                                                                   echo '
+                                                                                       <script>
+                                                                                            function refreshPage()
+                                                                                            {
+                                                                                                window.location = window.location.href;
+                                                                                            }
+                                                                                            setInterval("refreshPage()",0);
+                                                                                        </script>
+                                                                                                                                                   ';
+                                                                               }
+                                                                               else{
+                                                                                  echo mysqli_error($con);
+                                                                               }
+                                                                           }
+                                                                           elseif($qty == 0){
+                                                                            echo ' <td style="color: blue; font-weight: bold;">OUT OF STOCK</td>';
 
-                                            $sup_run = mysqli_query($con,"SELECT * FROM supplier,inventory WHERE(supplier.supplier_id=inventory.supplier_id)");
-
-                                            while ($row=mysqli_fetch_assoc($query_run) AND $rows=mysqli_fetch_assoc($sql_run) AND $raw=mysqli_fetch_assoc($sup_run)) { ?>
-                                            <tr>
-                                                <td style="display: none;"><?php echo $row['item_id'];  ?></td>
-                                                <td><?php echo $row['bar_code'];  ?></td>
-                                                <td><?php echo $row['item_name'];  ?></td>
-                                                <td ><?php echo $row['quantity'];  ?></td>
-                                                <td ><?php echo $rows['category_name'];  ?></td>
-                                                <td><?php echo $raw['company_name'];  ?></td>
-                                                <td><?php echo $row['stock_in'];  ?></td>
-                                                <td ><?php echo $row['orignal_price'];  ?></td>
-                                                <td ><?php echo $row['price'];  ?></td>
-                                                <td ><?php echo $row['profit'];  ?></td>
-                                                <td><?php echo $row['date_expired'];  ?></td>
-
-                                                <?php 
-                                                $date = $row['date_expired'];
-                                                $barcode =$row['bar_code'];
-                                                $week = date("Y-m-d", strtotime('-7 days'));
-                                                   if ($date == date("Y-m-d")) {
-                                                       echo '
-                                                         <td style="color: red; font-weight: bold;">EXPIRED</td>
-                                                       ';
-                                                       $archive = mysqli_query($con,"UPDATE inventory SET status = 'archive' WHERE bar_code = '$barcode'");
-                                                       if ($archive) {
-                                                           echo '
-                                                               <script>
-                                                                    function refreshPage()
-                                                                    {
-                                                                        window.location = window.location.href;
-                                                                    }
-                                                                    setInterval("refreshPage()",0);
-                                                                </script>
-                                                                                                                           ';
-                                                       }
-                                                       else{
-                                                          echo mysqli_error($con);
-                                                       }
-                                                   }
-                                                   
-                                                   elseif ($date < $week) {
-                                                        echo '
-                                                         <td style="color: yellow; font-weight: bold;">FOR EXPIRING</td>
-                                                       ';
-                                                   }
-                                                   else{
-                                                    echo '
-                                                         <td style="color: green; font-weight: bold;">AVAILABLE</td>
-                                                       ';
-                                                   }
+                                                                           }
+                                                                           else{
+                                                                            echo '
+                                                                                 <td style="color: green; font-weight: bold;">AVAILABLE</td>
+                                                                               ';
+                                                                           }
 
 
-                                                ?>
-                                               
-                                                <td>
-                                                    <div class="d-flex flex-row justify-content-center">
-                                                        <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i></button>
-                                                </td>
-                                            </tr>
-                                        <?php }  ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                                                        ?>
+                                                                       
+                                                                        <td>
+                                                                            <div class="d-flex flex-row justify-content-center">
+                                                                                <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i></button>
+                                                                        </td>
+                                                                    </tr>
+                                                                <?php }  ?>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-stock" role="tabpanel" aria-labelledby="nav-stock-tab">...</div>
+                                        <div class="tab-pane fade" id="nav-expired" role="tabpanel" aria-labelledby="nav-expired-tab">...</div>
+                                    </div>
+                                 </div>
+                             </div>
+                         </div>
+                    </section>
                 </div> 
             </div>
         </div> 

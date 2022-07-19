@@ -310,10 +310,22 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                                 <td><?php echo $row['position']; ?></td>
                                                 <td>
                                                     <div class="d-flex flex-row justify-content-center">
-                                                        <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+                                                        <button class="btn btn-warning editbtn mx-2" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
 
-                                                        <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i>Delete</button>
-                                                        
+                                                        <?php
+                                                        $status = $row['status'];
+                                                        if ($status == 'inactive') { ?>
+                                                          <a class="btn btn-success" href="disable.php?enabled=<?php 
+                                                        echo $row["id"]; ?>" type="button"><i class="fas fa-check-circle"></i> Enable</a>
+                                                       <?php  }
+
+                                                       elseif ($status =='active') {
+
+                                                        ?>
+                                                            <a class="btn btn-secondary mx-2" href="disable.php?disabled=<?php 
+                                                        echo $row["id"]; ?>" type="button"><i class="fas fa-ban"></i> Disable</a>
+                                                      <?php   } ?>
+                                                            
                                                     </div>
                                                 </td>
                                             </tr>
@@ -330,7 +342,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
     </div>
 
 
-    <!--add Accounts -->
+    <!--Add Accounts -->
 
     <div class="modal fade" id="Modals" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -447,34 +459,6 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
         </div>
     </div>
     
-    <!--Delete modadl -->
-    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="mediumModalLabel">Delete Account</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </button>
-                            </div>
-
-                            <form action="user_delete.php" method="POST">
-                                <div class="modal-body">
-
-                                <input type="hidden" name="delete_id" id="delete_id">
-                                        <p align="center">Are you sure? You want to Delete this Account?</p>
-
-                                        <div class="modal-footer">
-                                            <button type="submit" name="deletedata" class="btn btn-success">YES</button>
-                                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
-                                        </div>
-                            </div>
-                            </form>
-                            
-                                                         
-                        </div>
-                    </div>
-                </div>
-
  
 <script>
     let sidebarToggle = document.querySelector(".sidebarToggle");
@@ -518,21 +502,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
   </script>
 
   <script type="text/javascript">
-    $(document).ready(function() {
-        $('.deletebtn').on('click', function() {
 
-            $('#delete').modal('show');
-
-            $tr = $(this).closest('tr');
-
-            var data = $tr.children("td").map(function() {
-                return $(this).text();
-            }).get();
-            console.log(data);
-            $('#delete_id').val(data[0]);
-
-        })
-    });
     function myFunction() {
 
       var input, filter, table, tr, i, j, column_length, count_td;

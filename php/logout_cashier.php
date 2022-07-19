@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 	$myDate = date("d-m-y h:i:s");
 
 
-	$logout_Querry = "UPDATE activity SET logout_time = '$myDate' WHERE id_act = '$last_id'";
+	$logout_Querry = "UPDATE activity SET logout_time =  now() WHERE id_act = '$last_id'";
 	$logs2 = mysqli_query($con,$logout_Querry);
 
 	if ($logs2) {

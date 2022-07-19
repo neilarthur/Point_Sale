@@ -288,7 +288,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
 
 
 
-                                            $code = mysqli_query($con,"SELECT * FROM sales_detail,customers  WHERE(sales_detail.customer_id=customers.customer_id)");
+                                            $code = mysqli_query($con,"SELECT * FROM sales_detail,customers  WHERE(sales_detail.customer_id=customers.customer_id) ORDER BY transac_id ASC");
 
                                             while ($row=mysqli_fetch_array($code)) { ?>
                                             <tr>
