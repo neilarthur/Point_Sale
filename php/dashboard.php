@@ -36,6 +36,20 @@ include 'connection.php';
 
 ?>
 
+<?php
+ 
+$dataPoints = array( 
+    array("y" => 3373.64, "label" => "January" ),
+    array("y" => 2435.94, "label" => "February" ),
+    array("y" => 1842.55, "label" => "March" ),
+    array("y" => 1828.55, "label" => "April" ),
+    array("y" => 1039.99, "label" => "May" ),
+    array("y" => 765.215, "label" => "June" ),
+    array("y" => 612.453, "label" => "July" )
+);
+ 
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -373,8 +387,10 @@ include 'connection.php';
                             </div>
                         </div>
                     </div>
+                   
 
-                    <div class="row justify-content-end">
+                    <div class="row justify-content-between">
+                         <div id="chartContainer" style="height: 350px; width: 800px;"></div>
                         <div class="col-lg-4">
                             <div class="card shadow h-100 text-dark bg-light mb-3" >
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" >
@@ -420,6 +436,31 @@ include 'connection.php';
         document.getElementById("sidebarToggle").classList.toggle("active");
     })
 </script>
+<script>
+window.onload = function() {
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    theme: "light2",
+    title:{
+        text: "Product Sales"
+    },
+    axisY: {
+        title: "Product Sales (in months)"
+    },
+    data: [{
+        type: "column",
+        yValueFormatString: "#,##0.## tonnes",
+        dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+    }]
+});
+chart.render();
+ 
+}
+</script>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
 </body>
