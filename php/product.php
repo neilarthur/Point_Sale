@@ -380,11 +380,6 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                             <input type="text" class="form-control" name="company_name" id="company_name" readonly="">
                         </div>
                         <div class="form-group">
-                            <label for="name">On Hand</label>
-                            <input type="text" class="form-control" name="on_hand" id="on_hand" readonly="">
-                        </div>
-
-                        <div class="form-group">
                             <label for="name">Date Stock in </label>
                             <input type="text" class="form-control" name="stock_in" id="stock_in" readonly="">
                         </div>
