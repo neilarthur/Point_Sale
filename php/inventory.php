@@ -569,7 +569,7 @@ $supp .= "</select>";
                                                                                echo '
                                                                                  <td style="color: red; font-weight: bold;">EXPIRED</td>
                                                                                ';
-                                                                               $archive = mysqli_query($con,"UPDATE inventory SET status = 'expired' WHERE bar_code = '$barcode'");
+                                                                               $archive = mysqli_query($con,"UpdateATE inventory SET status = 'expired' WHERE bar_code = '$barcode'");
                                                                            }
                                                                         ?>
                                                                        

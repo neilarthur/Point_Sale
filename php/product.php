@@ -259,14 +259,45 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                 </div>
             </div>
 
+
+
+             
+                    <div class="toast" style="position: absolute; top: 0; right: 0;">
+
+                        <div class="toast-header">
+                            <button type="button" class="close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <?php
+
+                        $expiring = mysqli_query($con, "SELECT * FROM inventory WHERE (( date_expired - INTERVAL 8 DAY) <= current_date()) ORDER BY date_expired asc");
+
+                        while ($bows = mysqli_fetch_array($expiring)) {
+                            $datas = $bows['date_expired'];
+
+                            $date = date("Y-M-d", strtotime($datas)); 
+
+
+                         ?>
+
+                        <div class="toast-body">
+                           <h6><?php echo $bows['item_name']." - ".$bows['bar_code']." - ".$date;  ?></h6>
+                        </div>
+                    <?php } ?>
+                    </div>
+
+
+
+
             <!-- Main content -->
             <div class="col py-3 d-flex justify-content-center overflow-auto">
                 <div class="container-fluid">
-                    <div class="row">
+                    <div class="row" >
                         <h2 class="text-dark text-start ps-3 fw-bold"> Products</h2><br>
                     </div>
 
-                    <!-- Table -->
                     <div class="row">
                         <div class="col ">
                             <div class="card">
@@ -274,7 +305,6 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                     <table class="table table-striped align-middle" id="ProductTab">
                                         <thead>
                                             <tr>
-                                                <th scope="col">#</th>
                                                 <th scope="col">Barcode</th>
                                                 <th scope="col">Item Name</th>
                                                 <th scope="col">Price</th>
@@ -295,7 +325,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                             while ($row=mysqli_fetch_assoc($query_run) AND $rows=mysqli_fetch_assoc($sql_run) AND $crows=mysqli_fetch_assoc($sup_run)) { ?>
 
                                                 <tr>
-                                                    <td><?php echo $row['item_id'];  ?></td>
+                                                    <td hidden=""><?php echo $row['item_id'];  ?></td>
                                                     <td><?php echo $row['bar_code'];  ?></td>
                                                     <td><?php echo $row['item_name'];  ?></td>
                                                     <td><?php echo $row['price'];  ?></td>
@@ -479,6 +509,14 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
 
         })
     });
+
+    window.onload = (event) => {
+  let myAlert = document.querySelectorAll('.toast')[0];
+  if (myAlert) {
+    let bsAlert = new bootstrap.Toast(myAlert);
+    bsAlert.show();
+  }
+};
 </script>
 
 
