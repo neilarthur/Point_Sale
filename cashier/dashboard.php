@@ -149,29 +149,6 @@ $finalcode='RS-'.createRandomPassword();
         </nav>
            <?php } ?>
 
-                <div class="toast"  role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 0; right: 0;">
-                    <div class="toast-header">
-                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                   <?php
-
-                    $expiring = mysqli_query($con, "SELECT * FROM inventory WHERE (( date_expired - INTERVAL 8 DAY) <= current_date()) ORDER BY date_expired asc");
-
-                    while ($bows = mysqli_fetch_array($expiring)) {
-                        $datas = $bows['date_expired'];
-
-                        $date = date("Y-M-d", strtotime($datas)); ?>
-                    <div class="toast-body">
-                        <h6><?php echo $bows['item_name']." - ".$bows['bar_code']." - ".$date;  ?></h6>
-                  </div>
-                   <?php } ?>
-                </div>
-
-
-            
-        
         <div class="content">
 
             <!-- Main content -->
@@ -224,13 +201,91 @@ $finalcode='RS-'.createRandomPassword();
                                         <?php }?>
                                         </tbody>
                                     </table>
-                                    <hr>
-
-
-
-                                
                                 </div>
                             </div>
+                            <!--CARD Product-->
+                            <div class="row justify-content-start mt-5">
+                                <div class="col-lg-12">
+                                    <div class="card shadow h-100 text-dark bg-light mb-3" >
+                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" >
+                                            <h6 class="m-0 font-weight-bold text-primary"><center>Available Products</center></h6>
+                                        </div>
+                                        <div class="card-body card-body rounded-3 m-4 table-responsive-lg">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Product Name</th>
+                                                        <th scope="col">Quantity</th>
+                                                        <th scope="col">Date of Expiration</th>
+                                                        <th scope="col">Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+
+                                                    $display = mysqli_query($con, "SELECT * FROM inventory WHERE status='active'");
+                                                    while ($row = mysqli_fetch_array($display)) {
+
+                                                    ?>
+
+                                                    <tr>
+                                                        <td><?php echo $row['item_name']; ?></td>
+                                                        <td><?php echo $row['quantity']; ?></td>
+                                                        <th><?php echo $row['date_expired']; ?></th>
+                                                        <?php 
+                                                                    $date = $row['date_expired'];
+                                                                    $barcode =$row['bar_code'];
+                                                                    $qty = $row['quantity'];
+                                                                    
+                                                                       if ($date == date("Y-m-d")) {
+                                                                           echo '
+                                                                             <td style="color: red; font-weight: bold;">EXPIRED</td>
+                                                                           ';
+                                                                           $archive = mysqli_query($con,"UPDATE inventory SET status = 'expired' WHERE bar_code = '$barcode'");
+                                                                           if ($archive) {
+                                                                               echo '
+                                                                                   <script>
+                                                                                        function refreshPage()
+                                                                                        {
+                                                                                            window.location = window.location.href;
+                                                                                        }
+                                                                                        setInterval("refreshPage()",0);
+                                                                                    </script>
+                                                                                                                                               ';
+                                                                           }
+                                                                           else{
+                                                                              echo mysqli_error($con);
+                                                                           }
+                                                                       }
+                                                                       elseif($qty <= 0){
+
+                                                                        $outstock = mysqli_query($con,"UPDATE inventory SET status = 'outofstock' WHERE bar_code = '$barcode'"); 
+                                                                        echo '<script>
+                                                                                function refreshPage()
+                                                                                {
+                                                                                    window.location = window.location.href;
+                                                                                }
+                                                                                setInterval("refreshPage()",0);
+                                                                            </script> ';
+                                                                            }
+                                                                       else{
+                                                                        echo '
+                                                                             <td style="color: green; font-weight: bold;">AVAILABLE</td>
+                                                                           ';
+                                                                       }
+
+
+                                                                    ?>
+                                                    </tr>
+                                                <?php } ?>
+
+                                            </tbody>
+                                        </table> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         </div>
                         <div class="col-12 col-md-5 col-lg-4" >
                             <div class="card border-primary ps-3 pe-3">
@@ -309,10 +364,9 @@ $finalcode='RS-'.createRandomPassword();
                                 </form>
                             </div>
                         </div>
-                    
+
                 </div>
-            </div>
-                    
+            </div>      
         </div>
      </div>   
    </div> 

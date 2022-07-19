@@ -259,38 +259,6 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                 </div>
             </div>
 
-
-
-             
-                    <div class="toast" style="position: absolute; top: 0; right: 0;">
-
-                        <div class="toast-header">
-                            <button type="button" class="close" data-dismiss="toast" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-
-                        <?php
-
-                        $expiring = mysqli_query($con, "SELECT * FROM inventory WHERE (( date_expired - INTERVAL 8 DAY) <= current_date()) ORDER BY date_expired asc");
-
-                        while ($bows = mysqli_fetch_array($expiring)) {
-                            $datas = $bows['date_expired'];
-
-                            $date = date("Y-M-d", strtotime($datas)); 
-
-
-                         ?>
-
-                        <div class="toast-body">
-                           <h6><?php echo $bows['item_name']." - ".$bows['bar_code']." - ".$date;  ?></h6>
-                        </div>
-                    <?php } ?>
-                    </div>
-
-
-
-
             <!-- Main content -->
             <div class="col py-3 d-flex justify-content-center overflow-auto">
                 <div class="container-fluid">
@@ -354,6 +322,26 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
 
         </div> 
     </div>
+    <!-- Toast -->
+    <div class="toast"  role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-bs-autohide="false" style="position: absolute; top: 20px; right: 10px;">
+        <div class="toast-header">
+            <i class='bx bx-bell bx-sm'></i>
+            <strong class="me-auto ms-2" style="font-size: 17px;">Notifications</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <?php
+            $expiring = mysqli_query($con, "SELECT * FROM inventory WHERE (( date_expired - INTERVAL 8 DAY) <= current_date()) ORDER BY date_expired asc");
+
+                while ($bows = mysqli_fetch_array($expiring)) {
+                    $datas = $bows['date_expired'];
+                    $date = date("Y-M-d", strtotime($datas)); 
+        ?>
+            <div class="toast-body" style="background-color: rgb(230, 230, 230);">
+                <h6><?php echo $bows['item_name']." - ".$bows['bar_code']." - ".$date;  ?></h6>
+            </div>
+        <?php } ?>
+    </div>
+    <!-- END -->
 
         <div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModallabel" aria-hidden="true">
         <div class="modal-dialog">
