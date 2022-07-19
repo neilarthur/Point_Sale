@@ -38,35 +38,57 @@ if (isset($_POST['update'])) {
 
   				if ($ivty) {
 
-          # start...
 
             $s_price = "UPDATE sales SET total = '$total_price' WHERE product_code = '$code'";
             $s_total = mysqli_query($con,$s_price);
 
             if ($s_total) {
-              
-              header("location: dashboard.php?invoice=$id");
+
+              $updatestock = "SELECT * FROM inventory WHERE bar_code = '$code'";
+              $updates = mysqli_query($con,$updatestock);
+
+              while ($bows = mysqli_fetch_array($updates)) {
+                
+                $qtys = $bows['quantity']; 
+
+                if ($qtys <= 0) {
+
+                  $stat = "UPDATE inventory SET status = 'outofstock' WHERE bar_code ='$code'";
+                  $stats = mysqli_query($con,$stat);
+
+                  if ($stats) {
+
+                    header("location: dashboard.php?invoice=$id");
+                  }
+                  else {
+                     echo 'error1, ' . $con -> error;
+                  }
+                }
+                else{
+                   echo 'error2, ' . $con -> error;
+                }
+              }
             }
             else{
-              echo 'error1, ' . $con -> error;
+              echo 'error3, ' . $con -> error;
             }
   
   				}
   				else {
-  					echo 'error2, ' . $con -> error;
+  					echo 'error4, ' . $con -> error;
   				}
   			}
   		}
   		else{
-  			echo 'error3, ' . $con -> error;
+  			echo 'error5, ' . $con -> error;
   		}
   	}
   	else {
-  		echo 'error4, ' . $con -> error;
+  		echo 'error6, ' . $con -> error;
   	}
 }
 else{
-	echo 'error5, ' . $con -> error;
+	echo 'error7, ' . $con -> error;
 }
 
 ?>

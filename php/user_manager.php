@@ -417,8 +417,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         </div>
 
                         <div class="form-group">
-                            <label> Password</label>
-                            <input type="Password"  name="password" id="password"  class="form-control"
+                            <input type="hidden"  name="password" id="password"  class="form-control"
                                 placeholder="Enter password"    required >
                         </div>
 

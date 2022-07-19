@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2022 at 07:42 AM
+-- Generation Time: Jul 19, 2022 at 11:08 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -40,7 +40,8 @@ CREATE TABLE `activity` (
 
 INSERT INTO `activity` (`id_act`, `id`, `login_time`, `logout_time`) VALUES
 (1, 2, '2022-07-19 13:12:58', '2019-07-22 07:13:00'),
-(2, 2, '2022-07-19 13:13:14', '2019-07-22 07:13:18');
+(2, 2, '2022-07-19 13:13:14', '2019-07-22 07:13:18'),
+(3, 3, '2022-07-19 17:06:04', '2022-07-19 17:06:07');
 
 -- --------------------------------------------------------
 
@@ -106,7 +107,7 @@ CREATE TABLE `inventory` (
   `supplier_id` int(11) NOT NULL,
   `stock_in` date NOT NULL,
   `date_expired` date NOT NULL,
-  `status` enum('active','archive') NOT NULL
+  `status` enum('active','archive','outofstock','expired') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -114,10 +115,10 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`item_id`, `bar_code`, `item_name`, `quantity`, `price`, `orignal_price`, `profit`, `category_id`, `supplier_id`, `stock_in`, `date_expired`, `status`) VALUES
-(1, 331589415, 'Hansel Chocolate Snacks', 200, 7, 10, 3, 1, 2, '2022-03-11', '2023-02-20', 'active'),
-(2, 165794712, 'Loaded Snacks', 100, 5, 8, 3, 1, 2, '2022-05-11', '2022-08-11', 'active'),
-(3, 165794834, 'Joy Detergent', 200, 30, 35, 5, 3, 8, '2022-01-11', '2023-08-30', 'active'),
-(4, 331591243, 'Spirte', 100, 10, 15, 5, 2, 5, '2022-08-11', '2022-07-16', 'active');
+(1, 331589415, 'Hansel Chocolate Snacks', 100, 7, 10, 3, 1, 4, '2022-03-11', '2022-07-19', 'expired'),
+(2, 165794712, 'Loaded Snacks', 0, 5, 8, 3, 1, 2, '2022-05-11', '2022-08-11', 'outofstock'),
+(3, 165794834, 'Joy Detergent', 200, 30, 35, 5, 3, 8, '2022-01-11', '2022-07-19', 'expired'),
+(4, 331591243, 'Spirte', 100, 10, 15, 5, 2, 5, '2022-08-11', '2022-07-19', 'expired');
 
 -- --------------------------------------------------------
 
@@ -170,9 +171,11 @@ INSERT INTO `sales` (`sales_id`, `item_id`, `product_code`, `invoice_code`, `pro
 (1, 3, '165794834', 'RS-8220626', 'Joy Detergent', 30, 5, 3, 90),
 (2, 3, '165794834', 'RS-0233224', 'Joy Detergent', 30, 5, 1, 90),
 (3, 3, '165794834', 'RS-2220', 'Joy Detergent', 30, 5, 5, 90),
-(4, 2, '165794712', 'RS-3232933', 'Loaded Snacks', 5, 3, 1, 5),
+(4, 2, '165794712', 'RS-3232933', 'Loaded Snacks', 5, 3, 1, 500),
 (5, 3, '165794834', 'RS-42260372', 'Joy Detergent', 30, 5, 4, 90),
-(6, 3, '165794834', 'RS-052022', 'Joy Detergent', 30, 5, 3, 90);
+(6, 3, '165794834', 'RS-052022', 'Joy Detergent', 30, 5, 3, 90),
+(7, 2, '165794712', 'RS-03302', 'Loaded Snacks', 5, 3, 100, 500),
+(8, 2, '165794712', 'RS-2032', 'Loaded Snacks', 5, 3, 100, 500);
 
 -- --------------------------------------------------------
 
@@ -200,7 +203,9 @@ CREATE TABLE `sales_detail` (
 INSERT INTO `sales_detail` (`transac_id`, `transac_code`, `transac_subtotal`, `customer_id`, `transac_tax`, `transac_total`, `transac_profit`, `cash`, `sales_change`, `date_purchase`) VALUES
 (1, 'RS-2220', 150, 1, 18, 168, 5, 300, 132, '2022-07-16'),
 (2, 'RS-42260372', 120, 4, 14.4, 134.4, 5, 200, 65.6, '2022-07-16'),
-(3, 'RS-052022', 90, 1, 10.8, 100.8, 5, 200, 99.2, '2022-07-16');
+(3, 'RS-052022', 90, 1, 10.8, 100.8, 5, 200, 99.2, '2022-07-16'),
+(4, 'RS-03302', 500, 2, 60, 560, 3, 1000, 440, '2022-07-19'),
+(5, 'RS-2032', 500, 1, 60, 560, 3, 1000, 440, '2022-07-19');
 
 -- --------------------------------------------------------
 
@@ -326,7 +331,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-  MODIFY `id_act` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_act` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -356,13 +361,13 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `sales_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `sales_detail`
 --
 ALTER TABLE `sales_detail`
-  MODIFY `transac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `transac_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `supplier`
