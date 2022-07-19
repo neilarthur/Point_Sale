@@ -4,23 +4,26 @@ require_once 'connection.php';
 
 session_start();
 
-session_destroy();
-
-header("location:../index.php");
 
 if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
-	$ids = $_POST['id_act'];
+	$ids = $_POST['id'];
+
+	$last_id = $_SESSION['login_id'];
 
 
-	$data = "UPDATE users SET out_time = now() WHERE id = '$ids'";
-    $data1 = mysqli_query($con,$data);
+	$myDate = date("d-m-y h:i:s");
 
-       if ($data1) {
-         header("Location:../cashier/dashboard.php?invoice=$finalcode&id=$base");
-       }
-       else{
-        echo mysqli_error($con);
-       }
+
+	$logout_Querry = "UPDATE activity SET logout_time = '$myDate' WHERE id_act = '$last_id'";
+	$logs2 = mysqli_query($con,$logout_Querry);
+
+	if ($logs2) {
+		session_destroy();
+		header("location:../index.php");
+    }
+    else{
+    	echo mysqli_error($con);
+    }
 }
 ?>

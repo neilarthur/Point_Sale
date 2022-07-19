@@ -285,13 +285,14 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                     <tbody>
                                         <?php
 
-                                        $history = mysqli_query($con,"SELECT * FROM users"); while ($rows = mysqli_fetch_array($history)) { ?>
+                                        $history = mysqli_query($con,"SELECT * FROM users,activity WHERE (users.id=activity.id)"); 
+                                        while ($rows = mysqli_fetch_array($history)) { ?>
 
                                             <tr>
                                                 <td><?php echo $rows['username'];  ?></td>
                                                 <td><?php  echo $rows['email_address']; ?></td>
-                                                <td><?php echo $rows['log_time'];?></td>
-                                                <td><?php echo $rows['out_time'];  ?></td>
+                                                <td><?php echo $rows['login_time'];?></td>
+                                                <td><?php echo $rows['logout_time'];  ?></td>
                                             </tr>
                                         <?php }  ?>
                                     </tbody>

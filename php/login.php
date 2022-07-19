@@ -57,23 +57,22 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
 
 
   		 $_SESSION["login"]=true;
+     
 
 
+       $datas = "INSERT INTO activity (id,login_time)Values ('$base', now())";
+       $datas2 = mysqli_query($con,$datas);
 
+       $_SESSION["login_id"] = mysqli_insert_id($con);
 
-
-       $data = "UPDATE users SET log_time = now() WHERE id = '$base'";
-       $data1 = mysqli_query($con,$data);
-
-
-       if ($data1) {
-
-        header("Location:../cashier/dashboard.php?invoice=$finalcode&id=$base");
+       if ($datas2) {
+          header("Location:../cashier/dashboard.php?invoice=$finalcode&id=$base");
        }
-       else{
+       else {
         echo mysqli_error($con);
        }
-  	}
+    }
+   
   	else {
   		header("Location: ../index.php?error=Username and Password is incorrect.");
   		exit();
