@@ -315,7 +315,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                                         <?php
                                                         $status = $row['status'];
                                                         if ($status == 'inactive') { ?>
-                                                          <a class="btn btn-success" href="disable.php?enabled=<?php 
+                                                          <a class="btn btn-success  mx-2" href="disable.php?enabled=<?php 
                                                         echo $row["id"]; ?>" type="button"><i class="fas fa-check-circle"></i> Enable</a>
                                                        <?php  }
 

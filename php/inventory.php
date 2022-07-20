@@ -511,7 +511,7 @@ $supp .= "</select>";
                                             </div>
                                         </div>
 
-
+                                        <!--EXPIRED  TAB -->
                                         <div class="tab-pane fade" id="nav-expired" role="tabpanel" aria-labelledby="nav-expired-tab">
                                             <!-- Table -->
                                             <div class="row">
@@ -559,19 +559,19 @@ $supp .= "</select>";
                                                                         <td ><?php echo $row['price'];  ?></td>
                                                                         <td ><?php echo $row['profit'];  ?></td>
                                                                         <td><?php echo $row['date_expired'];  ?></td>
+                                                                        <td>
+                                                                            <?php 
+                                                                                $status = $row['status'];
+                                                                                if ($status = 'expired') {
+                                                                                     echo '
+                                                                                       <p style="color: red; font-weight: bold;">EXPIRED</p>
+                                                                                       ';
+                                                                                }
 
-                                                                        <?php 
-                                                                        $date = $row['date_expired'];
-                                                                        $barcode =$row['bar_code'];
-                                                                        $qty = $row['quantity'];
-                                                                        
-                                                                           if ($date == date("Y-m-d")) {
-                                                                               echo '
-                                                                                 <td style="color: red; font-weight: bold;">EXPIRED</td>
-                                                                               ';
-                                                                               $archive = mysqli_query($con,"UpdateATE inventory SET status = 'expired' WHERE bar_code = '$barcode'");
-                                                                           }
-                                                                        ?>
+                                                                            ?>
+                                                                        </td>
+
+                                                                     
                                                                        
                                                                         <td>
                                                                             <div class="d-flex flex-row justify-content-center">

@@ -271,13 +271,14 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                 </div>
                 <div class="row">
                     <div class="col ">
-                        <div class="card">
-                            <div class="card-body rounded-3 m-4 table-responsive-lg">
-                                <table class="table table-hover align-middle" id="CustomerTab">
+                        <div class="card ms-4">
+                            <div class="card-body rounded-3 m-5 table-responsive-lg">
+                                <table class="table table-hover align-middle ms-4" id="CustomerTab">
                                     <thead>
                                         <tr>
                                             <th scope="col">Username</th>
                                             <th scope="col">Email Address</th>
+                                            <th scope="col">Position</th>
                                             <th scope="col">Log In</th>
                                             <th scope="col">Log Out</th>
                                         </tr>
@@ -291,6 +292,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                             <tr>
                                                 <td><?php echo $rows['username'];  ?></td>
                                                 <td><?php  echo $rows['email_address']; ?></td>
+                                                <td><?php echo $rows['position']; ?></td>
                                                 <td><?php echo $rows['login_time'];?></td>
                                                 <td><?php echo $rows['logout_time'];  ?></td>
                                             </tr>

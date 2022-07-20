@@ -277,53 +277,113 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                             
                         </div>
                     </div>
-                    
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Customer</button>
+                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Archived</button>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    
+                            <!-- Table -->
+                            <div class="row">
+                                <div class="col ">
+                                    <div class="card">
+                                        <div class="card-body rounded-3 m-4 table-responsive-lg">
+                                            <table class="table table-striped align-middle" id="CustomerTab">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">First Name</th>
+                                                        <th scope="col">Last Name</th>
+                                                        <th scope="col">Address</th>
+                                                        <th scope="col">Contact No</th>
+                                                        <th scope="col">Date</th>
+                                                        <th score="col"style="text-align: center;">Action</th>
 
-                    <!-- Table -->
-                    <div class="row">
-                        <div class="col ">
-                            <div class="card">
-                                <div class="card-body rounded-3 m-4 table-responsive-lg">
-                                    <table class="table table-striped align-middle" id="CustomerTab">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">First Name</th>
-                                                <th scope="col">Last Name</th>
-                                                <th scope="col">Address</th>
-                                                <th scope="col">Contact No</th>
-                                                <th scope="col">Date</th>
-                                                <th score="col"style="text-align: center;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
+                                                    $query_run = mysqli_query($con,"SELECT * FROM customers WHERE customer_status='active'");
+                                                    while ($row=mysqli_fetch_assoc($query_run)) { ?>
 
-                                            $query_run = mysqli_query($con,"SELECT * FROM customers WHERE customer_status='active'");
-                                            while ($row=mysqli_fetch_assoc($query_run)) { ?>
-
-                                            <tr>
-                                                <td><?php echo $row['customer_id'];  ?></td>
-                                                <td><?php echo $row['first_name'];  ?></td>
-                                                <td><?php echo $row['last_name'];  ?></td>
-                                                <td><?php echo $row['address'];  ?></td>
-                                                <td><?php echo $row['contact_no'];  ?></td>
-                                                <td><?php echo $row['date_created'];  ?></td>
-                                                <td>
-                                                    <div class="d-flex flex-row justify-content-center">
-                                                        <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+                                                    <tr>
+                                                        <td><?php echo $row['customer_id'];  ?></td>
+                                                        <td><?php echo $row['first_name'];  ?></td>
+                                                        <td><?php echo $row['last_name'];  ?></td>
+                                                        <td><?php echo $row['address'];  ?></td>
+                                                        <td><?php echo $row['contact_no'];  ?></td>
+                                                        <td><?php echo $row['date_created'];  ?></td>
+                                                        <td>
+                                                            <div class="d-flex flex-row justify-content-center">
+                                                                <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
 
 
-                                                    <button class="btn btn-danger deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i>Delete</button>
+                                                            <button class="btn btn-secondary deletebtn" data-toggle="modal" type="button"><i class="fas fa-trash" data-toggle="tooltip" title="edit"></i> Archive</button>
 
-                                                    </div>
-                                                    
-                                                </td>
-                                            </tr>
-                                        <?php }  ?>
-                                        </tbody>
-                                    </table>
+                                                            </div>
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                <?php }  ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                             <!-- Table -->
+                            <div class="row">
+                                <div class="col ">
+                                    <div class="card">
+                                        <div class="card-body rounded-3 m-4 table-responsive-lg">
+                                            <table class="table table-striped align-middle" id="CustomerTab">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">First Name</th>
+                                                        <th scope="col">Last Name</th>
+                                                        <th scope="col">Address</th>
+                                                        <th scope="col">Contact No</th>
+                                                        <th scope="col">Date</th>
+                                                        <th score="col"style="text-align: center;">Action</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                     <?php
+
+                                                    $query_run = mysqli_query($con,"SELECT * FROM customers WHERE customer_status='archieve'");
+                                                    while ($row=mysqli_fetch_assoc($query_run)) { ?>
+
+                                                    <tr>
+                                                        <td><?php echo $row['customer_id'];  ?></td>
+                                                        <td><?php echo $row['first_name'];  ?></td>
+                                                        <td><?php echo $row['last_name'];  ?></td>
+                                                        <td><?php echo $row['address'];  ?></td>
+                                                        <td><?php echo $row['contact_no'];  ?></td>
+                                                        <td><?php echo $row['date_created'];  ?></td>
+                                                        <td>
+                                                            <div class="d-flex flex-row justify-content-center">
+                                                                <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i>Edit</button>
+
+
+
+                                                            </div>
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                <?php }  ?>
+                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
