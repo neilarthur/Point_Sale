@@ -240,7 +240,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
 
 
                 <!-- Search bar -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ms-3" style="padding-right: 65%;">
+                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ms-3" style="padding-right: 50%;">
                     <div class="input-group">
                         <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2" id="SearchMo" onkeyup="myFunction()">
                         <div class="input-group-append">
@@ -250,6 +250,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         </div>
                     </div>
                 </form>
+                <i class='bx bx-bell bx-sm'></i><button class="btn bg-white" id="myBtn">Notifications</button>
                 <div >
                     <div class="dropdown pb-1 me-4">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -381,8 +382,8 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                     </table>
                                     <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
 
-                                        <a class="btn btn-success sd hide" href="generate_pdf.php?&sales=<?php echo $_GET['sales'] ?>&trans=<?php echo $_GET['trans'] ?>" onClick="window.print()">Print</a>
-                                        <a class="btn btn-success sd hide" href="generate_pdf.php?&sales=<?php echo $_GET['sales'] ?>&trans=<?php echo $_GET['trans'] ?>" download="generate_pdf.php?&sales=<?php echo $_GET['sales'] ?>&trans=<?php echo $_GET['trans'] ?>">Download</a>
+                                        <a class="btn btn-success sd hide " href="generate_pdf.php?&sales=<?php echo $_GET['sales'] ?>&trans=<?php echo $_GET['trans'] ?>" onClick="window.print()">Print</a>
+                                        <a class="btn btn-primary sd hide" href="generate_pdf.php?&sales=<?php echo $_GET['sales'] ?>&trans=<?php echo $_GET['trans'] ?>" download="generate_pdf.php?&sales=<?php echo $_GET['sales'] ?>&trans=<?php echo $_GET['trans'] ?>">Download</a>
                                     </div>
                                 </div>
                             </div>
@@ -392,6 +393,25 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
             </div>
         </div> 
     </div>
+     <!-- Toast -->
+    <div class="toast"  id ="myToast" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-bs-autohide="false" style="position: absolute; top: 80px; right: 200px;">
+        <div class="toast-header">
+            <strong class="me-auto ms-2" style="font-size: 17px; color: #FDED04">Expiring Item</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <?php
+            $expiring = mysqli_query($con, "SELECT * FROM inventory WHERE (( date_expired - INTERVAL 8 DAY) <= current_date()) AND status ='active' ORDER BY date_expired asc");
+
+                while ($bows = mysqli_fetch_array($expiring)) {
+                    $datas = $bows['date_expired'];
+                    $date = date("Y-M-d", strtotime($datas)); 
+        ?>
+            <div class="toast-body" >
+                <h6><?php echo $bows['item_name']." - ".$bows['bar_code']." - ".$date;  ?></h6>
+            </div>
+        <?php } ?>
+    </div>
+    <!-- END -->
 
 
  
@@ -429,6 +449,13 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
       }
 
     }
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#myBtn").click(function(){
+            $("#myToast").toast("show");
+             });
+    });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>

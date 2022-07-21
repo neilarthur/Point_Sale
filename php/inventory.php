@@ -1,37 +1,12 @@
 <?php
 session_start();
 
-function createRandomPassword() {
-    $chars = "003232303232023232023456789";
-    srand((double)microtime()*1000000);
-    $i = 0;
-    $pass = '' ;
-    while ($i <= 7) {
-
-        $num = rand() % 33;
-
-        $tmp = substr($chars, $num, 1);
-
-        $pass = $pass . $tmp;
-
-        $i++;
-
-    }
-    return $pass;
-}
-$finalcode='RS-'.createRandomPassword();
-
 if (!isset($_SESSION["username"])) {
     header("location: ../index.php");
 
 }
 
 include 'connection.php';
-
-if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
-  header("location: ../cashier/dashboard.php?invoice=$finalcode");
-  exit;
-}
 
 
 $cat_run = "SELECT DISTINCT category_name, category_id FROM category order by category_id asc";
@@ -63,7 +38,7 @@ $supp .= "</select>";
 
 
 ?>
-
+<!doctype html>
 <html lang="en">
   <head>
     <title>Dashboard</title>
@@ -73,7 +48,6 @@ $supp .= "</select>";
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="../style/dash.css">
-    <link rel="icon" href="../image/logo.ico">
 
     
     <!-- Font Awesome -->
@@ -102,7 +76,7 @@ $supp .= "</select>";
    
     <div class="page">
 
-        <div class="sidebar">
+       <div class="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo-container">
                     <div class="logo-container">
@@ -144,7 +118,7 @@ $supp .= "</select>";
                             </div>
                         </a>
                     </li>
-                    <li class="navigation-list-item">
+                      <li class="navigation-list-item">
                         <a class="navigation-link" href="transaction.php">
                             <div class="row">
                                 <div class="col-2">
@@ -169,7 +143,7 @@ $supp .= "</select>";
                             </div>
                         </a>
                     </li>
-                     <li class="navigation-list-item">
+                    <li class="navigation-list-item">
                         <a class="navigation-link" href="inventory.php">
                             <div class="row">
                                 <div class="col-2">
@@ -185,7 +159,7 @@ $supp .= "</select>";
                         <a class="navigation-link" href="../cashier/dashboard.php?invoice=<?php echo $finalcode;  ?>">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bx-money-withdraw'></i>
+                                   <i class='bx bx-money-withdraw'></i>
                                 </div>
                                 <div class="col-9">
                                     POS
@@ -229,7 +203,7 @@ $supp .= "</select>";
                             </div>
                         </a>
                     </li>
-                    <li class="navigation-list-item">
+                     <li class="navigation-list-item">
                         <a class="navigation-link" href="user_manager.php">
                             <div class="row">
                                 <div class="col-2">
@@ -237,12 +211,12 @@ $supp .= "</select>";
                                 </div>
                                 <div class="col-9">
                                     Accounts
-                                </div>
+                                </div> 
                             </div>
                         </a>
                     </li>
-                    <hr style="color:rgb(255, 255, 255);margin-top:10px;">
-                  
+                     <hr style="color:rgb(255, 255, 255);margin-top:10px;">
+
                 </ul>
                 <!--End Sidebar -->
 
@@ -257,9 +231,9 @@ $supp .= "</select>";
                 </button>
 
                 <!-- Search bar -->
-                <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ms-3"style="padding-right: 65%;">
+                 <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search ms-3"style="padding-right: 50%;">
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2"id="SearchMo" onkeyup="myFunction()">
+                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."aria-label="Search" aria-describedby="basic-addon2" id="SearchMo" onkeyup="myFunction()">
                         <div class="input-group-append">
                             <button class="btn btn-primary" type="button">
                                 <i class="fas fa-search fa-sm"></i>
@@ -267,7 +241,8 @@ $supp .= "</select>";
                         </div>
                     </div>
                 </form>
-                <!-- Sign Out -->
+                <i class='bx bx-bell bx-sm'></i><button class="btn bg-white" id="myBtn">Notifications</button>
+             <!-- Sign Out -->
                  <div>
                     <div class="dropdown pb-1 me-4">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -286,7 +261,7 @@ $supp .= "</select>";
                 </div>
             </div>
 
-            <!-- Main content -->
+          <!-- Main content -->
             <div class="col py-3 d-flex justify-content-center overflow-auto">
                 <div class="container-fluid">
                     <div class="row">
@@ -368,7 +343,7 @@ $supp .= "</select>";
                                                                         $barcode =$row['bar_code'];
                                                                         $qty = $row['quantity'];
                                                                         
-                                                                           if ($date == date("Y-m-d")) {
+                                                                           if ($date <= date("Y-m-d")) {
                                                                                echo '
                                                                                  <td style="color: red; font-weight: bold;">EXPIRED</td>
                                                                                ';
@@ -577,6 +552,7 @@ $supp .= "</select>";
                                                                             <div class="d-flex flex-row justify-content-center">
                                                                                 <button class="btn btn-warning editbtn mx-3" data-toggle="modal" type="button"><i class="fas fa-edit" data-toggle="tooltip" title="edit"></i></button>
                                                                             </div>
+
                                                                         </td>
                                                                     </tr>
                                                                 <?php }  ?>
@@ -596,6 +572,26 @@ $supp .= "</select>";
             </div>
         </div> 
     </div>
+      <!-- Toast -->
+    <div class="toast"  id ="myToast" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-bs-autohide="false" style="position: absolute; top: 80px; right: 200px;">
+        <div class="toast-header">
+            <strong class="me-auto ms-2" style="font-size: 17px; color: #FDED04">Expiring Item</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <?php
+            $expiring = mysqli_query($con, "SELECT * FROM inventory WHERE (( date_expired - INTERVAL 8 DAY) <= current_date()) AND status ='active' ORDER BY date_expired asc");
+
+                while ($bows = mysqli_fetch_array($expiring)) {
+                    $datas = $bows['date_expired'];
+                    $date = date("Y-M-d", strtotime($datas)); 
+        ?>
+            <div class="toast-body" >
+                <h6><?php echo $bows['item_name']." - ".$bows['bar_code']." - ".$date;  ?></h6>
+            </div>
+        <?php } ?>
+    </div>
+    <!-- END -->
+
 
      <div class="modal fade" id="create" tabindex="-1" aria-labelledby="exampleModallabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -609,8 +605,7 @@ $supp .= "</select>";
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="name">Bar Code</label>
-                            <input type="text" class="form-control" name="bar_code" value="<?php 
-$prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="">
+                            <input type="text" class="form-control" name="bar_code" value="<?php $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="">
                         </div>
                         <div class="form-group">
                             <label for="name">Item Name</label>
@@ -754,16 +749,19 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
     </div>
 
 
-
-
-
-
 <script>
     let sidebarToggle = document.querySelector(".sidebarToggle");
     sidebarToggle.addEventListener("click", function(){
         document.querySelector("body").classList.toggle("active");
         document.getElementById("sidebarToggle").classList.toggle("active");
     })
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#myBtn").click(function(){
+            $("#myToast").toast("show");
+             });
+    });
 </script>
 
 <script type="text/javascript">
@@ -798,38 +796,52 @@ $prefix= time()*rand(1, 2); echo strip_tags(substr($prefix ,0,9));?>" required="
         $('#date_expired').val(data[10]);
       })
     });
-  </script>
+</script>
 
 
 <script type="text/javascript">
+    $(document).ready(function() {
+        $('.deletebtn').on('click', function() {
 
+            $('#delete').modal('show');
+
+            $tr = $(this).closest('tr');
+
+            var data = $tr.children("td").map(function() {
+                return $(this).text();
+            }).get();
+            console.log(data);
+            $('#delete_id').val(data[0]);
+
+        })
+    });
     function myFunction() {
 
-        var input, filter, table, tr, i, j, column_length, count_td;
+      var input, filter, table, tr, i, j, column_length, count_td;
+      column_length = document.getElementById('InventoryTab').rows[0].cells.length;
+      input = document.getElementById("SearchMo");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("InventoryTab");
+      tr = table.getElementsByTagName("tr");
+      for (i = 1; i < tr.length; i++) {
+        count_td = 0;
+        for (j = 1; j < column_length - 1; j++) {
+          td = tr[i].getElementsByTagName("td")[j];
 
-        column_length = document.getElementById('InventoryTab').rows[0].cells.length;
-        input = document.getElementById("SearchMo");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("InventoryTab");
-        tr = table.getElementsByTagName("tr");
-        for (i = 1; i < tr.length; i++) {
-            count_td = 0;
-            for (j = 1; j < column_length - 1; j++) {
-            td = tr[i].getElementsByTagName("td")[j];
-
-            if (td) {
-                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    count_td++;
-                }
+          if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+              count_td++;
             }
+          }
         }
         if (count_td > 0) {
-            tr[i].style.display = "";
+          tr[i].style.display = "";
         } else {
-            tr[i].style.display = "none";
+          tr[i].style.display = "none";
         }
+      }
+
     }
-}
 </script>
 
 

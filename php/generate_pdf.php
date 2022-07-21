@@ -13,21 +13,21 @@ $pdf ->SetFont ('Arial', 'B', 30);
 
 $pdf ->setTextColor(0,0,0);
 
-$pdf ->Cell(200,10,"Mini C SuperMarket","0","1","C");
+$pdf ->Cell(200,10,"Mini C Supermarket","0","1","C");
 
 $pdf ->SetFont ('Arial', '', 15);
 
 
 $pdf ->setTextColor(0,0,0);
 
-$pdf ->Cell(200,10," Brgy 4180. Aguinaldo Street ","0","1","C");
+$pdf ->Cell(200,10,"4180 Aguinaldo Street Brgy Sto. Angel Sur ","0","1","C");
 
 $pdf ->SetFont ('Arial', '', 15);
 
 
 $pdf ->setTextColor(0,0,0);
 
-$pdf ->Cell(200,10,"Sta.Cruz, Laguna","0","1","C");
+$pdf ->Cell(200,10,"Sta. Cruz Laguna","0","1","C");
 
 $pdf ->setLeftMargin(15);
 

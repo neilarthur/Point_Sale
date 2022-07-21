@@ -498,10 +498,6 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
     });
 });
 </script>
-
-
-
- 
 <script>
     let sidebarToggle = document.querySelector(".sidebarToggle");
     sidebarToggle.addEventListener("click", function(){

@@ -155,7 +155,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         <a class="navigation-link" href="../cashier/dashboard.php?invoice=<?php echo $finalcode;  ?>">
                             <div class="row">
                                 <div class="col-2">
-                                    <i class='bx bxs-box'></i>
+                                  <i class='bx bx-money-withdraw'></i>
                                 </div>
                                 <div class="col-9">
                                     POS
@@ -266,9 +266,9 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         <div class="col d-flex justify-content">
                             <br>
                             <div class="w-50">
-                                <h2 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Mini C Supermarket</h2>
-                                <h4 class="text-dark text-center " style="text-align: center; margin-right: -30rem;">Sta Cruz, Laguna</h4>
-                                <h6 class="text-dark  text-center" style="text-align: center; margin-right: -30rem;">Cell No#:094956372</h6>
+                                <h2 class="text-dark  text-center" style="text-align: center; margin-right: -30rem; font-weight: bold; font-family: Arial;">Mini C Supermarket</h2>
+                                <h4 class="text-dark text-center " style="text-align: center; margin-right: -30rem; font-weight: bold; font-family: Arial;">4180 Aguilando Street Brgy Sto. Angel Sur</h4>
+                                <h6 class="text-dark  text-center" style="text-align: center; margin-right: -30rem; font-weight: bold; font-family: Arial;">Santa Cruz Laguna</h6>
                             </div>                            
                         </div>
                     </div>
