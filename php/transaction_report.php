@@ -314,7 +314,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                     <table class="table table-striped align-middle" id="SalesTab">
                                         <thead>
                                             <tr>
-                                                <th scope="col">#</th>
+                                                <th scope="col" hidden="">#</th>
                                                 <th scope="col">Transaction Code</th>
                                                 <th scope="col">Customer name</th>
                                                 <th scope="col">Total</th>
@@ -338,12 +338,13 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
 
                                             ?>
                                             <tr>
-                                                <td><?php echo $row['transac_id'];  ?></td>
+                                                <td hidden=""><?php echo $row['transac_id'];  ?></td>
                                                 <td><?php echo $row['transac_code'];  ?></td>
                                                 <td><?php echo $row['first_name']." ". $row['last_name'];  ?></td>
                                                 <td><?php echo $row['transac_total'];  ?></td>
                                                 <td><?php echo $row['transac_profit'];  ?></td>
                                                 <td><?php echo $row['date_purchase'];  ?></td>
+
 
 
                                             </tr>
@@ -379,7 +380,9 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                         </tbody>
                                     </table>
                                     <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
-                                        <button class="btn btn-success sd hide" onClick="window.print()">PRINT</button>
+
+                                        <a class="btn btn-success sd hide" href="generate_pdf.php?&sales=<?php echo $_GET['sales'] ?>&trans=<?php echo $_GET['trans'] ?>" onClick="window.print()">Print</a>
+                                        <a class="btn btn-success sd hide" href="generate_pdf.php?&sales=<?php echo $_GET['sales'] ?>&trans=<?php echo $_GET['trans'] ?>" download="generate_pdf.php?&sales=<?php echo $_GET['sales'] ?>&trans=<?php echo $_GET['trans'] ?>">Download</a>
                                     </div>
                                 </div>
                             </div>
