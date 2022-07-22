@@ -315,7 +315,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                     <table class="table table-striped align-middle" id="SalesTab">
                                         <thead>
                                             <tr>
-                                                <th scope="col" hidden="">#</th>
+                                                <th scope="col">#</th>
                                                 <th scope="col">Transaction Code</th>
                                                 <th scope="col">Customer name</th>
                                                 <th scope="col">Total</th>
@@ -339,7 +339,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
 
                                             ?>
                                             <tr>
-                                                <td hidden=""><?php echo $row['transac_id'];  ?></td>
+                                                <td><?php echo $row['transac_id'];  ?></td>
                                                 <td><?php echo $row['transac_code'];  ?></td>
                                                 <td><?php echo $row['first_name']." ". $row['last_name'];  ?></td>
                                                 <td><?php echo $row['transac_total'];  ?></td>
@@ -381,9 +381,10 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                                         </tbody>
                                     </table>
                                     <div class="d-grid gap-2 d-md-flex mt-5 justify-content-md-end">
-
+                                        
                                         <a class="btn btn-success sd hide " href="generate_pdf.php?&sales=<?php echo $_GET['sales'] ?>&trans=<?php echo $_GET['trans'] ?>" onClick="window.print()">Print</a>
                                         <a class="btn btn-primary sd hide" href="generate_pdf.php?&sales=<?php echo $_GET['sales'] ?>&trans=<?php echo $_GET['trans'] ?>" download="generate_pdf.php?&sales=<?php echo $_GET['sales'] ?>&trans=<?php echo $_GET['trans'] ?>">Download</a>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -393,7 +394,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
             </div>
         </div> 
     </div>
-     <!-- Toast -->
+    <!-- Toast -->
     <div class="toast"  id ="myToast" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-bs-autohide="false" style="position: absolute; top: 80px; right: 200px;">
         <div class="toast-header">
             <strong class="me-auto ms-2" style="font-size: 17px; color: #FDED04">Expiring Item</strong>
@@ -412,6 +413,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
         <?php } ?>
     </div>
     <!-- END -->
+
 
 
  
@@ -457,6 +459,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
              });
     });
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
 </body>

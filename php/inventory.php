@@ -41,13 +41,14 @@ $supp .= "</select>";
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Dashboard</title>
+    <title>Inventory</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="../style/dash.css">
+    <link rel="icon" href="../image/logo.ico">
 
     
     <!-- Font Awesome -->
@@ -284,7 +285,7 @@ $supp .= "</select>";
                                         <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                             <button class="nav-link active" id="nav-product-tab" data-bs-toggle="tab" data-bs-target="#nav-product" type="button" role="tab" aria-controls="nav-product" aria-selected="true">Products</button>
                                             <button class="nav-link" id="nav-stock-tab" data-bs-toggle="tab" data-bs-target="#nav-stock" type="button" role="tab" aria-controls="nav-stock" aria-selected="false">Out of Stock</button>
-                                            <button class="nav-link" id="nav-expired-tab" data-bs-toggle="tab" data-bs-target="#nav-expired" type="button" role="tab" aria-controls="nav-expired" aria-selected="false">Expired Product</button>
+                                            <button class="nav-link" id="nav-expired-tab" data-bs-toggle="tab" data-bs-target="#nav-expired" type="button" role="tab" aria-controls="nav-expired" aria-selected="false">Expired</button>
                                         </div>
                                     </nav>
                                     <!--TAB PRODUCT -->
@@ -537,7 +538,7 @@ $supp .= "</select>";
                                                                         <td>
                                                                             <?php 
                                                                                 $status = $row['status'];
-                                                                                if ($status = 'expired') {
+                                                                                if ($status == 'expired') {
                                                                                      echo '
                                                                                        <p style="color: red; font-weight: bold;">EXPIRED</p>
                                                                                        ';

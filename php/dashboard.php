@@ -36,19 +36,7 @@ include 'connection.php';
 
 ?>
 
-<?php
- 
-$dataPoints = array( 
-    array("y" => 3373.64, "label" => "January" ),
-    array("y" => 2435.94, "label" => "February" ),
-    array("y" => 1842.55, "label" => "March" ),
-    array("y" => 1828.55, "label" => "April" ),
-    array("y" => 1039.99, "label" => "May" ),
-    array("y" => 765.215, "label" => "June" ),
-    array("y" => 612.453, "label" => "July" )
-);
- 
-?>
+
 
 <!doctype html>
 <html lang="en">
@@ -86,6 +74,8 @@ $dataPoints = array(
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
         crossorigin="anonymous">
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     </head>
     
@@ -390,14 +380,89 @@ $dataPoints = array(
                    
 
                     <div class="row justify-content-between">
-                         <div id="chartContainer" style="height: 350px; width: 800px;"></div>
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-body card-body rounded-3 m-4">
+                                     <!-- BAR GRAPH -->
+                                <?php
+                                    $conn = new mysqli('localhost','root','','pointofsales');
+                                    $query = $conn->query("SELECT * FROM sales_detail");
+
+
+                                    foreach($query as $data){
+                                        $date = $data['date_purchase'];
+                                        $total = $data['transac_id'];
+                                    }
+                                ?>
+                         <div>
+                            <canvas id="myChart"></canvas>
+                        </div>
+                        <script>
+                            const labels = [
+                            'July',
+                            'August',
+                            'September',
+                            'October',
+                            'November',
+                        ];
+                            const data = {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Sales Profit',
+                                data: <?php echo json_encode($total)?>,
+                                backgroundColor: [
+                                'rgba(255, 99, 222,0.2)',
+                                'rgba(255, 159, 64, 0.2)',
+                                'rgba(255, 205, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(201, 203, 207, 0.2)'
+                                ],
+                                borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                                ],
+                                borderWidth: 1
+                            }]
+                            };
+
+                            const config = {
+                            type: 'bar',
+                            data: data,
+                            options: {
+                                scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                                }
+                            },
+                            };
+                        </script>
+                        <script>
+                            const myChart = new Chart(
+                                document.getElementById('myChart'),
+                                config
+                            );
+                        </script>
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="col-lg-4">
                             <div class="card shadow h-100 text-dark bg-light mb-3" >
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between" >
                                     <h6 class="m-0 font-weight-bold text-primary"><center>Display Available Products</center></h6>
                                 </div>
-                                <div class="card-body card-body rounded-3 m-4 table-responsive-lg">
-                                    <table class="table">
+                                <div class="card-body card-body rounded-3 m-4">
+                                    <table class="table table-responsive-lg">
                                         <thead>
                                             <tr>
                                                 <th scope="col">Barcode</th>
@@ -436,28 +501,7 @@ $dataPoints = array(
         document.getElementById("sidebarToggle").classList.toggle("active");
     })
 </script>
-<script>
-window.onload = function() {
- 
-var chart = new CanvasJS.Chart("chartContainer", {
-    animationEnabled: true,
-    theme: "light2",
-    title:{
-        text: "Product Sales"
-    },
-    axisY: {
-        title: "Product Sales (in months)"
-    },
-    data: [{
-        type: "column",
-        yValueFormatString: "#,##0.## items",
-        dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-    }]
-});
-chart.render();
- 
-}
-</script>
+
 
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
