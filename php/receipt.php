@@ -212,24 +212,7 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'admin') {
                         </a>
                     </li>
                     <hr style="color:rgb(255, 255, 255);margin-top:10px;">
-                    <li class="navigation-list-item" style="margin-top: 45%;">
-                        <div class="dropdown pb-1">
-                            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div class="col-2">
-                                    <img src="../image/user_35px.png" />
-                                </div>
-                                <span class="d-none d-sm-inline mx-1"><?php echo $_SESSION["username"];  ?></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-white text-small shadow" aria-labelledby="dropdownUser1">
-                                <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Profile</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="logout.php">Sign out</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                    
                 </ul>
                 <!--End Sidebar -->
 

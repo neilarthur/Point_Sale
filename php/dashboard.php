@@ -384,19 +384,25 @@ include 'connection.php';
                             <div class="card">
                                 <div class="card-body card-body rounded-3 m-4">
                                      <!-- BAR GRAPH -->
-                                <?php
-                                    $conn = new mysqli('localhost','root','','pointofsales');
-                                    $query = $conn->query("SELECT * FROM sales_detail");
-
-
-                                    foreach($query as $data){
-                                        $date = $data['date_purchase'];
-                                        $total = $data['transac_id'];
-                                    }
-                                ?>
+                               
                          <div>
                             <canvas id="myChart"></canvas>
                         </div>
+                         <?php
+
+                                   
+                                    $query = $con->query("SELECT SUM(transac_profit) AS 'num' FROM  sales_detail");
+
+
+
+                                   
+                                    foreach($query as $sum) {
+                                        $total []= $sum['num'];
+
+
+
+                                   
+                                ?>
                         <script>
                             const labels = [
                             'July',
@@ -411,13 +417,13 @@ include 'connection.php';
                                 label: 'Sales Profit',
                                 data: <?php echo json_encode($total)?>,
                                 backgroundColor: [
-                                'rgba(255, 99, 222,0.2)',
-                                'rgba(255, 159, 64, 0.2)',
-                                'rgba(255, 205, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(201, 203, 207, 0.2)'
+                                'rgba(255, 99, 222,0.8)',
+                                'rgba(255, 159, 64, 0.8)',
+                                'rgba(255, 205, 86, 0.8)',
+                                'rgba(75, 192, 192, 0.8)',
+                                'rgba(54, 162, 235, 0.8)',
+                                'rgba(153, 102, 255, 0.8)',
+                                'rgba(201, 203, 207, 0.8)'
                                 ],
                                 borderColor: [
                                 'rgb(255, 99, 132)',
@@ -450,6 +456,7 @@ include 'connection.php';
                                 config
                             );
                         </script>
+                    <?php } ?>
 
                                     
                                 </div>
